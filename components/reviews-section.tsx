@@ -1,9 +1,5 @@
 "use client"
 
-"use client"
-
-import Script from "next/script"
-
 import { useLocale } from "@/components/locale-provider"
 
 export function ReviewsSection() {
@@ -31,10 +27,6 @@ export function ReviewsSection() {
 
         {/* Elfsight widget */}
         <div className="min-h-[300px]">
-          <Script
-            src="https://elfsightcdn.com/platform.js"
-            strategy="lazyOnload"
-          />
           <div
             className="elfsight-app-08239ee0-5994-4604-95f9-db13bd21eb59"
             data-elfsight-app-lazy

@@ -1,8 +1,14 @@
 "use client"
 
+"use client"
+
 import Script from "next/script"
 
+import { useLocale } from "@/components/locale-provider"
+
 export function ReviewsSection() {
+  const { copy } = useLocale()
+
   return (
     <section className="bg-[#F7F6F1] py-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -12,13 +18,13 @@ export function ReviewsSection() {
             className="text-xs tracking-[0.28em] uppercase mb-3"
             style={{ fontFamily: "'Vogue', serif", color: "#7F8F57" }}
           >
-            What Our Clients Say
+            {copy.reviews.eyebrow}
           </p>
           <h2
             className="text-4xl md:text-5xl text-[#24342C]"
             style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
           >
-            Real Reviews. Real Results.
+            {copy.reviews.title}
           </h2>
           <div className="mt-4 mx-auto w-16 h-px bg-[#7F8F57]" />
         </div>

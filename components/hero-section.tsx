@@ -1,29 +1,16 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
 
-const phrases = [
-  {
-    label: "BECAUSE YOU DESERVE",
-    heading: "3-YEARS RISK-FREE Warranty",
-    body: "Our 3-YEARS RISK-FREE Warranty means zero risk for you: it covers 100% of our work, and if anything we did isn't right, we fix it—no debates, no excuses. It's simple: you get real peace of mind, backed by real accountability.",
-  },
-  {
-    label: "BECAUSE YOU DESERVE",
-    heading: "One Team, A to Z",
-    body: "We handle your project A to Z — excavation to keys — with one accountable team managing every phase. We take care of planning, trades, materials, scheduling, and site coordination, so you get one point of contact and zero headache.",
-  },
-  {
-    label: "BECAUSE YOU DESERVE",
-    heading: "Fast Estimates, Zero Wait",
-    body: "Fast online or in-person appointments, and once you book a time slot, you can often get a clear estimate and a practical game plan within minutes — usually from a short call or video plus a few photos.",
-  },
-]
+import { useLocale } from "@/components/locale-provider"
 
 export function HeroSection() {
+  const { copy } = useLocale()
   const [current, setCurrent] = useState(0)
   const [phase, setPhase] = useState<"visible" | "exit" | "enter">("visible")
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const phrases = copy.hero.phrases
 
   const goTo = (index: number) => {
     if (index === current) return
@@ -87,9 +74,26 @@ export function HeroSection() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-[#24342C]/60" />
 
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20">
+        <div className="mx-auto flex max-w-7xl justify-end px-6 pb-6 sm:pb-8 md:pb-10">
+          <div className="relative mr-10 sm:mr-12 md:mr-14">
+            <div className="absolute inset-2 rounded-full bg-[#24342C]/45 blur-2xl" />
+            <div className="relative rounded-[28px] border border-[#F7F6F1]/15 bg-[#24342C]/12 px-2.5 py-2 backdrop-blur-[3px]">
+              <Image
+                src="/logo_LQ.png"
+                alt={copy.navbar.logoAlt}
+                width={500}
+                height={500}
+                className="h-auto w-24 sm:w-28 md:w-32 lg:w-36 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Province tabs — left side */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-0">
-        {["Quebec", "Ontario"].map((province) => (
+        {copy.hero.provinces.map((province) => (
           <button
             key={province}
             className="bg-[#F7F6F1] text-[#24342C] text-xs font-semibold tracking-widest border border-[#D6D1C4] hover:bg-[#7F8F57] hover:text-[#F7F6F1] transition-colors duration-200"
@@ -140,15 +144,15 @@ export function HeroSection() {
 
           {/* CTA — stays pinned, does not animate */}
           <a
-            href="#"
+            href="#contact"
             className="group relative overflow-hidden inline-flex items-center gap-2 mt-8 px-8 py-3.5 border-2 border-[#F7F6F1] text-[#F7F6F1] text-sm tracking-widest uppercase transition-colors duration-300"
             style={{ fontFamily: "'Vogue', serif" }}
           >
-            <span className="relative z-10">Book a call</span>
+            <span className="relative z-10">{copy.hero.bookCall}</span>
             <span className="relative z-10 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
             <span className="absolute inset-0 bg-[#F7F6F1] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
             <span className="absolute inset-0 flex items-center justify-center gap-2 text-[#314B3E] text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" style={{ fontFamily: "'Vogue', serif" }}>
-              Book a call →
+              {copy.hero.bookCall} →
             </span>
           </a>
 
@@ -164,7 +168,7 @@ export function HeroSection() {
                 className={`h-[3px] rounded-full transition-all duration-500 ${
                   i === current ? "w-10 bg-[#7F8F57]" : "w-5 bg-[#F7F6F1]/35 hover:bg-[#F7F6F1]/60"
                 }`}
-                aria-label={`Go to phrase ${i + 1}`}
+                aria-label={`${copy.hero.goToPhrase} ${i + 1}`}
               />
             ))}
           </div>

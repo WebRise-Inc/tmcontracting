@@ -2,26 +2,16 @@
 
 import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
-import { ShieldCheck, Clock, ArrowRight } from "lucide-react"
+import { ShieldCheck, ArrowRight } from "lucide-react"
 
-const slides = [
-  { src: "/images/about-site-1.jpg", alt: "Crew pouring concrete foundation on site" },
-  { src: "/images/about-site-2.jpg", alt: "Completed kitchen renovation project" },
-  { src: "/images/about-site-3.jpg", alt: "Excavation work with heavy machinery" },
-  { src: "/images/about-site-4.jpg", alt: "New construction framing phase" },
-  { src: "/images/about-site-5.jpg", alt: "Finished custom home exterior" },
-]
-
-const stats = [
-  { value: "15+", label: "Years of Experience" },
-  { value: "500+", label: "Projects Completed" },
-  { value: "3-Year", label: "Risk-Free Warranty" },
-  { value: "A to Z", label: "One Team, Every Phase" },
-]
+import { useLocale } from "@/components/locale-provider"
 
 export function AboutSection() {
+  const { copy } = useLocale()
   const [current, setCurrent] = useState(0)
   const [animating, setAnimating] = useState(false)
+  const slides = copy.about.slides
+  const stats = copy.about.stats
 
   const goTo = useCallback(
     (index: number) => {
@@ -51,7 +41,7 @@ export function AboutSection() {
           className="text-xs tracking-[0.3em] uppercase text-[#7F8F57] mb-3"
           style={{ fontFamily: "'Vogue', serif" }}
         >
-          About Us
+          {copy.about.eyebrow}
         </p>
 
         {/* Two-column layout */}
@@ -93,7 +83,7 @@ export function AboutSection() {
                   key={i}
                   onClick={() => goTo(i)}
                   className="relative flex-1 aspect-video overflow-hidden focus:outline-none"
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`${copy.about.goToSlide} ${i + 1}`}
                 >
                   <Image
                     src={slide.src}
@@ -118,19 +108,13 @@ export function AboutSection() {
               className="text-4xl md:text-5xl text-[#24342C] leading-tight text-balance"
               style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
             >
-              Built on Trust.<br />Backed by Results.
+              {copy.about.titleLineOne}<br />{copy.about.titleLineTwo}
             </h2>
 
             <div className="flex flex-col gap-5 text-[#5E685F] leading-relaxed font-sans text-base">
-              <p>
-                <span className="text-[#24342C] font-semibold">TM Contracting</span> has been a trusted name in construction since 1991 — over 15 years of hands-on experience transforming properties across Quebec and Ontario.
-              </p>
-              <p>
-                We handle everything from excavation to final keys as one unified team. No revolving door of subcontractors, no miscommunication, no finger-pointing. One accountable team manages every phase — planning, trades, materials, scheduling, and site coordination.
-              </p>
-              <p>
-                What sets us apart is simple: we treat your project like our own. That means showing up on time, being transparent at every step, and standing firmly behind our work.
-              </p>
+              {copy.about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
 
             {/* Warranty highlight */}
@@ -141,10 +125,10 @@ export function AboutSection() {
                   className="text-sm text-[#24342C] mb-1"
                   style={{ fontFamily: "'Vogue', serif" }}
                 >
-                  3-Year Risk-Free Warranty
+                  {copy.about.warranty.title}
                 </p>
                 <p className="text-sm text-[#5E685F] font-sans leading-relaxed">
-                  Every project we complete is covered 100%. If anything we did isn't right, we fix it — no debates, no excuses. Real peace of mind, backed by real accountability.
+                  {copy.about.warranty.body}
                 </p>
               </div>
             </div>
@@ -172,7 +156,7 @@ export function AboutSection() {
               className="inline-flex items-center gap-2 self-start px-6 py-3 bg-[#314B3E] text-[#F7F6F1] text-sm tracking-widest uppercase hover:bg-[#7F8F57] transition-colors duration-300"
               style={{ fontFamily: "'Vogue', serif" }}
             >
-              Our Story
+              {copy.about.cta}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>

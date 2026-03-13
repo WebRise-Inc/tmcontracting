@@ -1,44 +1,51 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { cookies } from 'next/headers'
 import { Analytics } from '@vercel/analytics/next'
+
+import { LocaleProvider } from '@/components/locale-provider'
+import { defaultLocale, isLocale, localeCookieName, siteCopy, type Locale } from '@/lib/site-copy'
+
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: 'TM Contracting | Since 1991',
-  description: 'Full-service general contracting from excavation to keys. 3-Year Risk-Free Warranty. Serving Quebec and Ontario. TM Contracting.',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+async function getRequestLocale(): Promise<Locale> {
+  const cookieStore = await cookies()
+  const cookieLocale = cookieStore.get(localeCookieName)?.value
+
+  return isLocale(cookieLocale) ? cookieLocale : defaultLocale
 }
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale()
+
+  return {
+    title: siteCopy[locale].metadata.title,
+    description: siteCopy[locale].metadata.description,
+    generator: 'v0.app',
+    icons: {
+      icon: '/logo_LQ.png',
+      apple: '/logo_LQ.png',
+    },
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getRequestLocale()
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="font-sans antialiased">
-        {children}
-        <Analytics />
+        <LocaleProvider initialLocale={locale}>
+          {children}
+          <Analytics />
+        </LocaleProvider>
       </body>
     </html>
   )

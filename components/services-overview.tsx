@@ -1,40 +1,16 @@
+"use client"
+
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
-const services = [
-  {
-    title: "Renovation",
-    slug: "renovation",
-    image: "/images/service-renovation.jpg",
-    description:
-      "From kitchen and bathroom upgrades to full interior transformations — we modernize your space with precision craftsmanship and minimal disruption to your daily life.",
-  },
-  {
-    title: "Concrete",
-    slug: "concrete",
-    image: "/images/service-concrete.jpg",
-    description:
-      "Foundations, slabs, driveways, and decorative finishes. Our concrete work is built to last, with expert forming, pouring, and finishing on every project.",
-  },
-  {
-    title: "Excavation & Lifting",
-    slug: "excavation-lifting",
-    image: "/images/service-excavation.jpg",
-    description:
-      "Site preparation, grading, foundation excavation, and structural lifting handled by our experienced operators and heavy equipment fleet.",
-  },
-  {
-    title: "New Construction",
-    slug: "new-construction",
-    image: "/images/service-construction.jpg",
-    description:
-      "Full builds from the ground up — we manage every phase from excavation to final keys, with one accountable team and zero subcontractor confusion.",
-  },
-]
+import { useLocale } from "@/components/locale-provider"
 
 export function ServicesOverview() {
+  const { copy } = useLocale()
+
   return (
-    <section className="bg-[#F7F6F1] py-24 px-6">
+    <section id="services" className="bg-[#F7F6F1] py-24 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="mb-16">
@@ -42,20 +18,20 @@ export function ServicesOverview() {
             className="text-xs tracking-[0.3em] uppercase text-[#7F8F57] mb-3"
             style={{ fontFamily: "'Vogue', serif" }}
           >
-            What We Do
+            {copy.services.eyebrow}
           </p>
           <h2
             className="text-4xl md:text-5xl text-[#24342C] text-balance leading-tight"
             style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
           >
-            Our Services
+            {copy.services.title}
           </h2>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => (
-            <a
+          {copy.services.items.map((service) => (
+            <Link
               key={service.slug}
               href={`/services/${service.slug}`}
               className="group block bg-[#E9E5DA] overflow-hidden rounded-sm"
@@ -87,11 +63,11 @@ export function ServicesOverview() {
                   className="inline-flex items-center gap-1.5 text-xs tracking-widest uppercase text-[#314B3E] group-hover:text-[#7F8F57] transition-colors duration-300"
                   style={{ fontFamily: "'Vogue', serif" }}
                 >
-                  Learn More
+                  {copy.services.learnMore}
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

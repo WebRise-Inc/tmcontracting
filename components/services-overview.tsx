@@ -34,7 +34,7 @@ export function ServicesOverview() {
             <Link
               key={service.slug}
               href={`/services/${service.slug}`}
-              className="group block bg-[#E9E5DA] overflow-hidden rounded-sm"
+              className="group flex h-full flex-col overflow-hidden rounded-sm bg-[#E9E5DA]"
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">
@@ -49,14 +49,14 @@ export function ServicesOverview() {
               </div>
 
               {/* Content */}
-              <div className="p-5">
+              <div className="flex flex-1 flex-col p-5">
                 <h3
                   className="text-lg text-[#24342C] mb-2 group-hover:text-[#7F8F57] transition-colors duration-300"
                   style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
                 >
                   {service.title}
                 </h3>
-                <p className="text-sm text-[#5E685F] leading-relaxed mb-4 font-sans">
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#5E685F] font-sans">
                   {service.description}
                 </p>
                 <span

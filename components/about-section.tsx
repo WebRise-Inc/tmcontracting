@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
-import { ShieldCheck, ArrowRight } from "lucide-react"
+import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react"
 
 import { useLocale } from "@/components/locale-provider"
 
@@ -12,25 +12,31 @@ export function AboutSection() {
   const [animating, setAnimating] = useState(false)
   const slides = copy.about.slides
   const stats = copy.about.stats
+  const aboutSections = copy.about.sections
+  const totalSlides = slides.length
+  const getWrappedIndex = (index: number) => (index + totalSlides) % totalSlides
 
   const goTo = useCallback(
     (index: number) => {
-      if (animating || index === current) return
+      const nextIndex = getWrappedIndex(index)
+      if (animating || nextIndex === current) return
       setAnimating(true)
       setTimeout(() => {
-        setCurrent(index)
+        setCurrent(nextIndex)
         setAnimating(false)
       }, 400)
     },
-    [animating, current]
+    [animating, current, totalSlides]
   )
+
+  const previewIndices = Array.from({ length: Math.min(4, totalSlides) }, (_, offset) => getWrappedIndex(current + offset))
 
   useEffect(() => {
     const timer = setInterval(() => {
-      goTo((current + 1) % slides.length)
+      goTo((current + 1) % totalSlides)
     }, 4500)
     return () => clearInterval(timer)
-  }, [current, goTo])
+  }, [current, goTo, totalSlides])
 
   return (
     <section className="bg-[#E9E5DA] py-24 px-6">
@@ -76,30 +82,77 @@ export function AboutSection() {
               </div>
             </div>
 
-            {/* Thumbnail strip */}
-            <div className="flex gap-2">
-              {slides.map((slide, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  className="relative flex-1 aspect-video overflow-hidden focus:outline-none"
-                  aria-label={`${copy.about.goToSlide} ${i + 1}`}
-                >
-                  <Image
-                    src={slide.src}
-                    alt={slide.alt}
-                    fill
-                    className="object-cover transition-opacity duration-300"
-                    style={{ opacity: i === current ? 1 : 0.45 }}
-                  />
-                  {/* Active underline */}
-                  <div
-                    className="absolute bottom-0 left-0 h-[3px] bg-[#7F8F57] transition-all duration-500"
-                    style={{ width: i === current ? "100%" : "0%" }}
-                  />
-                </button>
-              ))}
+            <div className="rounded-[28px] border border-[#D6D1C4] bg-[#F7F6F1]/80 p-4 shadow-[0_24px_48px_rgba(36,52,44,0.08)] backdrop-blur-sm sm:p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-end gap-3">
+                  <span className="text-3xl leading-none text-[#24342C]" style={{ fontFamily: "'Vogue', serif" }}>
+                    {String(current + 1).padStart(2, "0")}
+                  </span>
+                  <span className="pb-1 text-[11px] uppercase tracking-[0.32em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
+                    / {String(totalSlides).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => goTo(current - 1)}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D6D1C4] bg-white/70 text-[#24342C] transition-colors hover:border-[#314B3E] hover:bg-[#314B3E] hover:text-[#F7F6F1]"
+                    aria-label={`${copy.about.goToSlide} ${getWrappedIndex(current - 1) + 1}`}
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => goTo(current + 1)}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D6D1C4] bg-white/70 text-[#24342C] transition-colors hover:border-[#314B3E] hover:bg-[#314B3E] hover:text-[#F7F6F1]"
+                    aria-label={`${copy.about.goToSlide} ${getWrappedIndex(current + 1) + 1}`}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+                {previewIndices.map((slideIndex) => {
+                  const slide = slides[slideIndex]
+                  const isActive = slideIndex === current
+
+                  return (
+                    <button
+                      key={`${slide.src}-${slideIndex}`}
+                      onClick={() => goTo(slideIndex)}
+                      className={`group relative aspect-[5/4] overflow-hidden border text-left transition-all duration-300 focus:outline-none ${
+                        isActive
+                          ? "border-[#24342C] shadow-[0_18px_36px_rgba(36,52,44,0.16)]"
+                          : "border-[#D6D1C4] hover:-translate-y-0.5 hover:border-[#7F8F57]"
+                      }`}
+                      aria-label={`${copy.about.goToSlide} ${slideIndex + 1}`}
+                    >
+                      <Image
+                        src={slide.src}
+                        alt={slide.alt}
+                        fill
+                        className={`object-cover transition-transform duration-700 ${isActive ? "scale-100" : "group-hover:scale-105"}`}
+                      />
+                      <div className={`absolute inset-0 bg-gradient-to-t ${isActive ? "from-[#24342C]/80 via-[#24342C]/15 to-transparent" : "from-[#24342C]/72 via-[#24342C]/12 to-transparent"}`} />
+                      <div className="absolute inset-x-0 bottom-0 p-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-[11px] uppercase tracking-[0.32em] text-[#F7F6F1]" style={{ fontFamily: "'Vogue', serif" }}>
+                            {String(slideIndex + 1).padStart(2, "0")}
+                          </span>
+                          <span className={`h-2.5 w-2.5 rounded-full transition-colors ${isActive ? "bg-[#C8D87A]" : "bg-white/35 group-hover:bg-white/60"}`} />
+                        </div>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
             </div>
+
+            {copy.about.note ? (
+              <p className="text-sm font-bold leading-relaxed text-[#24342C] font-sans">
+                {copy.about.note}
+              </p>
+            ) : null}
           </div>
 
           {/* RIGHT — Content */}
@@ -111,11 +164,34 @@ export function AboutSection() {
               {copy.about.titleLineOne}<br />{copy.about.titleLineTwo}
             </h2>
 
-            <div className="flex flex-col gap-5 text-[#5E685F] leading-relaxed font-sans text-base">
-              {copy.about.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+            {aboutSections && aboutSections.length > 0 ? (
+              <div className="flex flex-col gap-6 text-[#5E685F]">
+                {aboutSections.map((section) => (
+                  <div key={section.heading} className="border-l-2 border-[#C8C3B8] pl-5">
+                    <h3
+                      className="text-xl text-[#24342C] mb-3"
+                      style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                    >
+                      {section.heading}
+                    </h3>
+                    <ul className="flex flex-col gap-3 font-sans text-base leading-relaxed">
+                      {section.items.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#7F8F57] shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-5 text-[#5E685F] leading-relaxed font-sans text-base">
+                {copy.about.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            )}
 
             {/* Warranty highlight */}
             <div className="flex items-start gap-4 bg-[#F7F6F1] border-l-4 border-[#7F8F57] px-5 py-4">

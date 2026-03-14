@@ -33,6 +33,11 @@ type Stat = {
   label: string
 }
 
+type AboutContentSection = {
+  heading: string
+  items: string[]
+}
+
 export type SiteCopy = {
   metadata: {
     title: string
@@ -42,6 +47,7 @@ export type SiteCopy = {
     logoAlt: string
     home: string
     services: string
+    onlineEstimate: string
     career: string
     faq: string
     contactUs: string
@@ -65,7 +71,9 @@ export type SiteCopy = {
     goToSlide: string
     titleLineOne: string
     titleLineTwo: string
+    note?: string
     paragraphs: string[]
+    sections?: AboutContentSection[]
     warranty: {
       title: string
       body: string
@@ -104,11 +112,19 @@ export type SiteCopy = {
       }
       career: {
         fullName: string
+        city: string
         phone: string
         email: string
-        questionnaire: string
-        questionnairePlaceholder: string
+        workAuthorization: string
+        workAuthorizationPlaceholder: string
+        workAuthorizationOptions: string[]
+        driversLicense: string
+        driversLicenseOptions: string[]
+        languages: string
+        languagesPlaceholder: string
+        languageOptions: string[]
         cv: string
+        coverLetter: string
         photo: string
       }
       quote: {
@@ -123,6 +139,9 @@ export type SiteCopy = {
       contact: {
         name: string
         phone: string
+        preferredWindow: string
+        preferredTimeToggle: string
+        preferredTimeHint: string
         preferredTime: string
       }
     }
@@ -138,6 +157,7 @@ export type SiteCopy = {
       heading: string
       name: string
       phone: string
+      preferredWindow: string
       preferredTime: string
     }
     quote: {
@@ -155,11 +175,16 @@ export type SiteCopy = {
       subjectPrefix: string
       heading: string
       fullName: string
+      city: string
       phone: string
       email: string
-      questionnaire: string
+      workAuthorization: string
+      driversLicense: string
+      languages: string
       cv: string
       downloadCv: string
+      coverLetter: string
+      downloadCoverLetter: string
       photo: string
       viewPhoto: string
     }
@@ -177,6 +202,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       logoAlt: "TM Contracting Since 1991",
       home: "Home",
       services: "Services",
+      onlineEstimate: "Online Estimate",
       career: "Career",
       faq: "FAQ",
       contactUs: "Contact us",
@@ -209,32 +235,32 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Our Services",
       items: [
         {
-          title: "Renovation",
+          title: "Renovation Services",
           slug: "renovation",
           image: "/images/service-renovation.jpg",
           description:
-            "From kitchen and bathroom upgrades to full interior transformations - we modernize your space with precision craftsmanship and minimal disruption to your daily life.",
+            "Interior and exterior residential renovations including basements, bathrooms, kitchens, flooring, framing, drywall, siding, decks, brickwork, ramps, and landscaping, completed by one team.",
         },
         {
-          title: "Concrete",
+          title: "Concrete Services",
           slug: "concrete",
           image: "/images/service-concrete.jpg",
           description:
-            "Foundations, slabs, driveways, and decorative finishes. Our concrete work is built to last, with expert forming, pouring, and finishing on every project.",
+            "New concrete pours and concrete repairs, including slabs, foundations, driveways, patios, stairs, retaining walls, and foundation crack repair using injection and structural reinforcement.",
         },
         {
-          title: "Excavation & Lifting",
+          title: "Excavation & House Lifting",
           slug: "excavation-lifting",
           image: "/images/service-excavation.jpg",
           description:
-            "Site preparation, grading, foundation excavation, and structural lifting handled by our experienced operators and heavy equipment fleet.",
+            "Excavation services including trenching, grading, drainage, and site preparation, plus professional house lifting and structural support for foundation repair, replacement, stabilization, and underpinning.",
         },
         {
-          title: "New Construction",
+          title: "New Construction & Modifications",
           slug: "new-construction",
           image: "/images/service-construction.jpg",
           description:
-            "Full builds from the ground up - we manage every phase from excavation to final keys, with one accountable team and zero subcontractor confusion.",
+            "New home construction, garages, and extensions, plus structural and layout modifications, managed from planning and permits to excavation, foundation, framing, and final delivery.",
         },
       ],
       learnMore: "Learn More",
@@ -242,19 +268,62 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     about: {
       eyebrow: "About Us",
       slides: [
-        { src: "/images/about-site-1.jpg", alt: "Crew pouring concrete foundation on site" },
-        { src: "/images/about-site-2.jpg", alt: "Completed kitchen renovation project" },
-        { src: "/images/about-site-3.jpg", alt: "Excavation work with heavy machinery" },
-        { src: "/images/about-site-4.jpg", alt: "New construction framing phase" },
-        { src: "/images/about-site-5.jpg", alt: "Finished custom home exterior" },
+        { src: "/images/about-real/about-01.jpeg", alt: "TM Contracting project photo 1" },
+        { src: "/images/about-real/about-02.jpeg", alt: "TM Contracting project photo 2" },
+        { src: "/images/about-real/about-03.jpeg", alt: "TM Contracting project photo 3" },
+        { src: "/images/about-real/about-04.jpeg", alt: "TM Contracting project photo 4" },
+        { src: "/images/about-real/about-05.jpeg", alt: "TM Contracting project photo 5" },
+        { src: "/images/about-real/about-06.jpeg", alt: "TM Contracting project photo 6" },
+        { src: "/images/about-real/about-07.jpeg", alt: "TM Contracting project photo 7" },
+        { src: "/images/about-real/about-08.jpeg", alt: "TM Contracting project photo 8" },
+        { src: "/images/about-real/about-09.jpeg", alt: "TM Contracting project photo 9" },
+        { src: "/images/about-real/about-10.jpeg", alt: "TM Contracting project photo 10" },
+        { src: "/images/about-real/about-11.jpeg", alt: "TM Contracting project photo 11" },
+        { src: "/images/about-real/about-12.jpeg", alt: "TM Contracting project photo 12" },
+        { src: "/images/about-real/about-13.jpeg", alt: "TM Contracting project photo 13" },
+        { src: "/images/about-real/about-14.jpeg", alt: "TM Contracting project photo 14" },
+        { src: "/images/about-real/about-15.jpeg", alt: "TM Contracting project photo 15" },
+        { src: "/images/about-real/about-16.jpeg", alt: "TM Contracting project photo 16" },
+        { src: "/images/about-real/about-17.jpeg", alt: "TM Contracting project photo 17" },
+        { src: "/images/about-real/about-18.jpeg", alt: "TM Contracting project photo 18" },
+        { src: "/images/about-real/about-19.jpeg", alt: "TM Contracting project photo 19" },
       ],
       goToSlide: "Go to slide",
       titleLineOne: "Built on Trust.",
       titleLineTwo: "Backed by Results.",
-      paragraphs: [
-        "TM Contracting has been a trusted name in construction since 1991 - over 15 years of hands-on experience transforming properties across Quebec and Ontario.",
-        "We handle everything from excavation to final keys as one unified team. No revolving door of subcontractors, no miscommunication, no finger-pointing. One accountable team manages every phase - planning, trades, materials, scheduling, and site coordination.",
-        "What sets us apart is simple: we treat your project like our own. That means showing up on time, being transparent at every step, and standing firmly behind our work.",
+      note:
+        "NB: Try us and you'll see this isn't website talk - it's how our company is structured to plan, manage, and deliver every project.",
+      paragraphs: [],
+      sections: [
+        {
+          heading: "Why Us?",
+          items: [
+            "We don't sell services - we invest in happy clients and long-term trust.",
+            "We focus on smooth, clean project completion: clear steps, clean site, and no chaos.",
+            "We take on tough challenges and bring practical solutions when conditions change on site.",
+            "Strong quality control with a trained in-house team and minimal subcontracting.",
+            "Honest value: efficient planning to keep pricing competitive without cutting corners.",
+            "Excellent after-service support - we stay available, answer questions, and stand behind our work.",
+            "Organized execution: you stay informed at every step, and even for small projects we assign an administrator, a project manager, and a site manager with a dedicated crew to keep everything on track.",
+          ],
+        },
+        {
+          heading: "Who?",
+          items: [
+            "A professional contracting & construction company built on real field experience and customer-first service.",
+            "Hands-on management with clear communication, planning, and site discipline.",
+            "Work performed mainly by trained in-house employees, with limited subcontracting to keep quality consistent.",
+            "A team structure that fits every job: administrator + project manager + site manager + crew, even on smaller projects.",
+          ],
+        },
+        {
+          heading: "Where?",
+          items: [
+            "Based in Gatineau, Ottawa, and Montreal.",
+            "Serving all surrounding cities within a 2-hour drive of these areas.",
+            "Examples: Aylmer, Hull, Buckingham, Masson-Angers, Chelsea, Cantley, Val-des-Monts, Wakefield, Ottawa area (Kanata, Nepean, Orleans, Barrhaven), and Montreal area (Laval, Longueuil, Terrebonne, Repentigny).",
+          ],
+        },
       ],
       warranty: {
         title: "3-Year Risk-Free Warranty",
@@ -303,12 +372,20 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
         career: {
           fullName: "Full Name",
+          city: "City of Residence",
           phone: "Phone Number",
           email: "Email",
-          questionnaire: "Why do you want to join TM Contracting?",
-          questionnairePlaceholder: "Tell us about yourself and what drives you...",
+          workAuthorization: "Work Authorization in Canada",
+          workAuthorizationPlaceholder: "Select one...",
+          workAuthorizationOptions: ["Canadian Citizen", "Permanent Resident", "Open Work Permit"],
+          driversLicense: "Do you have a valid driver's license?",
+          driversLicenseOptions: ["Yes", "No"],
+          languages: "Which languages do you speak?",
+          languagesPlaceholder: "Select one...",
+          languageOptions: ["English", "French", "Both"],
           cv: "CV (PDF or Word)",
-          photo: "Photo",
+          coverLetter: "Cover Letter (PDF or Word)",
+          photo: "Portrait or Photo",
         },
         quote: {
           fullName: "Full Name",
@@ -317,12 +394,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
           address: "Project Address",
           description: "Project Description",
           descriptionPlaceholder: "Describe the scope of work, timeline, and any specific requirements...",
-          photos: "Project Photos (multiple allowed)",
+          photos: "Site Photos or Any Existing Drawing",
         },
         contact: {
           name: "Name",
           phone: "Phone Number",
-          preferredTime: "Preferred Time to Call",
+          preferredWindow: "Preferred Time to Call",
+          preferredTimeToggle: "I have a specific time I would like to be called",
+          preferredTimeHint: "Only choose this if you want us to call at a custom date and time.",
+          preferredTime: "Preferred Date & Time to Call",
         },
       },
       mapTitle: "TM Contracting location",
@@ -337,7 +417,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         heading: "New Contact Request",
         name: "Name",
         phone: "Phone",
-        preferredTime: "Preferred Call Time",
+        preferredWindow: "Preferred Time to Call",
+        preferredTime: "Preferred Date & Time to Call",
       },
       quote: {
         subjectPrefix: "New Quote Request",
@@ -354,12 +435,17 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         subjectPrefix: "New Career Application",
         heading: "New Career Application",
         fullName: "Full Name",
+        city: "City of Residence",
         phone: "Phone",
         email: "Email",
-        questionnaire: "Questionnaire",
+        workAuthorization: "Work Authorization in Canada",
+        driversLicense: "Valid Driver's License",
+        languages: "Languages",
         cv: "CV",
         downloadCv: "Download CV",
-        photo: "Photo",
+        coverLetter: "Cover Letter",
+        downloadCoverLetter: "Download Cover Letter",
+        photo: "Portrait or Photo",
         viewPhoto: "View Photo",
       },
     },
@@ -374,6 +460,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       logoAlt: "TM Contracting depuis 1991",
       home: "Accueil",
       services: "Services",
+      onlineEstimate: "Estimation en ligne",
       career: "Carrière",
       faq: "FAQ",
       contactUs: "Nous joindre",
@@ -439,15 +526,31 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     about: {
       eyebrow: "À propos",
       slides: [
-        { src: "/images/about-site-1.jpg", alt: "Équipe qui coule une fondation de béton sur un chantier" },
-        { src: "/images/about-site-2.jpg", alt: "Projet de rénovation de cuisine terminé" },
-        { src: "/images/about-site-3.jpg", alt: "Travaux d'excavation avec machinerie lourde" },
-        { src: "/images/about-site-4.jpg", alt: "Phase de charpente d'une construction neuve" },
-        { src: "/images/about-site-5.jpg", alt: "Extérieur d'une maison sur mesure terminée" },
+        { src: "/images/about-real/about-01.jpeg", alt: "Photo de projet TM Contracting 1" },
+        { src: "/images/about-real/about-02.jpeg", alt: "Photo de projet TM Contracting 2" },
+        { src: "/images/about-real/about-03.jpeg", alt: "Photo de projet TM Contracting 3" },
+        { src: "/images/about-real/about-04.jpeg", alt: "Photo de projet TM Contracting 4" },
+        { src: "/images/about-real/about-05.jpeg", alt: "Photo de projet TM Contracting 5" },
+        { src: "/images/about-real/about-06.jpeg", alt: "Photo de projet TM Contracting 6" },
+        { src: "/images/about-real/about-07.jpeg", alt: "Photo de projet TM Contracting 7" },
+        { src: "/images/about-real/about-08.jpeg", alt: "Photo de projet TM Contracting 8" },
+        { src: "/images/about-real/about-09.jpeg", alt: "Photo de projet TM Contracting 9" },
+        { src: "/images/about-real/about-10.jpeg", alt: "Photo de projet TM Contracting 10" },
+        { src: "/images/about-real/about-11.jpeg", alt: "Photo de projet TM Contracting 11" },
+        { src: "/images/about-real/about-12.jpeg", alt: "Photo de projet TM Contracting 12" },
+        { src: "/images/about-real/about-13.jpeg", alt: "Photo de projet TM Contracting 13" },
+        { src: "/images/about-real/about-14.jpeg", alt: "Photo de projet TM Contracting 14" },
+        { src: "/images/about-real/about-15.jpeg", alt: "Photo de projet TM Contracting 15" },
+        { src: "/images/about-real/about-16.jpeg", alt: "Photo de projet TM Contracting 16" },
+        { src: "/images/about-real/about-17.jpeg", alt: "Photo de projet TM Contracting 17" },
+        { src: "/images/about-real/about-18.jpeg", alt: "Photo de projet TM Contracting 18" },
+        { src: "/images/about-real/about-19.jpeg", alt: "Photo de projet TM Contracting 19" },
       ],
       goToSlide: "Aller à la diapositive",
       titleLineOne: "Fondé sur la confiance.",
       titleLineTwo: "Appuyé par les résultats.",
+      note:
+        "NB : Essayez-nous et vous verrez que ce n'est pas juste du texte de site web - c'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
       paragraphs: [
         "TM Contracting est un nom de confiance dans la construction depuis 1991 - avec plus de 15 ans d'expérience concrète à transformer des propriétés partout au Québec et en Ontario.",
         "Nous prenons tout en charge, de l'excavation à la remise des clés, comme une seule équipe unifiée. Pas de rotation interminable de sous-traitants, pas de mauvaise communication, pas de renvoi de responsabilité. Une équipe responsable gère chaque phase - planification, corps de métier, matériaux, échéancier et coordination du chantier.",
@@ -500,12 +603,20 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
         career: {
           fullName: "Nom complet",
+          city: "Ville de résidence",
           phone: "Numéro de téléphone",
           email: "Courriel",
-          questionnaire: "Pourquoi souhaitez-vous vous joindre à TM Contracting ?",
-          questionnairePlaceholder: "Parlez-nous de vous et de ce qui vous motive...",
+          workAuthorization: "Autorisation de travail au Canada",
+          workAuthorizationPlaceholder: "Choisissez une option...",
+          workAuthorizationOptions: ["Citoyen canadien", "Résident permanent", "Permis de travail ouvert"],
+          driversLicense: "Avez-vous un permis de conduire valide ?",
+          driversLicenseOptions: ["Oui", "Non"],
+          languages: "Quelles langues parlez-vous ?",
+          languagesPlaceholder: "Choisissez une option...",
+          languageOptions: ["Anglais", "Français", "Les deux"],
           cv: "CV (PDF ou Word)",
-          photo: "Photo",
+          coverLetter: "Lettre de motivation (PDF ou Word)",
+          photo: "Portrait ou photo",
         },
         quote: {
           fullName: "Nom complet",
@@ -519,7 +630,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         contact: {
           name: "Nom",
           phone: "Numéro de téléphone",
-          preferredTime: "Moment préféré pour l'appel",
+          preferredWindow: "Moment préféré pour l'appel",
+          preferredTimeToggle: "J'ai un moment précis où je souhaite être appelé",
+          preferredTimeHint: "Choisissez cette option seulement si vous voulez un appel à une date et une heure précises.",
+          preferredTime: "Date et heure préférées pour l'appel",
         },
       },
       mapTitle: "Emplacement de TM Contracting",
@@ -534,7 +648,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         heading: "Nouvelle demande de contact",
         name: "Nom",
         phone: "Téléphone",
-        preferredTime: "Moment préféré pour l'appel",
+        preferredWindow: "Moment préféré pour l'appel",
+        preferredTime: "Date et heure préférées pour l'appel",
       },
       quote: {
         subjectPrefix: "Nouvelle demande de soumission",
@@ -551,12 +666,17 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         subjectPrefix: "Nouvelle candidature",
         heading: "Nouvelle candidature",
         fullName: "Nom complet",
+        city: "Ville de résidence",
         phone: "Téléphone",
         email: "Courriel",
-        questionnaire: "Questionnaire",
+        workAuthorization: "Autorisation de travail au Canada",
+        driversLicense: "Permis de conduire valide",
+        languages: "Langues",
         cv: "CV",
         downloadCv: "Télécharger le CV",
-        photo: "Photo",
+        coverLetter: "Lettre de motivation",
+        downloadCoverLetter: "Télécharger la lettre de motivation",
+        photo: "Portrait ou photo",
         viewPhoto: "Voir la photo",
       },
     },

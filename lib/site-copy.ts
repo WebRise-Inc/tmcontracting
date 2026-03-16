@@ -242,7 +242,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
             "Interior and exterior residential renovations including basements, bathrooms, kitchens, flooring, framing, drywall, siding, decks, brickwork, ramps, and landscaping, completed by one team.",
         },
         {
-          title: "Concrete Services",
+          title: "Concrete (New / Repair)",
           slug: "concrete",
           image: "/images/service-concrete.jpg",
           description:
@@ -500,7 +500,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
             "Des rénovations de cuisine et de salle de bain jusqu'aux transformations intérieures complètes - nous modernisons votre espace avec précision et en limitant au maximum l'impact sur votre quotidien.",
         },
         {
-          title: "Béton",
+          title: "Béton (Neuf / Réparation)",
           slug: "concrete",
           image: "/images/service-concrete.jpg",
           description:

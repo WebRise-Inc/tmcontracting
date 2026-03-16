@@ -77,15 +77,15 @@ type HomepageServiceGallerySlide = {
 const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide[]> = {
   renovation: [
     { src: "/images/service-galleries/renovation/03.jpeg" },
+    { src: "/images/service-galleries/renovation/05.jpeg" },
     { src: "/images/service-galleries/renovation/08.jpeg" },
-    { src: "/images/service-galleries/renovation/09.jpeg" },
     { src: "/images/service-galleries/renovation/12.jpeg", objectPosition: "center 38%" },
   ],
   concrete: [
     { src: "/images/service-galleries/concrete/01.jpeg" },
     { src: "/images/service-galleries/concrete/06.jpeg", objectPosition: "center 44%" },
     { src: "/images/service-galleries/concrete/07.jpeg" },
-    { src: "/images/service-galleries/concrete/09.jpeg" },
+    { src: "/images/service-galleries/concrete/10.jpeg" },
   ],
   "excavation-lifting": [
     { src: "/images/service-galleries/excavation-lifting/01.jpeg" },
@@ -94,7 +94,7 @@ const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide
     { src: "/images/service-galleries/excavation-lifting/10.jpeg" },
   ],
   "new-construction": [
-    { src: "/images/service-galleries/new-construction/01.jpeg" },
+    { src: "/images/service-galleries/new-construction/02.jpeg" },
     { src: "/images/service-galleries/new-construction/03.jpeg" },
     { src: "/images/service-galleries/new-construction/04.jpeg" },
   ],
@@ -207,7 +207,7 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         },
       },
       concrete: {
-        title: "Concrete Services",
+        title: "Concrete Services (New / Repair)",
         eyebrow: "New pours + structural repair",
         summary:
           "Concrete work covering new pours and foundation crack repair, including reinforcement when structural support is needed.",
@@ -514,7 +514,7 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         },
       },
       concrete: {
-        title: "Services de béton",
+        title: "Services de béton (Neuf / Réparation)",
         eyebrow: "Nouveaux coulages + réparation structurale",
         summary:
           "Travaux de béton pour nouveaux coulages et réparation de fissures de fondation, avec renforcement structural lorsque nécessaire.",

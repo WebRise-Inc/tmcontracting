@@ -94,7 +94,11 @@ export function ServicesOverview() {
                 {/* Content */}
                 <div className="flex flex-1 flex-col p-5">
                   <h3
-                    className="text-lg text-[#24342C] mb-2 group-hover:text-[#7F8F57] transition-colors duration-300"
+                    className={`mb-2 text-[#24342C] group-hover:text-[#7F8F57] transition-colors duration-300 ${
+                      service.slug === "concrete"
+                        ? "text-[0.96rem] whitespace-nowrap tracking-[-0.02em] sm:text-[0.94rem] lg:text-[0.92rem] xl:text-[0.98rem]"
+                        : "text-lg"
+                    }`}
                     style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
                   >
                     {service.title}

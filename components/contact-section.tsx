@@ -23,7 +23,7 @@ const hashToTab: Record<string, Tab> = {
 }
 
 function getTabFromHash(hash: string): Tab {
-  return hashToTab[hash] ?? "quote"
+  return hashToTab[hash] ?? "contact"
 }
 
 function getHashForTab(tab: Tab): string {
@@ -502,7 +502,7 @@ function ContactUsForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) 
 
 export function ContactSection() {
   const { copy, locale } = useLocale()
-  const [active, setActive] = useState<Tab>("quote")
+  const [active, setActive] = useState<Tab>("contact")
   const businessInfo = locale === "fr"
     ? {
         company: "TMcontrc Inc.",
@@ -526,8 +526,8 @@ export function ContactSection() {
           },
         ] as const,
         phones: [
-          { label: "Sans frais", href: "tel:+18004300555", value: "+1 (800) 430-0555" },
-          { label: "Mobile", href: "tel:+16139148543", value: "613 914 8543" },
+          { label: "POUR APPEL", href: "tel:+18004300555", value: "+1 (800) 430-0555" },
+          { label: "POUR TEXTO", href: "sms:+16139148543", value: "+1 (613) 914-8543" },
         ] as const,
         emails: [
           "info@tmforcontracting.com",
@@ -566,8 +566,8 @@ export function ContactSection() {
           },
         ] as const,
         phones: [
-          { label: "Toll-Free", href: "tel:+18004300555", value: "+1 (800) 430-0555" },
-          { label: "Mobile", href: "tel:+16139148543", value: "613 914 8543" },
+          { label: "FOR CALL", href: "tel:+18004300555", value: "+1 (800) 430-0555" },
+          { label: "FOR TEXT", href: "sms:+16139148543", value: "+1 (613) 914-8543" },
         ] as const,
         emails: [
           "info@tmforcontracting.com",
@@ -585,8 +585,8 @@ export function ContactSection() {
         ] as const,
       }
   const tabs: { id: Tab; label: string }[] = [
-    { id: "quote", label: copy.contact.tabs.quote },
     { id: "contact", label: copy.contact.tabs.contact },
+    { id: "quote", label: copy.contact.tabs.quote },
     { id: "career", label: copy.contact.tabs.career },
   ]
 
@@ -676,14 +676,6 @@ export function ContactSection() {
                         </a>
                       </p>
                     ))}
-                    {businessInfo.phones.map((phone) => (
-                      <p key={phone.label}>
-                        <span className="text-[#24342C]">{phone.label}:</span>{" "}
-                        <a href={phone.href} className="transition-colors hover:text-[#314B3E]">
-                          {phone.value}
-                        </a>
-                      </p>
-                    ))}
                     <div>
                       <p>
                         <span className="text-[#24342C]">{businessInfo.emailsLabel}:</span>
@@ -702,7 +694,20 @@ export function ContactSection() {
                 </div>
 
                 <div className="border-t border-[#D6D1C4] p-6 md:border-l md:border-t-0 md:p-7">
-                  <div className="space-y-3 text-sm leading-relaxed text-[#5E685F] font-sans">
+                  <div className="space-y-6 text-sm leading-relaxed text-[#5E685F] font-sans">
+                    <div className="space-y-3">
+                      {businessInfo.phones.map((phone) => (
+                        <p key={phone.label}>
+                          <span className="text-[#24342C]">{phone.label}:</span>{" "}
+                          <a href={phone.href} className="transition-colors hover:text-[#314B3E]">
+                            {phone.value}
+                          </a>
+                        </p>
+                      ))}
+                    </div>
+
+                    <div className="h-px w-full bg-[#D6D1C4]" />
+
                     {businessInfo.registrations.map(([label, value]) => (
                       <p key={label}>
                         <span className="text-[#24342C]">{label}:</span>{" "}

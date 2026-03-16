@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useLocale } from "@/components/locale-provider"
 
 const handwrittenFont = {
-  fontFamily: "'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Noteworthy', cursive",
+  fontFamily: "'Backbon', 'Backbone', 'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Noteworthy', cursive",
 } as const
 
 export function HeroSection() {
@@ -196,7 +196,7 @@ export function HeroSection() {
               width={3603}
               height={2803}
               priority
-              className="relative h-auto w-[16rem] object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)] sm:w-[18rem] lg:w-[21rem]"
+              className="relative h-auto w-[17rem] object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)] sm:w-[19rem] lg:w-[22.5rem]"
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react"
 
 import { useLocale } from "@/components/locale-provider"
 import { getHomepageServiceGallerySlides, isServiceSlug } from "@/lib/service-pages"
+import { getSampleProjectLocation } from "@/lib/sample-project-locations"
 
 export function ServicesOverview() {
   const { copy } = useLocale()
@@ -44,7 +45,7 @@ export function ServicesOverview() {
           {copy.services.items.map((service) => {
             const slides = isServiceSlug(service.slug)
               ? getHomepageServiceGallerySlides(service.slug)
-              : [{ src: service.image }]
+              : [{ src: service.image, locationLabel: getSampleProjectLocation(0) }]
             const activeSlideIndex = activeFrame % slides.length
 
             return (
@@ -86,7 +87,6 @@ export function ServicesOverview() {
                       ))}
                     </div>
                   ) : null}
-
                   {/* Dark tint on hover */}
                   <div className="absolute inset-0 bg-[#24342C]/0 group-hover:bg-[#24342C]/25 transition-colors duration-500" />
                 </div>

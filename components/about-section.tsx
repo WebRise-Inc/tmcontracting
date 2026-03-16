@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react"
 
+import { ProjectLocationChip } from "@/components/project-location-chip"
 import { getAboutGallerySlides } from "@/lib/about-gallery"
 import { useLocale } from "@/components/locale-provider"
 
@@ -15,9 +16,14 @@ export function AboutSection() {
   const stats = copy.about.stats
   const aboutSections = copy.about.sections
   const note = copy.about.note
-  const noteBodyParts = note?.match(/^(.*?)(?:\s[-–]\s)(.*)$/)
-  const noteLead = noteBodyParts ? noteBodyParts[1] : note
-  const noteDetail = noteBodyParts ? noteBodyParts[2] : null
+  const noteSegments = note
+    ? note
+        .split(/\n+/)
+        .map((segment) => segment.trim())
+        .filter(Boolean)
+    : []
+  const noteLead = noteSegments[0] ?? note ?? ""
+  const noteDetail = noteSegments[1] ?? null
   const totalSlides = slides.length
   const getWrappedIndex = (index: number) => (index + totalSlides) % totalSlides
 
@@ -90,6 +96,10 @@ export function AboutSection() {
                   </div>
                 )
               })}
+
+              <div className="absolute left-4 top-4">
+                <ProjectLocationChip label={slides[current].locationLabel} />
+              </div>
 
               {/* Counter badge */}
               <div
@@ -167,48 +177,41 @@ export function AboutSection() {
             </div>
 
             {note ? (
-              <div className="relative overflow-hidden rounded-[30px] border border-[#CFC7B7] bg-[linear-gradient(180deg,rgba(247,246,241,0.98)_0%,rgba(239,234,223,0.98)_100%)] px-6 py-6 shadow-[0_26px_54px_rgba(36,52,44,0.1)] ring-1 ring-white/45 sm:px-8 sm:py-7">
-                <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#C8D87A]/80 to-transparent" />
-                <div className="absolute -right-3 top-2 text-[5rem] leading-none text-[#24342C]/6 sm:text-[6rem]" style={{ fontFamily: "'Vogue', serif" }}>
+              <div className="relative overflow-hidden rounded-[30px] border border-[#D6D1C4] bg-[linear-gradient(180deg,rgba(247,246,241,0.98)_0%,rgba(240,236,228,0.98)_100%)] px-6 py-6 shadow-[0_22px_44px_rgba(36,52,44,0.08)] ring-1 ring-white/45 sm:px-7 sm:py-7">
+                <div className="absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-[#7F8F57]/75 to-transparent" />
+                <div className="absolute -left-2 top-1 text-[5.5rem] leading-none text-[#24342C]/8 sm:text-[6.5rem]" style={{ fontFamily: "'Vogue', serif" }}>
                   "
                 </div>
-                <div className="absolute bottom-0 left-10 h-20 w-20 rounded-full bg-[#C8D87A]/10 blur-2xl" />
+                <div className="absolute bottom-0 right-8 h-20 w-20 rounded-full bg-[#C8D87A]/10 blur-2xl" />
 
-                <div className="relative flex flex-col gap-4">
-                  <div className="h-px w-14 bg-gradient-to-r from-[#7F8F57]/70 to-transparent" />
-
+                <div className="relative pl-4 sm:pl-5">
+                  <div className="mb-4 h-px w-16 bg-gradient-to-r from-[#7F8F57] to-transparent" />
                   <p
-                    className="max-w-2xl text-[1.25rem] leading-[1.42] text-[#24342C] sm:text-[1.45rem] md:text-[1.6rem]"
+                    className="max-w-2xl text-[1.45rem] leading-[1.06] text-[#24342C] sm:text-[1.7rem] md:text-[1.95rem]"
                     style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
                   >
                     {noteLead}
                   </p>
 
                   {noteDetail ? (
-                    <p className="max-w-2xl text-[0.97rem] leading-[1.78] text-[#4E5A50] sm:text-[1.02rem]">
+                    <p className="mt-4 max-w-2xl text-[1.02rem] font-semibold leading-[1.7] text-[#314B3E] sm:text-[1.1rem]">
                       {noteDetail}
                     </p>
                   ) : null}
                 </div>
               </div>
             ) : null}
+
           </div>
 
           {/* RIGHT — Content */}
           <div className="flex flex-col gap-8">
-            <h2
-              className="text-4xl md:text-5xl text-[#24342C] leading-tight text-balance"
-              style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
-            >
-              {copy.about.titleLineOne}<br />{copy.about.titleLineTwo}
-            </h2>
-
             {aboutSections && aboutSections.length > 0 ? (
-              <div className="flex flex-col gap-6 text-[#5E685F]">
+              <div className="flex flex-col gap-7 text-[#5E685F]">
                 {aboutSections.map((section) => (
-                  <div key={section.heading} className="border-l-2 border-[#C8C3B8] pl-5">
+                  <div key={section.heading} className="border-l-[3px] border-[#C8D87A] pl-5 sm:pl-6">
                     <h3
-                      className="text-xl text-[#24342C] mb-3"
+                      className="mb-4 text-[1.75rem] leading-none text-[#24342C] sm:text-[2rem] md:text-[2.2rem]"
                       style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
                     >
                       {section.heading}

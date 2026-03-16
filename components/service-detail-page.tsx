@@ -21,6 +21,7 @@ import { Navbar } from "@/components/navbar"
 import { useLocale } from "@/components/locale-provider"
 import {
   getServiceGalleryPaths,
+  getServiceGalleryEntries,
   getServicePageEntry,
   servicePages,
   serviceSlugs,
@@ -38,7 +39,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
   const { locale, copy } = useLocale()
   const chrome = servicePages[locale].chrome
   const page = getServicePageEntry(locale, slug)
-  const gallery = getServiceGalleryPaths(slug)
+  const gallery = getServiceGalleryEntries(slug)
   const Icon = serviceIcons[slug]
 
   useEffect(() => {
@@ -127,7 +128,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
               <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
                 <div className="relative min-h-[420px] overflow-hidden border border-white/10 bg-[#314B3E] shadow-[0_40px_80px_rgba(0,0,0,0.28)]">
                   <Image
-                    src={gallery[0]}
+                    src={gallery[0].src}
                     alt={`${page.title} ${chrome.galleryPhotoLabel} 1`}
                     fill
                     priority
@@ -151,9 +152,9 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
 
                 <div className="grid gap-4">
                   {gallery.slice(1, 3).map((image, index) => (
-                    <div key={image} className="relative min-h-[200px] overflow-hidden border border-white/10 bg-[#314B3E]">
+                    <div key={image.src} className="relative min-h-[200px] overflow-hidden border border-white/10 bg-[#314B3E]">
                       <Image
-                        src={image}
+                        src={image.src}
                         alt={`${page.title} ${chrome.galleryPhotoLabel} ${index + 2}`}
                         fill
                         className="object-cover"
@@ -274,10 +275,10 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
 
             <div className="mt-10 columns-1 gap-4 md:columns-2 xl:columns-3">
               {gallery.map((image, index) => (
-                <div key={image} className="mb-4 break-inside-avoid overflow-hidden border border-[#D6D1C4] bg-[#E9E5DA]">
+                <div key={image.src} className="mb-4 break-inside-avoid overflow-hidden border border-[#D6D1C4] bg-[#E9E5DA]">
                   <div className="relative min-h-[220px]">
                     <Image
-                      src={image}
+                      src={image.src}
                       alt={`${page.title} ${chrome.galleryPhotoLabel} ${index + 1}`}
                       fill
                       className="object-cover"
@@ -340,7 +341,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                 .filter((serviceSlug) => serviceSlug !== slug)
                 .map((serviceSlug) => {
                   const relatedPage = getServicePageEntry(locale, serviceSlug)
-                  const relatedImage = getServiceGalleryPaths(serviceSlug)[0]
+                  const relatedImage = getServiceGalleryEntries(serviceSlug)[0]
 
                   return (
                     <Link
@@ -350,7 +351,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                     >
                       <div className="relative h-56 overflow-hidden">
                         <Image
-                          src={relatedImage}
+                          src={relatedImage.src}
                           alt={`${relatedPage.title} ${chrome.galleryPhotoLabel} 1`}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-105"

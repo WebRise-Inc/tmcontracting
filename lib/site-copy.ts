@@ -69,8 +69,6 @@ export type SiteCopy = {
     eyebrow: string
     slides: Slide[]
     goToSlide: string
-    titleLineOne: string
-    titleLineTwo: string
     note?: string
     paragraphs: string[]
     sections?: AboutContentSection[]
@@ -289,10 +287,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         { src: "/images/about-real/about-19.jpeg", alt: "TM Contracting project photo 19" },
       ],
       goToSlide: "Go to slide",
-      titleLineOne: "Built on Trust.",
-      titleLineTwo: "Backed by Results.",
       note:
-        "Try us and you'll see that it's not just website text - it's how our company is structured to plan, manage and deliver every project.",
+        "Try us and you'll see that it's not just website text\n\nit's how our company is structured to plan, manage and deliver every project.",
       paragraphs: [],
       sections: [
         {
@@ -308,7 +304,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
           ],
         },
         {
-          heading: "Who?",
+          heading: "Who We Are?",
           items: [
             "A professional contracting & construction company built on real field experience and customer-first service.",
             "Hands-on management with clear communication, planning, and site discipline.",
@@ -547,10 +543,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         { src: "/images/about-real/about-19.jpeg", alt: "Photo de projet TM Contracting 19" },
       ],
       goToSlide: "Aller à la diapositive",
-      titleLineOne: "Fondé sur la confiance.",
-      titleLineTwo: "Appuyé par les résultats.",
       note:
-        "Essayez-nous et vous verrez que ce n'est pas juste du texte de site web - c'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
+        "Essayez-nous et vous verrez que ce n'est pas juste du texte de site web\n\nc'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
       paragraphs: [
         "TM Contracting est un nom de confiance dans la construction depuis 1991 - avec plus de 15 ans d'expérience concrète à transformer des propriétés partout au Québec et en Ontario.",
         "Nous prenons tout en charge, de l'excavation à la remise des clés, comme une seule équipe unifiée. Pas de rotation interminable de sous-traitants, pas de mauvaise communication, pas de renvoi de responsabilité. Une équipe responsable gère chaque phase - planification, corps de métier, matériaux, échéancier et coordination du chantier.",

@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/site-copy"
+import { getSampleProjectLocation } from "@/lib/sample-project-locations"
 
 export const serviceSlugs = [
   "renovation",
@@ -70,33 +71,39 @@ const galleryCounts: Record<ServiceSlug, number> = {
 
 type HomepageServiceGallerySlide = {
   src: string
+  locationLabel: string
   objectPosition?: string
+}
+
+export type ServiceGalleryImage = {
+  src: string
+  locationLabel: string
 }
 
 // Curated homepage subsets prioritize variety inside the tighter card crop.
 const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide[]> = {
   renovation: [
-    { src: "/images/service-galleries/renovation/03.jpeg" },
-    { src: "/images/service-galleries/renovation/05.jpeg" },
-    { src: "/images/service-galleries/renovation/08.jpeg" },
-    { src: "/images/service-galleries/renovation/12.jpeg", objectPosition: "center 38%" },
+    { src: "/images/service-galleries/renovation/03.jpeg", locationLabel: getSampleProjectLocation(0) },
+    { src: "/images/service-galleries/renovation/05.jpeg", locationLabel: getSampleProjectLocation(1) },
+    { src: "/images/service-galleries/renovation/08.jpeg", locationLabel: getSampleProjectLocation(2) },
+    { src: "/images/service-galleries/renovation/12.jpeg", locationLabel: getSampleProjectLocation(3), objectPosition: "center 38%" },
   ],
   concrete: [
-    { src: "/images/service-galleries/concrete/01.jpeg" },
-    { src: "/images/service-galleries/concrete/06.jpeg", objectPosition: "center 44%" },
-    { src: "/images/service-galleries/concrete/07.jpeg" },
-    { src: "/images/service-galleries/concrete/10.jpeg" },
+    { src: "/images/service-galleries/concrete/01.jpeg", locationLabel: getSampleProjectLocation(4) },
+    { src: "/images/service-galleries/concrete/06.jpeg", locationLabel: getSampleProjectLocation(5), objectPosition: "center 44%" },
+    { src: "/images/service-galleries/concrete/07.jpeg", locationLabel: getSampleProjectLocation(6) },
+    { src: "/images/service-galleries/concrete/10.jpeg", locationLabel: getSampleProjectLocation(7) },
   ],
   "excavation-lifting": [
-    { src: "/images/service-galleries/excavation-lifting/01.jpeg" },
-    { src: "/images/service-galleries/excavation-lifting/03.jpeg" },
-    { src: "/images/service-galleries/excavation-lifting/06.jpeg" },
-    { src: "/images/service-galleries/excavation-lifting/10.jpeg" },
+    { src: "/images/service-galleries/excavation-lifting/01.jpeg", locationLabel: getSampleProjectLocation(8) },
+    { src: "/images/service-galleries/excavation-lifting/03.jpeg", locationLabel: getSampleProjectLocation(9) },
+    { src: "/images/service-galleries/excavation-lifting/06.jpeg", locationLabel: getSampleProjectLocation(0) },
+    { src: "/images/service-galleries/excavation-lifting/10.jpeg", locationLabel: getSampleProjectLocation(1) },
   ],
   "new-construction": [
-    { src: "/images/service-galleries/new-construction/02.jpeg" },
-    { src: "/images/service-galleries/new-construction/03.jpeg" },
-    { src: "/images/service-galleries/new-construction/04.jpeg" },
+    { src: "/images/service-galleries/new-construction/02.jpeg", locationLabel: getSampleProjectLocation(2) },
+    { src: "/images/service-galleries/new-construction/03.jpeg", locationLabel: getSampleProjectLocation(3) },
+    { src: "/images/service-galleries/new-construction/04.jpeg", locationLabel: getSampleProjectLocation(4) },
   ],
 }
 
@@ -104,11 +111,19 @@ export function isServiceSlug(value: string): value is ServiceSlug {
   return serviceSlugs.includes(value as ServiceSlug)
 }
 
-export function getServiceGalleryPaths(slug: ServiceSlug) {
+export function getServiceGalleryEntries(slug: ServiceSlug): ServiceGalleryImage[] {
   return Array.from({ length: galleryCounts[slug] }, (_, index) => {
     const imageNumber = String(index + 1).padStart(2, "0")
-    return `/images/service-galleries/${slug}/${imageNumber}.jpeg`
+
+    return {
+      src: `/images/service-galleries/${slug}/${imageNumber}.jpeg`,
+      locationLabel: getSampleProjectLocation(index),
+    }
   })
+}
+
+export function getServiceGalleryPaths(slug: ServiceSlug) {
+  return getServiceGalleryEntries(slug).map((image) => image.src)
 }
 
 export function getHomepageServiceGallerySlides(slug: ServiceSlug) {

@@ -125,7 +125,7 @@ export function HeroSection() {
       {/* Layout: content + brand visual */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-24">
         <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(240px,360px)] lg:gap-0">
-          <div className="w-full max-w-2xl pl-24">
+          <div className="w-full pl-20 sm:pl-24">
             {/* Static "Book a call" + dots stay in place */}
             {/* Animated content block */}
             <div style={contentStyle}>
@@ -144,7 +144,7 @@ export function HeroSection() {
 
               {/* Heading */}
               <h1
-                className="text-4xl md:text-5xl lg:text-6xl text-[#F7F6F1] leading-tight text-balance mb-5 max-w-xl"
+                className="mb-5 max-w-none text-[clamp(1.45rem,3.35vw,4.25rem)] leading-[1.06] text-[#F7F6F1]"
                 style={{ fontFamily: "'Vogue', serif", fontWeight: "normal", letterSpacing: "0.02em" }}
               >
                 {phrase.heading}

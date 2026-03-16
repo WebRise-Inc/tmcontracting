@@ -67,6 +67,8 @@ export type SiteCopy = {
   }
   about: {
     eyebrow: string
+    titleLineOne?: string
+    titleLineTwo?: string
     slides: Slide[]
     goToSlide: string
     note?: string
@@ -210,18 +212,18 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       phrases: [
         {
           label: "BECAUSE YOU DESERVE...",
-          heading: "3-YEARS RISK-FREE Warranty",
-          body: "Our 3-YEARS RISK-FREE Warranty means zero risk for you: it covers 100% of our work, and if anything we did isn't right, we fix it - no debates, no excuses. It's simple: you get real peace of mind, backed by real accountability.",
+          heading: "3 YEARS RISK-FREE WARANTY",
+          body: "3-Year Risk-Free Warranty means exactly that: zero risk for you for 3 full years. It covers 100% of our work, and if anything we did isn't right, we fix it—no hassle, no back-and-forth, no excuses. It's a simple promise backed by real accountability, so you can move forward with total confidence and real peace of mind.",
         },
         {
           label: "BECAUSE YOU DESERVE...",
-          heading: "One Team, A to Z",
-          body: "We handle your project A to Z - excavation to keys - with one accountable team managing every phase. We take care of planning, trades, materials, scheduling, and site coordination, so you get one point of contact and zero headache.",
+          heading: "One Team. One Contact. Zero Headache.",
+          body: "A to Z—from excavation to keys—with one accountable team managing every step. We take care of planning, trades, materials, scheduling, and site coordination, so you get one point of contact and zero headache. No chasing contractors, no mixed messages, no chaos. Just a well-managed project from start to finish.",
         },
         {
           label: "BECAUSE YOU DESERVE...",
-          heading: "Fast Estimates, Zero Wait",
-          body: "Fast online or in-person appointments, and once you book a time slot, you can often get a clear estimate and a practical game plan within minutes - usually from a short call or video plus a few photos.",
+          heading: "Free Advice. Free Information. Free Estimates.",
+          body: "Ask any question, share any problem, and get the information you need free of charge—online or in person. Whether you need advice, ideas, answers, or even an estimate, we're here to help with no pressure and no obligation. Even if you never move forward with us, the time, guidance, and estimate are still free. It's our way of giving back to the community we value.",
         },
       ],
       provinces: ["Quebec", "Ontario"],
@@ -265,6 +267,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     },
     about: {
       eyebrow: "About Us",
+      titleLineOne: "Built on Trust.",
+      titleLineTwo: "Backed by Results.",
       slides: [
         { src: "/images/about-real/about-01.jpeg", alt: "TM Contracting project photo 1" },
         { src: "/images/about-real/about-02.jpeg", alt: "TM Contracting project photo 2" },
@@ -521,6 +525,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     },
     about: {
       eyebrow: "À propos",
+      titleLineOne: "Batie sur la confiance.",
+      titleLineTwo: "Portee par les resultats.",
       slides: [
         { src: "/images/about-real/about-01.jpeg", alt: "Photo de projet TM Contracting 1" },
         { src: "/images/about-real/about-02.jpeg", alt: "Photo de projet TM Contracting 2" },

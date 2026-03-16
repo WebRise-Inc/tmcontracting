@@ -6,7 +6,7 @@ export function ReviewsSection() {
   const { copy } = useLocale()
 
   return (
-    <section className="bg-[#F7F6F1] py-20 px-6">
+    <section id="reviews" className="scroll-mt-28 bg-[#F7F6F1] px-6 py-20">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12 text-center">

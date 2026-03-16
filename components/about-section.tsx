@@ -70,10 +70,10 @@ export function AboutSection() {
         </p>
 
         {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-stretch">
 
           {/* LEFT — Slideshow */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:h-full">
             {/* Main slide */}
             <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#24342C]/10">
               {activeSlides.map((slideIndex) => {
@@ -177,24 +177,31 @@ export function AboutSection() {
             </div>
 
             {note ? (
-              <div className="relative overflow-hidden rounded-[30px] border border-[#D6D1C4] bg-[linear-gradient(180deg,rgba(247,246,241,0.98)_0%,rgba(240,236,228,0.98)_100%)] px-6 py-6 shadow-[0_22px_44px_rgba(36,52,44,0.08)] ring-1 ring-white/45 sm:px-7 sm:py-7">
-                <div className="absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-[#7F8F57]/75 to-transparent" />
-                <div className="absolute -left-2 top-1 text-[5.5rem] leading-none text-[#24342C]/8 sm:text-[6.5rem]" style={{ fontFamily: "'Vogue', serif" }}>
-                  "
-                </div>
-                <div className="absolute bottom-0 right-8 h-20 w-20 rounded-full bg-[#C8D87A]/10 blur-2xl" />
+              <div className="relative overflow-hidden rounded-[28px] border border-[#D6D1C4] bg-[#F7F6F1]/88 px-6 py-6 shadow-[0_24px_48px_rgba(36,52,44,0.08)] backdrop-blur-sm sm:px-7 sm:py-7">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7F8F57]/75 to-transparent" />
+                <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#C8D87A] via-[#A7BA73] to-transparent" />
+                <div className="absolute right-8 top-8 h-20 w-20 rounded-full bg-[#C8D87A]/10 blur-2xl" />
 
-                <div className="relative pl-4 sm:pl-5">
-                  <div className="mb-4 h-px w-16 bg-gradient-to-r from-[#7F8F57] to-transparent" />
+                <div className="relative flex flex-col gap-5 pl-2 sm:pl-3">
+                  <div className="flex items-center gap-3">
+                    <span className="h-px w-14 bg-gradient-to-r from-[#7F8F57] to-transparent" />
+                    <span
+                      className="text-[0.65rem] uppercase tracking-[0.34em] text-[#7F8F57]"
+                      style={{ fontFamily: "'Vogue', serif" }}
+                    >
+                      Built To Deliver
+                    </span>
+                  </div>
+
                   <p
-                    className="max-w-2xl text-[1.45rem] leading-[1.06] text-[#24342C] sm:text-[1.7rem] md:text-[1.95rem]"
+                    className="max-w-2xl text-[1.55rem] leading-[1.04] text-[#24342C] sm:text-[1.8rem] md:text-[2rem]"
                     style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
                   >
                     {noteLead}
                   </p>
 
                   {noteDetail ? (
-                    <p className="mt-4 max-w-2xl text-[1.02rem] font-semibold leading-[1.7] text-[#314B3E] sm:text-[1.1rem]">
+                    <p className="max-w-2xl text-[1.02rem] font-semibold leading-[1.72] text-[#314B3E] sm:text-[1.08rem]">
                       {noteDetail}
                     </p>
                   ) : null}
@@ -202,10 +209,60 @@ export function AboutSection() {
               </div>
             ) : null}
 
+            <div className="overflow-hidden rounded-[28px] border border-[#D6D1C4] bg-[#F7F6F1]/90 shadow-[0_24px_48px_rgba(36,52,44,0.08)] backdrop-blur-sm lg:flex-1 lg:flex lg:flex-col">
+              <div className="relative border-b border-[#DDD7C9] px-6 py-6 sm:px-7">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7F8F57]/60 to-transparent" />
+                <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#7F8F57] via-[#C8D87A] to-transparent" />
+
+                <div className="flex items-start gap-4 pl-2 sm:pl-3">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#D6D1C4] bg-white/75 text-[#7F8F57] shadow-[0_14px_30px_rgba(36,52,44,0.08)]">
+                    <ShieldCheck className="h-5 w-5" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <p
+                      className="text-[0.72rem] uppercase tracking-[0.3em] text-[#7F8F57]"
+                      style={{ fontFamily: "'Vogue', serif" }}
+                    >
+                      Protected Workmanship
+                    </p>
+                    <p
+                      className="text-[1.2rem] leading-tight text-[#24342C] sm:text-[1.35rem]"
+                      style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                    >
+                      {copy.about.warranty.title}
+                    </p>
+                    <p className="max-w-xl text-sm leading-relaxed text-[#5E685F] sm:text-[0.97rem]">
+                      {copy.about.warranty.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-px bg-[#D6D1C4] lg:flex-1">
+                {stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="flex min-h-[132px] flex-col justify-end gap-2 bg-[#F7F6F1]/96 px-6 py-5 sm:px-7"
+                  >
+                    <span
+                      className="text-[2rem] leading-none text-[#24342C] sm:text-[2.25rem]"
+                      style={{ fontFamily: "'Vogue', serif" }}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className="max-w-[12rem] text-sm leading-snug text-[#5E685F]">
+                      {stat.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
           {/* RIGHT — Content */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 lg:h-full lg:justify-between">
             {aboutSections && aboutSections.length > 0 ? (
               <div className="flex flex-col gap-7 text-[#5E685F]">
                 {aboutSections.map((section) => (
@@ -234,39 +291,6 @@ export function AboutSection() {
                 ))}
               </div>
             )}
-
-            {/* Warranty highlight */}
-            <div className="flex items-start gap-4 bg-[#F7F6F1] border-l-4 border-[#7F8F57] px-5 py-4">
-              <ShieldCheck className="w-6 h-6 text-[#7F8F57] mt-0.5 shrink-0" />
-              <div>
-                <p
-                  className="text-sm text-[#24342C] mb-1"
-                  style={{ fontFamily: "'Vogue', serif" }}
-                >
-                  {copy.about.warranty.title}
-                </p>
-                <p className="text-sm text-[#5E685F] font-sans leading-relaxed">
-                  {copy.about.warranty.body}
-                </p>
-              </div>
-            </div>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-              {stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col gap-1">
-                  <span
-                    className="text-2xl text-[#24342C]"
-                    style={{ fontFamily: "'Vogue', serif" }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-[#5E685F] font-sans leading-snug">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
 
             {/* CTA */}
             <a

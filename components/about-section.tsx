@@ -4,32 +4,45 @@ import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react"
 
+import { getAboutGallerySlides } from "@/lib/about-gallery"
 import { useLocale } from "@/components/locale-provider"
 
 export function AboutSection() {
-  const { copy } = useLocale()
+  const { copy, locale } = useLocale()
   const [current, setCurrent] = useState(0)
-  const [animating, setAnimating] = useState(false)
-  const slides = copy.about.slides
+  const [previous, setPrevious] = useState<number | null>(null)
+  const slides = getAboutGallerySlides(locale, copy.about.slides)
   const stats = copy.about.stats
   const aboutSections = copy.about.sections
+  const note = copy.about.note
+  const noteBodyParts = note?.match(/^(.*?)(?:\s[-–]\s)(.*)$/)
+  const noteLead = noteBodyParts ? noteBodyParts[1] : note
+  const noteDetail = noteBodyParts ? noteBodyParts[2] : null
   const totalSlides = slides.length
   const getWrappedIndex = (index: number) => (index + totalSlides) % totalSlides
 
   const goTo = useCallback(
     (index: number) => {
       const nextIndex = getWrappedIndex(index)
-      if (animating || nextIndex === current) return
-      setAnimating(true)
-      setTimeout(() => {
-        setCurrent(nextIndex)
-        setAnimating(false)
-      }, 400)
+      if (nextIndex === current) return
+      setPrevious(current)
+      setCurrent(nextIndex)
     },
-    [animating, current, totalSlides]
+    [current, totalSlides]
   )
 
   const previewIndices = Array.from({ length: Math.min(4, totalSlides) }, (_, offset) => getWrappedIndex(current + offset))
+  const activeSlides = previous === null ? [current] : [previous, current]
+
+  useEffect(() => {
+    if (previous === null) return
+
+    const timer = window.setTimeout(() => {
+      setPrevious(null)
+    }, 700)
+
+    return () => window.clearTimeout(timer)
+  }, [previous])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,21 +70,26 @@ export function AboutSection() {
           <div className="flex flex-col gap-4">
             {/* Main slide */}
             <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#24342C]/10">
-              {slides.map((slide, i) => (
-                <div
-                  key={i}
-                  className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-                  style={{ opacity: i === current ? 1 : 0, pointerEvents: i === current ? "auto" : "none" }}
-                >
-                  <Image
-                    src={slide.src}
-                    alt={slide.alt}
-                    fill
-                    className="object-cover"
-                    priority={i === 0}
-                  />
-                </div>
-              ))}
+              {activeSlides.map((slideIndex) => {
+                const slide = slides[slideIndex]
+                const isCurrent = slideIndex === current
+
+                return (
+                  <div
+                    key={slide.src}
+                    className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                    style={{ opacity: isCurrent ? 1 : 0, pointerEvents: isCurrent ? "auto" : "none" }}
+                  >
+                    <Image
+                      src={slide.src}
+                      alt={slide.alt}
+                      fill
+                      className="object-cover"
+                      priority={slideIndex === 0}
+                    />
+                  </div>
+                )
+              })}
 
               {/* Counter badge */}
               <div
@@ -148,10 +166,31 @@ export function AboutSection() {
               </div>
             </div>
 
-            {copy.about.note ? (
-              <p className="text-sm font-bold leading-relaxed text-[#24342C] font-sans">
-                {copy.about.note}
-              </p>
+            {note ? (
+              <div className="relative overflow-hidden rounded-[30px] border border-[#CFC7B7] bg-[linear-gradient(180deg,rgba(247,246,241,0.98)_0%,rgba(239,234,223,0.98)_100%)] px-6 py-6 shadow-[0_26px_54px_rgba(36,52,44,0.1)] ring-1 ring-white/45 sm:px-8 sm:py-7">
+                <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#C8D87A]/80 to-transparent" />
+                <div className="absolute -right-3 top-2 text-[5rem] leading-none text-[#24342C]/6 sm:text-[6rem]" style={{ fontFamily: "'Vogue', serif" }}>
+                  "
+                </div>
+                <div className="absolute bottom-0 left-10 h-20 w-20 rounded-full bg-[#C8D87A]/10 blur-2xl" />
+
+                <div className="relative flex flex-col gap-4">
+                  <div className="h-px w-14 bg-gradient-to-r from-[#7F8F57]/70 to-transparent" />
+
+                  <p
+                    className="max-w-2xl text-[1.25rem] leading-[1.42] text-[#24342C] sm:text-[1.45rem] md:text-[1.6rem]"
+                    style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                  >
+                    {noteLead}
+                  </p>
+
+                  {noteDetail ? (
+                    <p className="max-w-2xl text-[0.97rem] leading-[1.78] text-[#4E5A50] sm:text-[1.02rem]">
+                      {noteDetail}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             ) : null}
           </div>
 

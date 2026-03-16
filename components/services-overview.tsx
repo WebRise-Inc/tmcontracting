@@ -1,13 +1,24 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 import { useLocale } from "@/components/locale-provider"
+import { getHomepageServiceGallerySlides, isServiceSlug } from "@/lib/service-pages"
 
 export function ServicesOverview() {
   const { copy } = useLocale()
+  const [activeFrame, setActiveFrame] = useState(0)
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveFrame((currentFrame) => currentFrame + 1)
+    }, 5000)
+
+    return () => window.clearInterval(timer)
+  }, [])
 
   return (
     <section id="services" className="bg-[#F7F6F1] py-24 px-6">
@@ -30,45 +41,78 @@ export function ServicesOverview() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {copy.services.items.map((service) => (
-            <Link
-              key={service.slug}
-              href={`/services/${service.slug}`}
-              className="group flex h-full flex-col overflow-hidden rounded-sm bg-[#E9E5DA]"
-            >
-              {/* Image */}
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105"
-                />
-                {/* Dark tint on hover */}
-                <div className="absolute inset-0 bg-[#24342C]/0 group-hover:bg-[#24342C]/25 transition-colors duration-500" />
-              </div>
+          {copy.services.items.map((service) => {
+            const slides = isServiceSlug(service.slug)
+              ? getHomepageServiceGallerySlides(service.slug)
+              : [{ src: service.image }]
+            const activeSlideIndex = activeFrame % slides.length
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-5">
-                <h3
-                  className="text-lg text-[#24342C] mb-2 group-hover:text-[#7F8F57] transition-colors duration-300"
-                  style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
-                >
-                  {service.title}
-                </h3>
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#5E685F] font-sans">
-                  {service.description}
-                </p>
-                <span
-                  className="inline-flex items-center gap-1.5 text-xs tracking-widest uppercase text-[#314B3E] group-hover:text-[#7F8F57] transition-colors duration-300"
-                  style={{ fontFamily: "'Vogue', serif" }}
-                >
-                  {copy.services.learnMore}
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-          ))}
+            return (
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-sm bg-[#E9E5DA]"
+              >
+                {/* Image */}
+                <div className="relative h-56 overflow-hidden bg-[#24342C]/10">
+                  {slides.map((slide, index) => (
+                    <div
+                      key={slide.src}
+                      className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                      style={{ opacity: index === activeSlideIndex ? 1 : 0 }}
+                    >
+                      <Image
+                        src={slide.src}
+                        alt={`${service.title} image ${index + 1}`}
+                        fill
+                        sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 100vw"
+                        className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105"
+                        style={{ objectPosition: slide.objectPosition ?? "center" }}
+                        priority={index === 0}
+                      />
+                    </div>
+                  ))}
+
+                  {slides.length > 1 ? (
+                    <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5">
+                      {slides.map((slide, index) => (
+                        <span
+                          key={`${slide.src}-indicator`}
+                          aria-hidden="true"
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
+                            index === activeSlideIndex ? "w-5 bg-[#F7F6F1]" : "w-1.5 bg-[#F7F6F1]/45"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  ) : null}
+
+                  {/* Dark tint on hover */}
+                  <div className="absolute inset-0 bg-[#24342C]/0 group-hover:bg-[#24342C]/25 transition-colors duration-500" />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-5">
+                  <h3
+                    className="text-lg text-[#24342C] mb-2 group-hover:text-[#7F8F57] transition-colors duration-300"
+                    style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                  >
+                    {service.title}
+                  </h3>
+                  <p className="mb-4 flex-1 text-sm leading-relaxed text-[#5E685F] font-sans">
+                    {service.description}
+                  </p>
+                  <span
+                    className="inline-flex items-center gap-1.5 text-xs tracking-widest uppercase text-[#314B3E] group-hover:text-[#7F8F57] transition-colors duration-300"
+                    style={{ fontFamily: "'Vogue', serif" }}
+                  >
+                    {copy.services.learnMore}
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

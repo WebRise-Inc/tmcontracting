@@ -68,6 +68,38 @@ const galleryCounts: Record<ServiceSlug, number> = {
   "new-construction": 4,
 }
 
+type HomepageServiceGallerySlide = {
+  src: string
+  objectPosition?: string
+}
+
+// Curated homepage subsets prioritize variety inside the tighter card crop.
+const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide[]> = {
+  renovation: [
+    { src: "/images/service-galleries/renovation/03.jpeg" },
+    { src: "/images/service-galleries/renovation/08.jpeg" },
+    { src: "/images/service-galleries/renovation/09.jpeg" },
+    { src: "/images/service-galleries/renovation/12.jpeg", objectPosition: "center 38%" },
+  ],
+  concrete: [
+    { src: "/images/service-galleries/concrete/01.jpeg" },
+    { src: "/images/service-galleries/concrete/06.jpeg", objectPosition: "center 44%" },
+    { src: "/images/service-galleries/concrete/07.jpeg" },
+    { src: "/images/service-galleries/concrete/09.jpeg" },
+  ],
+  "excavation-lifting": [
+    { src: "/images/service-galleries/excavation-lifting/01.jpeg" },
+    { src: "/images/service-galleries/excavation-lifting/03.jpeg" },
+    { src: "/images/service-galleries/excavation-lifting/06.jpeg" },
+    { src: "/images/service-galleries/excavation-lifting/10.jpeg" },
+  ],
+  "new-construction": [
+    { src: "/images/service-galleries/new-construction/01.jpeg" },
+    { src: "/images/service-galleries/new-construction/03.jpeg" },
+    { src: "/images/service-galleries/new-construction/04.jpeg" },
+  ],
+}
+
 export function isServiceSlug(value: string): value is ServiceSlug {
   return serviceSlugs.includes(value as ServiceSlug)
 }
@@ -77,6 +109,10 @@ export function getServiceGalleryPaths(slug: ServiceSlug) {
     const imageNumber = String(index + 1).padStart(2, "0")
     return `/images/service-galleries/${slug}/${imageNumber}.jpeg`
   })
+}
+
+export function getHomepageServiceGallerySlides(slug: ServiceSlug) {
+  return homepageGallerySelections[slug]
 }
 
 export const servicePages: Record<Locale, ServicePageLocale> = {

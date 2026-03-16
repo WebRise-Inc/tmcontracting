@@ -211,17 +211,17 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     hero: {
       phrases: [
         {
-          label: "BECAUSE YOU DESERVE",
+          label: "BECAUSE YOU DESERVE...",
           heading: "3-YEARS RISK-FREE Warranty",
           body: "Our 3-YEARS RISK-FREE Warranty means zero risk for you: it covers 100% of our work, and if anything we did isn't right, we fix it - no debates, no excuses. It's simple: you get real peace of mind, backed by real accountability.",
         },
         {
-          label: "BECAUSE YOU DESERVE",
+          label: "BECAUSE YOU DESERVE...",
           heading: "One Team, A to Z",
           body: "We handle your project A to Z - excavation to keys - with one accountable team managing every phase. We take care of planning, trades, materials, scheduling, and site coordination, so you get one point of contact and zero headache.",
         },
         {
-          label: "BECAUSE YOU DESERVE",
+          label: "BECAUSE YOU DESERVE...",
           heading: "Fast Estimates, Zero Wait",
           body: "Fast online or in-person appointments, and once you book a time slot, you can often get a clear estimate and a practical game plan within minutes - usually from a short call or video plus a few photos.",
         },
@@ -292,7 +292,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       titleLineOne: "Built on Trust.",
       titleLineTwo: "Backed by Results.",
       note:
-        "NB: Try us and you'll see this isn't website talk - it's how our company is structured to plan, manage, and deliver every project.",
+        "Try us and you'll see that it's not just website text - it's how our company is structured to plan, manage and deliver every project.",
       paragraphs: [],
       sections: [
         {
@@ -550,7 +550,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       titleLineOne: "Fondé sur la confiance.",
       titleLineTwo: "Appuyé par les résultats.",
       note:
-        "NB : Essayez-nous et vous verrez que ce n'est pas juste du texte de site web - c'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
+        "Essayez-nous et vous verrez que ce n'est pas juste du texte de site web - c'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
       paragraphs: [
         "TM Contracting est un nom de confiance dans la construction depuis 1991 - avec plus de 15 ans d'expérience concrète à transformer des propriétés partout au Québec et en Ontario.",
         "Nous prenons tout en charge, de l'excavation à la remise des clés, comme une seule équipe unifiée. Pas de rotation interminable de sous-traitants, pas de mauvaise communication, pas de renvoi de responsabilité. Une équipe responsable gère chaque phase - planification, corps de métier, matériaux, échéancier et coordination du chantier.",

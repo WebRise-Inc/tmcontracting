@@ -506,34 +506,82 @@ export function ContactSection() {
   const businessInfo = locale === "fr"
     ? {
         company: "TMcontrc Inc.",
-        since: "Depuis 1991",
-        addressLabel: "Adresse",
-        tollFreeLabel: "Sans frais",
-        emailLabel: "Courriel",
-        websiteLabel: "Site Web",
+        legalEntity: "Canada inc.",
+        emailsLabel: "Courriels",
+        locations: [
+          {
+            label: "Siège social",
+            href: "https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2",
+            value: "247 Maloney Est, Gatineau, QC J8P 1C2",
+          },
+          {
+            label: "Centre de Montréal",
+            href: "https://maps.google.com/?q=Avenue+Rothesay+Saint-Lambert,+QC+J4R+2H5",
+            value: "Avenue Rothesay Saint-Lambert, QC J4R 2H5",
+          },
+          {
+            label: "Centre d'Ottawa",
+            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
+            value: "Walkley Rd, Ottawa, ON K1V 2J6",
+          },
+        ] as const,
+        phones: [
+          { label: "Sans frais", href: "tel:+18004300555", value: "+1 (800) 430-0555" },
+          { label: "Mobile", href: "tel:+16139148543", value: "613 914 8543" },
+        ] as const,
+        emails: [
+          "info@tmforcontracting.com",
+          "Admin@tmforcontracting.com",
+          "Payment@tmforcontracting.com",
+          "hr@tmforcontracting.com",
+        ] as const,
         registrations: [
-          ["Licence RBQ", "5859-9481"],
-          ["No de société fédérale", "1646071-2"],
+          ["RBQ", "5859-9481"],
+          ["Canada inc.", "1646071-2"],
           ["NEQ (Québec)", "1180362890"],
-          ["No TVH", "704356955 RC 0001"],
-          ["No TPS", "70435 6955 RT 0001"],
-          ["No TVQ", "12 3224 0781 IC 0001"],
+          ["HST", "704356955 RC 0001"],
+          ["GST (TPS)", "70435 6955 RT 0001"],
+          ["QST (TVQ)", "12 3224 0781 IC 0001"],
         ] as const,
       }
     : {
         company: "TMcontrc Inc.",
-        since: "Since 1991",
-        addressLabel: "Address",
-        tollFreeLabel: "Toll-Free",
-        emailLabel: "Email",
-        websiteLabel: "Website",
+        legalEntity: "Canada inc.",
+        emailsLabel: "Emails",
+        locations: [
+          {
+            label: "Head Office",
+            href: "https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2",
+            value: "247 Maloney Est, Gatineau, QC J8P 1C2",
+          },
+          {
+            label: "Montreal Hub",
+            href: "https://maps.google.com/?q=Avenue+Rothesay+Saint-Lambert,+QC+J4R+2H5",
+            value: "Avenue Rothesay Saint-Lambert, QC J4R 2H5",
+          },
+          {
+            label: "Ottawa Hub",
+            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
+            value: "Walkley Rd, Ottawa, ON K1V 2J6",
+          },
+        ] as const,
+        phones: [
+          { label: "Toll-Free", href: "tel:+18004300555", value: "+1 (800) 430-0555" },
+          { label: "Mobile", href: "tel:+16139148543", value: "613 914 8543" },
+        ] as const,
+        emails: [
+          "info@tmforcontracting.com",
+          "Admin@tmforcontracting.com",
+          "Payment@tmforcontracting.com",
+          "hr@tmforcontracting.com",
+        ] as const,
         registrations: [
-          ["RBQ Licence", "5859-9481"],
-          ["Federal Corporation No.", "1646071-2"],
+          ["RBQ", "5859-9481"],
+          ["Canada inc.", "1646071-2"],
           ["NEQ (Quebec)", "1180362890"],
-          ["HST No.", "704356955 RC 0001"],
-          ["GST (TPS) No.", "70435 6955 RT 0001"],
-          ["QST (TVQ) No.", "12 3224 0781 IC 0001"],
+          ["HST", "704356955 RC 0001"],
+          ["GST (TPS)", "70435 6955 RT 0001"],
+          ["QST (TVQ)", "12 3224 0781 IC 0001"],
         ] as const,
       }
   const tabs: { id: Tab; label: string }[] = [
@@ -609,46 +657,47 @@ export function ContactSection() {
                 <div className="space-y-4 p-6 md:p-7">
                   <div>
                     <h3 className="text-2xl text-[#24342C]" style={VOGUE}>{businessInfo.company}</h3>
-                    <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#7F8F57]" style={VOGUE}>
-                      {businessInfo.since}
+                    <p className="mt-1 text-sm tracking-[0.12em] text-[#7F8F57]" style={VOGUE}>
+                      {businessInfo.legalEntity}
                     </p>
                   </div>
 
                   <div className="space-y-3 text-sm leading-relaxed text-[#5E685F] font-sans">
-                    <p>
-                      <span className="text-[#24342C]">{businessInfo.addressLabel}:</span>{" "}
-                      <a
-                        href="https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2,+Canada"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="transition-colors hover:text-[#314B3E]"
-                      >
-                        247 Maloney Est, Gatineau, QC J8P 1C2, Canada
-                      </a>
-                    </p>
-                    <p>
-                      <span className="text-[#24342C]">{businessInfo.tollFreeLabel}:</span>{" "}
-                      <a href="tel:+18004300555" className="transition-colors hover:text-[#314B3E]">
-                        +1 (800) 430-0555
-                      </a>
-                    </p>
-                    <p>
-                      <span className="text-[#24342C]">{businessInfo.emailLabel}:</span>{" "}
-                      <a href="mailto:info@tmforcontracting.com" className="transition-colors hover:text-[#314B3E]">
-                        info@tmforcontracting.com
-                      </a>
-                    </p>
-                    <p>
-                      <span className="text-[#24342C]">{businessInfo.websiteLabel}:</span>{" "}
-                      <a
-                        href="https://www.tmforcontracting.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="transition-colors hover:text-[#314B3E]"
-                      >
-                        www.tmforcontracting.com
-                      </a>
-                    </p>
+                    {businessInfo.locations.map((location) => (
+                      <p key={location.label}>
+                        <span className="text-[#24342C]">{location.label}:</span>{" "}
+                        <a
+                          href={location.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="transition-colors hover:text-[#314B3E]"
+                        >
+                          {location.value}
+                        </a>
+                      </p>
+                    ))}
+                    {businessInfo.phones.map((phone) => (
+                      <p key={phone.label}>
+                        <span className="text-[#24342C]">{phone.label}:</span>{" "}
+                        <a href={phone.href} className="transition-colors hover:text-[#314B3E]">
+                          {phone.value}
+                        </a>
+                      </p>
+                    ))}
+                    <div>
+                      <p>
+                        <span className="text-[#24342C]">{businessInfo.emailsLabel}:</span>
+                      </p>
+                      <div className="mt-1 space-y-1">
+                        {businessInfo.emails.map((email) => (
+                          <p key={email}>
+                            <a href={`mailto:${email}`} className="transition-colors hover:text-[#314B3E]">
+                              {email}
+                            </a>
+                          </p>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
 

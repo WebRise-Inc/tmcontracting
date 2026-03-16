@@ -98,25 +98,33 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-[#24342C]/60" />
 
       {/* Province tabs — left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-0">
-        {copy.hero.provinces.map((province) => (
-          <button
-            key={province}
-            className="bg-[#F7F6F1] text-[#24342C] text-xs font-semibold tracking-widest border border-[#D6D1C4] hover:bg-[#7F8F57] hover:text-[#F7F6F1] transition-colors duration-200"
-            style={{
-              writingMode: "vertical-rl",
-              transform: "rotate(180deg)",
-              padding: "14px 8px",
-            }}
-          >
-            {province}
-          </button>
-        ))}
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 z-20">
+        <div className="relative overflow-hidden rounded-[30px] border border-[#F7F6F1]/12 bg-[#1E2D26]/42 px-2 py-3 shadow-[0_24px_50px_rgba(0,0,0,0.25)] backdrop-blur-md">
+          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#C8D87A]/20 to-transparent" />
+          <div className="relative flex flex-col gap-2">
+            {copy.hero.provinces.map((province) => (
+              <div
+                key={province}
+                className="rounded-full border border-[#F7F6F1]/10 bg-[#F7F6F1]/6 text-[#F7F6F1] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-200 hover:border-[#C8D87A]/40 hover:text-[#DCE79F]"
+                style={{
+                  writingMode: "vertical-rl",
+                  transform: "rotate(180deg)",
+                  padding: "24px 14px",
+                  textShadow: "0 2px 10px rgba(0,0,0,0.3)",
+                }}
+              >
+                <span className="block text-[0.95rem] font-semibold uppercase tracking-[0.34em] sm:text-[1.05rem]">
+                  {province}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Layout: content + brand visual */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-24">
-        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(220px,300px)] lg:gap-0">
+        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(240px,360px)] lg:gap-0">
           <div className="w-full max-w-2xl pl-24">
             {/* Static "Book a call" + dots stay in place */}
             {/* Animated content block */}
@@ -180,15 +188,15 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="relative flex justify-center lg:justify-start lg:-ml-20">
+          <div className="relative flex justify-center lg:justify-start lg:-ml-8">
             <div className="absolute inset-[12%] rounded-full bg-[#C8D87A]/16 blur-3xl" />
             <Image
-              src="/logo_LQ.png"
+              src="/images/brand/hero-logo-tm-wall-fullpage.png"
               alt={copy.navbar.logoAlt}
-              width={500}
-              height={500}
+              width={3603}
+              height={2803}
               priority
-              className="relative h-auto w-[12.5rem] object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)] sm:w-[15rem] lg:w-[18rem]"
+              className="relative h-auto w-[16rem] object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)] sm:w-[18rem] lg:w-[21rem]"
             />
           </div>
         </div>

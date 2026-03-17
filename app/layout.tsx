@@ -27,7 +27,14 @@ export async function generateMetadata(): Promise<Metadata> {
     description: siteCopy[locale].metadata.description,
     generator: 'v0.app',
     icons: {
-      icon: '/logo_LQ.png',
+      icon: [
+        {
+          url: '/favicon-triangle.png',
+          type: 'image/png',
+          sizes: '512x512',
+        },
+      ],
+      shortcut: '/favicon-triangle.png',
       apple: '/logo_LQ.png',
     },
   }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react"
 
@@ -12,18 +12,13 @@ export function AboutSection() {
   const { copy, locale } = useLocale()
   const [current, setCurrent] = useState(0)
   const [previous, setPrevious] = useState<number | null>(null)
+  const [isPaused, setIsPaused] = useState(false)
   const slides = getAboutGallerySlides(locale, copy.about.slides)
   const stats = copy.about.stats
-  const aboutSections = copy.about.sections
-  const note = copy.about.note
-  const noteSegments = note
-    ? note
-        .split(/\n+/)
-        .map((segment) => segment.trim())
-        .filter(Boolean)
-    : []
-  const noteLead = noteSegments[0] ?? note ?? ""
-  const noteDetail = noteSegments[1] ?? null
+  const aboutSections = copy.about.sections ?? []
+  const [whySection, whoSection, whereSection, ...remainingSections] = aboutSections
+  const galleryLabel = locale === "fr" ? "Galerie de projets" : "Project Gallery"
+  const warrantyLabel = locale === "fr" ? "Travaux garantis" : "Protected Workmanship"
   const totalSlides = slides.length
   const getWrappedIndex = (index: number) => (index + totalSlides) % totalSlides
 
@@ -37,8 +32,58 @@ export function AboutSection() {
     [current, totalSlides]
   )
 
-  const previewIndices = Array.from({ length: Math.min(4, totalSlides) }, (_, offset) => getWrappedIndex(current + offset))
+  const previewIndices = Array.from({ length: Math.min(4, totalSlides) }, (_, offset) =>
+    getWrappedIndex(current + offset)
+  )
   const activeSlides = previous === null ? [current] : [previous, current]
+
+  const renderSectionCard = (
+    section: { heading: string; items: string[] },
+    index: number,
+    className = ""
+  ) => {
+    const [leadItem, ...detailItems] = section.items
+
+    return (
+      <article
+        key={section.heading}
+        className={`relative overflow-hidden rounded-[30px] border border-[#D7D1C3] bg-[linear-gradient(180deg,rgba(247,246,241,0.98),rgba(238,233,221,0.9))] px-6 py-6 shadow-[0_24px_50px_rgba(36,52,44,0.08)] sm:px-7 ${className}`}
+      >
+        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#7F8F57] via-[#C8D87A] to-transparent" />
+
+        <div className="flex h-full flex-col">
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#7F8F57]">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="h-9 w-9 rounded-full border border-[#D7D1C3] bg-white/75" />
+          </div>
+
+          <div className="mt-5 flex flex-col gap-4">
+            <h3
+              className="text-[1.6rem] leading-[0.98] text-[#24342C] sm:text-[1.85rem]"
+              style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+            >
+              {section.heading}
+            </h3>
+
+            {leadItem ? <p className="text-[1rem] leading-7 text-[#314B3E]">{leadItem}</p> : null}
+
+            {detailItems.length > 0 ? (
+              <ul className="space-y-3 text-[0.95rem] leading-6 text-[#5E685F]">
+                {detailItems.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-2.5 h-[5px] w-[5px] shrink-0 rounded-full bg-[#7F8F57]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </div>
+      </article>
+    )
+  }
 
   useEffect(() => {
     if (previous === null) return
@@ -51,256 +96,226 @@ export function AboutSection() {
   }, [previous])
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    if (isPaused || totalSlides < 2) return
+
+    const timer = window.setInterval(() => {
       goTo((current + 1) % totalSlides)
-    }, 4500)
-    return () => clearInterval(timer)
-  }, [current, goTo, totalSlides])
+    }, 10000)
+
+    return () => window.clearInterval(timer)
+  }, [current, goTo, isPaused, totalSlides])
 
   return (
-    <section className="bg-[#E9E5DA] py-24 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="about" className="relative overflow-hidden bg-[#E9E5DA] px-6 py-24">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-10rem] top-16 h-[22rem] w-[22rem] rounded-full bg-[#C8D87A]/12 blur-3xl" />
+        <div className="absolute right-[-8rem] top-[-2rem] h-[20rem] w-[20rem] rounded-full bg-[#314B3E]/10 blur-3xl" />
+        <div className="absolute bottom-[-8rem] left-1/3 h-[18rem] w-[18rem] rounded-full bg-white/22 blur-3xl" />
+      </div>
 
-        {/* Section label */}
-        <p
-          className="text-xs tracking-[0.3em] uppercase text-[#7F8F57] mb-3"
-          style={{ fontFamily: "'Vogue', serif" }}
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-[#7F8F57]">
+            {copy.about.eyebrow}
+          </p>
+
+          <div className="mt-5 space-y-3">
+            {copy.about.titleLineOne ? (
+              <h2
+                className="text-[2rem] leading-[1.02] text-[#24342C] sm:text-[2.55rem] xl:text-[3.15rem]"
+                style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+              >
+                {copy.about.titleLineOne}
+              </h2>
+            ) : null}
+
+            {copy.about.titleLineTwo ? (
+              <p
+                className="mx-auto max-w-3xl text-[1.2rem] leading-[1.12] text-[#314B3E] sm:text-[1.45rem] xl:text-[1.75rem]"
+                style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+              >
+                {copy.about.titleLineTwo}
+              </p>
+            ) : null}
+          </div>
+        </div>
+
+        {aboutSections.length > 0 ? (
+          <>
+            {whySection && whoSection && whereSection ? (
+              <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-stretch">
+                <div className="flex flex-col gap-5">
+                  {renderSectionCard(whySection, 0)}
+
+                  <div className="overflow-hidden rounded-[30px] border border-[#D7D1C3] bg-[#F7F6F1]/94 px-6 py-6 shadow-[0_22px_60px_rgba(36,52,44,0.08)] backdrop-blur-sm sm:px-7 sm:py-7">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#D6D1C4] bg-white text-[#7F8F57] shadow-[0_12px_24px_rgba(36,52,44,0.06)]">
+                        <ShieldCheck className="h-5 w-5" />
+                      </div>
+
+                      <div className="space-y-3">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#7F8F57]">
+                          {warrantyLabel}
+                        </p>
+                        <p
+                          className="text-[1.38rem] leading-tight text-[#24342C] sm:text-[1.55rem]"
+                          style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                        >
+                          {copy.about.warranty.title}
+                        </p>
+                        <p className="max-w-2xl text-[1rem] leading-7 text-[#4F5951]">
+                          {copy.about.warranty.body}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                      {stats.map((stat) => (
+                        <div
+                          key={stat.label}
+                          className="rounded-[20px] border border-[#D8D2C4] bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(236,232,221,0.92))] px-4 py-4"
+                        >
+                          <span
+                            className="block text-[1.55rem] leading-none text-[#24342C]"
+                            style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                          >
+                            {stat.value}
+                          </span>
+                          <span className="mt-2 block text-[0.94rem] leading-6 text-[#5E685F]">
+                            {stat.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-5 lg:h-full">
+                  {renderSectionCard(whoSection, 1, "lg:flex-1")}
+                  {renderSectionCard(whereSection, 2, "lg:flex-1")}
+                </div>
+              </div>
+            ) : (
+              <div className="mt-12 grid gap-5 lg:grid-cols-3 lg:items-start">
+                {aboutSections.map((section, index) => renderSectionCard(section, index))}
+              </div>
+            )}
+
+            {remainingSections.length > 0 ? (
+              <div className="mt-5 grid gap-5 lg:grid-cols-3 lg:items-start">
+                {remainingSections.map((section, index) => renderSectionCard(section, index + 3))}
+              </div>
+            ) : null}
+          </>
+        ) : (
+          <div className="mx-auto mt-12 max-w-4xl rounded-[30px] border border-[#D7D1C3] bg-[#F7F6F1]/94 px-6 py-6 shadow-[0_24px_50px_rgba(36,52,44,0.08)] sm:px-7 sm:py-7">
+            <div className="flex flex-col gap-5 text-[1.02rem] leading-8 text-[#5E685F]">
+              {copy.about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div
+          className="mt-8 overflow-hidden rounded-[34px] border border-[#D7D1C3] bg-[#24342C] shadow-[0_36px_90px_rgba(36,52,44,0.18)]"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
-          {copy.about.eyebrow}
-        </p>
+          <div className="relative aspect-[11/9] sm:aspect-[16/10]">
+            {activeSlides.map((slideIndex) => {
+              const slide = slides[slideIndex]
+              const isCurrent = slideIndex === current
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-stretch">
+              return (
+                <div
+                  key={slide.src}
+                  className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                  style={{ opacity: isCurrent ? 1 : 0, pointerEvents: isCurrent ? "auto" : "none" }}
+                >
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    className="object-cover"
+                    priority={slideIndex === 0}
+                  />
+                </div>
+              )
+            })}
 
-          {/* LEFT — Slideshow */}
-          <div className="flex flex-col gap-4 lg:h-full">
-            {/* Main slide */}
-            <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#24342C]/10">
-              {activeSlides.map((slideIndex) => {
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(12,18,15,0.12),transparent_40%,rgba(12,18,15,0.72))]" />
+
+            <div className="absolute inset-x-0 bottom-0 px-5 pb-5 pt-12 sm:px-6 sm:pb-6">
+              <ProjectLocationChip label={slides[current].locationLabel} compact />
+            </div>
+          </div>
+
+          <div className="border-t border-[#D7D1C3] bg-[#F7F6F1]/96 px-5 py-4 sm:px-6 sm:py-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div className="space-y-1.5">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#7F8F57]">
+                  {galleryLabel}
+                </p>
+                <p
+                  className="text-[1.75rem] leading-none text-[#24342C] sm:text-[2rem]"
+                  style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                >
+                  {String(current + 1).padStart(2, "0")}
+                  <span className="ml-2 text-sm text-[#7F8F57] sm:text-base">
+                    / {String(totalSlides).padStart(2, "0")}
+                  </span>
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => goTo(current - 1)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D6D1C4] bg-white text-[#24342C] transition-colors hover:border-[#314B3E] hover:bg-[#314B3E] hover:text-[#F7F6F1]"
+                  aria-label={`${copy.about.goToSlide} ${getWrappedIndex(current - 1) + 1}`}
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => goTo(current + 1)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D6D1C4] bg-white text-[#24342C] transition-colors hover:border-[#314B3E] hover:bg-[#314B3E] hover:text-[#F7F6F1]"
+                  aria-label={`${copy.about.goToSlide} ${getWrappedIndex(current + 1) + 1}`}
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {previewIndices.map((slideIndex) => {
                 const slide = slides[slideIndex]
-                const isCurrent = slideIndex === current
+                const isActive = slideIndex === current
 
                 return (
-                  <div
-                    key={slide.src}
-                    className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-                    style={{ opacity: isCurrent ? 1 : 0, pointerEvents: isCurrent ? "auto" : "none" }}
+                  <button
+                    key={`${slide.src}-${slideIndex}`}
+                    onClick={() => goTo(slideIndex)}
+                    className={`group relative aspect-square overflow-hidden rounded-[14px] border transition duration-200 ${
+                      isActive
+                        ? "border-[#24342C] shadow-[0_10px_24px_rgba(36,52,44,0.16)]"
+                        : "border-[#D6D1C4] hover:-translate-y-0.5 hover:border-[#7F8F57]"
+                    }`}
+                    aria-label={`${copy.about.goToSlide} ${slideIndex + 1}`}
+                    aria-pressed={isActive}
                   >
                     <Image
                       src={slide.src}
                       alt={slide.alt}
                       fill
-                      className="object-cover"
-                      priority={slideIndex === 0}
+                      className={`object-cover transition-transform duration-500 ${
+                        isActive ? "scale-100" : "group-hover:scale-105"
+                      }`}
                     />
-                  </div>
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,22,18,0.08),rgba(16,22,18,0.5))]" />
+                  </button>
                 )
               })}
-
-              <div className="absolute left-4 top-4">
-                <ProjectLocationChip label={slides[current].locationLabel} />
-              </div>
-
-              {/* Counter badge */}
-              <div
-                className="absolute bottom-4 right-4 px-3 py-1 bg-[#24342C]/70 text-[#F7F6F1] text-xs tracking-widest"
-                style={{ fontFamily: "'Vogue', serif" }}
-              >
-                {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-              </div>
             </div>
-
-            <div className="rounded-[28px] border border-[#D6D1C4] bg-[#F7F6F1]/80 p-4 shadow-[0_24px_48px_rgba(36,52,44,0.08)] backdrop-blur-sm sm:p-5">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-end gap-3">
-                  <span className="text-3xl leading-none text-[#24342C]" style={{ fontFamily: "'Vogue', serif" }}>
-                    {String(current + 1).padStart(2, "0")}
-                  </span>
-                  <span className="pb-1 text-[11px] uppercase tracking-[0.32em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
-                    / {String(totalSlides).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => goTo(current - 1)}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D6D1C4] bg-white/70 text-[#24342C] transition-colors hover:border-[#314B3E] hover:bg-[#314B3E] hover:text-[#F7F6F1]"
-                    aria-label={`${copy.about.goToSlide} ${getWrappedIndex(current - 1) + 1}`}
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={() => goTo(current + 1)}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D6D1C4] bg-white/70 text-[#24342C] transition-colors hover:border-[#314B3E] hover:bg-[#314B3E] hover:text-[#F7F6F1]"
-                    aria-label={`${copy.about.goToSlide} ${getWrappedIndex(current + 1) + 1}`}
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-                {previewIndices.map((slideIndex) => {
-                  const slide = slides[slideIndex]
-                  const isActive = slideIndex === current
-
-                  return (
-                    <button
-                      key={`${slide.src}-${slideIndex}`}
-                      onClick={() => goTo(slideIndex)}
-                      className={`group relative aspect-[5/4] overflow-hidden border text-left transition-all duration-300 focus:outline-none ${
-                        isActive
-                          ? "border-[#24342C] shadow-[0_18px_36px_rgba(36,52,44,0.16)]"
-                          : "border-[#D6D1C4] hover:-translate-y-0.5 hover:border-[#7F8F57]"
-                      }`}
-                      aria-label={`${copy.about.goToSlide} ${slideIndex + 1}`}
-                    >
-                      <Image
-                        src={slide.src}
-                        alt={slide.alt}
-                        fill
-                        className={`object-cover transition-transform duration-700 ${isActive ? "scale-100" : "group-hover:scale-105"}`}
-                      />
-                      <div className={`absolute inset-0 bg-gradient-to-t ${isActive ? "from-[#24342C]/80 via-[#24342C]/15 to-transparent" : "from-[#24342C]/72 via-[#24342C]/12 to-transparent"}`} />
-                      <div className="absolute inset-x-0 bottom-0 p-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-[11px] uppercase tracking-[0.32em] text-[#F7F6F1]" style={{ fontFamily: "'Vogue', serif" }}>
-                            {String(slideIndex + 1).padStart(2, "0")}
-                          </span>
-                          <span className={`h-2.5 w-2.5 rounded-full transition-colors ${isActive ? "bg-[#C8D87A]" : "bg-white/35 group-hover:bg-white/60"}`} />
-                        </div>
-                      </div>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            {note ? (
-              <div className="relative overflow-hidden rounded-[28px] border border-[#D6D1C4] bg-[#F7F6F1]/88 px-6 py-6 shadow-[0_24px_48px_rgba(36,52,44,0.08)] backdrop-blur-sm sm:px-7 sm:py-7">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7F8F57]/75 to-transparent" />
-                <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#C8D87A] via-[#A7BA73] to-transparent" />
-                <div className="absolute right-8 top-8 h-20 w-20 rounded-full bg-[#C8D87A]/10 blur-2xl" />
-
-                <div className="relative flex flex-col gap-5 pl-2 sm:pl-3">
-                  <div className="flex items-center gap-3">
-                    <span className="h-px w-14 bg-gradient-to-r from-[#7F8F57] to-transparent" />
-                    <span
-                      className="text-[0.65rem] uppercase tracking-[0.34em] text-[#7F8F57]"
-                      style={{ fontFamily: "'Vogue', serif" }}
-                    >
-                      Built To Deliver
-                    </span>
-                  </div>
-
-                  <p
-                    className="max-w-2xl text-[1.55rem] leading-[1.04] text-[#24342C] sm:text-[1.8rem] md:text-[2rem]"
-                    style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
-                  >
-                    {noteLead}
-                  </p>
-
-                  {noteDetail ? (
-                    <p className="max-w-2xl text-[1.02rem] font-semibold leading-[1.72] text-[#314B3E] sm:text-[1.08rem]">
-                      {noteDetail}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-
-            <div className="overflow-hidden rounded-[28px] border border-[#D6D1C4] bg-[#F7F6F1]/90 shadow-[0_24px_48px_rgba(36,52,44,0.08)] backdrop-blur-sm lg:flex-1 lg:flex lg:flex-col">
-              <div className="relative border-b border-[#DDD7C9] px-6 py-6 sm:px-7">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7F8F57]/60 to-transparent" />
-                <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#7F8F57] via-[#C8D87A] to-transparent" />
-
-                <div className="flex items-start gap-4 pl-2 sm:pl-3">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#D6D1C4] bg-white/75 text-[#7F8F57] shadow-[0_14px_30px_rgba(36,52,44,0.08)]">
-                    <ShieldCheck className="h-5 w-5" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <p
-                      className="text-[0.72rem] uppercase tracking-[0.3em] text-[#7F8F57]"
-                      style={{ fontFamily: "'Vogue', serif" }}
-                    >
-                      Protected Workmanship
-                    </p>
-                    <p
-                      className="text-[1.2rem] leading-tight text-[#24342C] sm:text-[1.35rem]"
-                      style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
-                    >
-                      {copy.about.warranty.title}
-                    </p>
-                    <p className="max-w-xl text-sm leading-relaxed text-[#5E685F] sm:text-[0.97rem]">
-                      {copy.about.warranty.body}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-px bg-[#D6D1C4] lg:flex-1">
-                {stats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex min-h-[132px] flex-col justify-end gap-2 bg-[#F7F6F1]/96 px-6 py-5 sm:px-7"
-                  >
-                    <span
-                      className="text-[2rem] leading-none text-[#24342C] sm:text-[2.25rem]"
-                      style={{ fontFamily: "'Vogue', serif" }}
-                    >
-                      {stat.value}
-                    </span>
-                    <span className="max-w-[12rem] text-sm leading-snug text-[#5E685F]">
-                      {stat.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-
-          {/* RIGHT — Content */}
-          <div className="flex flex-col gap-8 lg:h-full lg:justify-between">
-            {aboutSections && aboutSections.length > 0 ? (
-              <div className="flex flex-col gap-7 text-[#5E685F]">
-                {aboutSections.map((section) => (
-                  <div key={section.heading} className="border-l-[3px] border-[#C8D87A] pl-5 sm:pl-6">
-                    <h3
-                      className="mb-4 text-[1.75rem] leading-none text-[#24342C] sm:text-[2rem] md:text-[2.2rem]"
-                      style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
-                    >
-                      {section.heading}
-                    </h3>
-                    <ul className="flex flex-col gap-3 font-sans text-base leading-relaxed">
-                      {section.items.map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#7F8F57] shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-5 text-[#5E685F] leading-relaxed font-sans text-base">
-                {copy.about.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            )}
-
-            {/* CTA */}
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 self-start px-6 py-3 bg-[#314B3E] text-[#F7F6F1] text-sm tracking-widest uppercase hover:bg-[#7F8F57] transition-colors duration-300"
-              style={{ fontFamily: "'Vogue', serif" }}
-            >
-              {copy.about.cta}
-              <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </div>

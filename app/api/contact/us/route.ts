@@ -36,7 +36,12 @@ function getResendClient() {
 export async function POST(request: NextRequest) {
   try {
     const resend = getResendClient()
-    const { name, phone, preferredWindow, preferredTime, locale: localeValue } = await request.json()
+    const { name, phone, email, sector, preferredWindow, preferredTime, locale: localeValue } = await request.json()
+
+    if (!name || !phone || !email || !sector) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
     const locale = isLocale(localeValue) ? localeValue : defaultLocale
     const copy = siteCopy[locale].emails.contact
     const formattedPreferredTime = formatPreferredTime(preferredTime, locale)
@@ -50,6 +55,8 @@ export async function POST(request: NextRequest) {
         <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse;width:100%">
           <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.name}</td><td style="padding:8px">${name}</td></tr>
           <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.phone}</td><td style="padding:8px">${phone}</td></tr>
+          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.email}</td><td style="padding:8px">${email}</td></tr>
+          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.sector}</td><td style="padding:8px">${sector}</td></tr>
           ${preferredWindow ? `<tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.preferredWindow}</td><td style="padding:8px">${preferredWindow}</td></tr>` : ""}
           ${formattedPreferredTime ? `<tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.preferredTime}</td><td style="padding:8px">${formattedPreferredTime}</td></tr>` : ""}
         </table>

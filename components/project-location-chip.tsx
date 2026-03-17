@@ -8,7 +8,7 @@ type ProjectLocationChipProps = {
 export function ProjectLocationChip({ label, compact = false }: ProjectLocationChipProps) {
   return (
     <div
-      className={`relative inline-flex max-w-full items-center gap-2 overflow-hidden rounded-[3px] border border-white/18 bg-[linear-gradient(135deg,rgba(18,27,22,0.94),rgba(36,52,44,0.88))] text-[#F7F6F1] shadow-[0_22px_42px_rgba(0,0,0,0.28)] backdrop-blur-xl ${
+      className={`relative inline-flex max-w-full items-center gap-2 overflow-hidden rounded-full border border-white/16 bg-[linear-gradient(135deg,rgba(13,19,16,0.74),rgba(28,39,33,0.68))] text-[#F7F6F1] shadow-[0_16px_32px_rgba(0,0,0,0.18)] backdrop-blur-md ${
         compact ? "px-2.5 py-1.5 text-[11px]" : "px-3.5 py-2 text-[13px]"
       }`}
     >

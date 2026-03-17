@@ -63,10 +63,10 @@ type ServicePageLocale = {
 }
 
 const galleryCounts: Record<ServiceSlug, number> = {
-  renovation: 12,
-  concrete: 10,
+  renovation: 33,
+  concrete: 16,
   "excavation-lifting": 10,
-  "new-construction": 4,
+  "new-construction": 11,
 }
 
 type HomepageServiceGallerySlide = {
@@ -83,27 +83,31 @@ export type ServiceGalleryImage = {
 // Curated homepage subsets prioritize variety inside the tighter card crop.
 const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide[]> = {
   renovation: [
-    { src: "/images/service-galleries/renovation/03.jpeg", locationLabel: getSampleProjectLocation(0) },
-    { src: "/images/service-galleries/renovation/05.jpeg", locationLabel: getSampleProjectLocation(1) },
-    { src: "/images/service-galleries/renovation/08.jpeg", locationLabel: getSampleProjectLocation(2) },
-    { src: "/images/service-galleries/renovation/12.jpeg", locationLabel: getSampleProjectLocation(3), objectPosition: "center 38%" },
+    { src: "/images/homepage-service-slides/renovation/01.jpeg", locationLabel: getSampleProjectLocation(0) },
+    { src: "/images/homepage-service-slides/renovation/02.jpeg", locationLabel: getSampleProjectLocation(1) },
+    { src: "/images/homepage-service-slides/renovation/03.jpeg", locationLabel: getSampleProjectLocation(2) },
+    { src: "/images/homepage-service-slides/renovation/04.jpeg", locationLabel: getSampleProjectLocation(3) },
+    { src: "/images/homepage-service-slides/renovation/05.jpeg", locationLabel: getSampleProjectLocation(4) },
   ],
   concrete: [
-    { src: "/images/service-galleries/concrete/01.jpeg", locationLabel: getSampleProjectLocation(4) },
-    { src: "/images/service-galleries/concrete/06.jpeg", locationLabel: getSampleProjectLocation(5), objectPosition: "center 44%" },
-    { src: "/images/service-galleries/concrete/07.jpeg", locationLabel: getSampleProjectLocation(6) },
-    { src: "/images/service-galleries/concrete/10.jpeg", locationLabel: getSampleProjectLocation(7) },
+    { src: "/images/homepage-service-slides/concrete/01.jpeg", locationLabel: getSampleProjectLocation(5) },
+    { src: "/images/homepage-service-slides/concrete/02.jpeg", locationLabel: getSampleProjectLocation(6) },
+    { src: "/images/homepage-service-slides/concrete/03.jpeg", locationLabel: getSampleProjectLocation(7) },
+    { src: "/images/homepage-service-slides/concrete/04.jpeg", locationLabel: getSampleProjectLocation(8) },
+    { src: "/images/homepage-service-slides/concrete/05.jpeg", locationLabel: getSampleProjectLocation(9) },
   ],
   "excavation-lifting": [
-    { src: "/images/service-galleries/excavation-lifting/01.jpeg", locationLabel: getSampleProjectLocation(8) },
-    { src: "/images/service-galleries/excavation-lifting/03.jpeg", locationLabel: getSampleProjectLocation(9) },
-    { src: "/images/service-galleries/excavation-lifting/06.jpeg", locationLabel: getSampleProjectLocation(0) },
-    { src: "/images/service-galleries/excavation-lifting/10.jpeg", locationLabel: getSampleProjectLocation(1) },
+    { src: "/images/homepage-service-slides/excavation-lifting/01.jpeg", locationLabel: getSampleProjectLocation(10) },
+    { src: "/images/homepage-service-slides/excavation-lifting/02.jpeg", locationLabel: getSampleProjectLocation(11) },
+    { src: "/images/homepage-service-slides/excavation-lifting/03.jpeg", locationLabel: getSampleProjectLocation(12) },
+    { src: "/images/homepage-service-slides/excavation-lifting/04.jpeg", locationLabel: getSampleProjectLocation(13) },
+    { src: "/images/homepage-service-slides/excavation-lifting/05.jpeg", locationLabel: getSampleProjectLocation(14) },
   ],
   "new-construction": [
-    { src: "/images/service-galleries/new-construction/02.jpeg", locationLabel: getSampleProjectLocation(2) },
-    { src: "/images/service-galleries/new-construction/03.jpeg", locationLabel: getSampleProjectLocation(3) },
-    { src: "/images/service-galleries/new-construction/04.jpeg", locationLabel: getSampleProjectLocation(4) },
+    { src: "/images/homepage-service-slides/new-construction/01.jpeg", locationLabel: getSampleProjectLocation(15) },
+    { src: "/images/homepage-service-slides/new-construction/02.jpeg", locationLabel: getSampleProjectLocation(16) },
+    { src: "/images/homepage-service-slides/new-construction/03.jpeg", locationLabel: getSampleProjectLocation(17) },
+    { src: "/images/homepage-service-slides/new-construction/04.jpeg", locationLabel: getSampleProjectLocation(18) },
   ],
 }
 

@@ -59,11 +59,28 @@ export function HeroSection() {
       video.playbackRate = 0.72
     }
 
+    const ensurePlayback = () => {
+      const playback = video.play()
+      if (playback && typeof playback.catch === "function") {
+        playback.catch(() => {})
+      }
+    }
+
+    const restartLoop = () => {
+      video.currentTime = 0
+      ensurePlayback()
+    }
+
     syncPlaybackRate()
+    ensurePlayback()
     video.addEventListener("loadeddata", syncPlaybackRate)
+    video.addEventListener("canplay", ensurePlayback)
+    video.addEventListener("ended", restartLoop)
 
     return () => {
       video.removeEventListener("loadeddata", syncPlaybackRate)
+      video.removeEventListener("canplay", ensurePlayback)
+      video.removeEventListener("ended", restartLoop)
     }
   }, [])
 
@@ -84,14 +101,12 @@ export function HeroSection() {
         autoPlay
         muted
         loop
+        preload="auto"
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden="true"
       >
-        <source
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0307%20%281%29-1KIrAJJC7ATtGc3nieiOPQiuccBUUE.mp4"
-          type="video/mp4"
-        />
+        <source src="/videos/hero-homepage-0317.webm" type="video/webm" />
       </video>
 
       {/* Overlay */}
@@ -124,7 +139,7 @@ export function HeroSection() {
 
       {/* Layout: content + brand visual */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-24">
-        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(240px,360px)] lg:gap-0">
+        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(300px,480px)] lg:gap-0">
           <div className="w-full pl-20 sm:pl-24">
             {/* Static "Book a call" + dots stay in place */}
             {/* Animated content block */}
@@ -188,16 +203,18 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="relative flex justify-center lg:justify-start lg:-ml-8">
+          <div className="relative flex justify-center lg:justify-start lg:-ml-10">
             <div className="absolute inset-[12%] rounded-full bg-[#C8D87A]/16 blur-3xl" />
-            <Image
-              src="/images/brand/hero-logo-tm-wall-fullpage.png"
-              alt={copy.navbar.logoAlt}
-              width={3603}
-              height={2803}
-              priority
-              className="relative h-auto w-[17rem] object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)] sm:w-[19rem] lg:w-[22.5rem]"
-            />
+            <div className="relative w-full max-w-[20rem] sm:max-w-[23rem] lg:max-w-[29rem]">
+              <Image
+                src="/images/brand/hero-logo-tm-wall-fullpage.png"
+                alt={copy.navbar.logoAlt}
+                width={3603}
+                height={2803}
+                priority
+                className="relative h-auto w-full object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)]"
+              />
+            </div>
           </div>
         </div>
       </div>

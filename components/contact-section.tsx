@@ -433,6 +433,8 @@ function ContactUsForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) 
       body: JSON.stringify({
         name: fd.get("name"),
         phone: fd.get("phone"),
+        email: fd.get("email"),
+        sector: fd.get("sector"),
         preferredWindow: fd.get("preferredWindow"),
         preferredTime: fd.get("preferredTime"),
         locale,
@@ -458,6 +460,14 @@ function ContactUsForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) 
     <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <Field label={copy.forms.contact.name} name="name" placeholder="Jean Martin" />
       <Field label={copy.forms.contact.phone} name="phone" type="tel" placeholder="+1 (819) 000-0000" />
+      <Field label={copy.forms.contact.email} name="email" type="email" placeholder="info@email.com" />
+      <Field
+        label={copy.forms.contact.sector}
+        name="sector"
+        as="select"
+        placeholder={copy.forms.contact.sectorPlaceholder}
+        selectOptions={copy.forms.contact.sectorOptions}
+      />
       <div className="sm:col-span-2">
         <Field
           label={copy.forms.contact.preferredWindow}
@@ -694,26 +704,34 @@ export function ContactSection() {
                 </div>
 
                 <div className="border-t border-[#D6D1C4] p-6 md:border-l md:border-t-0 md:p-7">
-                  <div className="space-y-6 text-sm leading-relaxed text-[#5E685F] font-sans">
-                    <div className="space-y-3">
+                  <div className="space-y-4 text-[0.92rem] leading-snug text-[#5E685F] font-sans">
+                    <div className="space-y-4">
                       {businessInfo.phones.map((phone) => (
-                        <p key={phone.label}>
-                          <span className="text-[#24342C]">{phone.label}:</span>{" "}
-                          <a href={phone.href} className="transition-colors hover:text-[#314B3E]">
+                        <div key={phone.label} className="space-y-1">
+                          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#7F8F57]">
+                            {phone.label}:
+                          </p>
+                          <a
+                            href={phone.href}
+                            className="block text-[1.18rem] leading-tight text-[#24342C] transition-colors hover:text-[#314B3E] sm:text-[1.28rem]"
+                            style={VOGUE}
+                          >
                             {phone.value}
                           </a>
-                        </p>
+                        </div>
                       ))}
                     </div>
 
                     <div className="h-px w-full bg-[#D6D1C4]" />
 
-                    {businessInfo.registrations.map(([label, value]) => (
-                      <p key={label}>
-                        <span className="text-[#24342C]">{label}:</span>{" "}
-                        <span>{value}</span>
-                      </p>
-                    ))}
+                    <div className="space-y-1.5 text-[0.82rem] leading-5">
+                      {businessInfo.registrations.map(([label, value]) => (
+                        <p key={label}>
+                          <span className="text-[#24342C]">{label}:</span>{" "}
+                          <span>{value}</span>
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

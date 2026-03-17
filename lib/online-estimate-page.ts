@@ -46,10 +46,10 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
     metadata: {
       title: "Online Estimate | TM Contracting",
       description:
-        "Book a date and time to speak with TM Contracting online. Select a calendar date, choose a time slot, and submit your contact details.",
+        "Book a time with TM Contracting using the online appointment calendar.",
     },
     title: "Book a Time to Speak With TM Contracting",
-    intro: "Choose an available date, pick a time slot, and send your contact details.",
+    intro: "Use the online booking calendar below to choose the appointment time that works best for you.",
     booking: {
       availableDates: "Available Dates",
       preferredTime: "Preferred Time",
@@ -87,10 +87,10 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
     metadata: {
       title: "Estimation en ligne | TM Contracting",
       description:
-        "Réservez une date et une heure pour parler à TM Contracting en ligne. Sélectionnez une date, choisissez une plage horaire et envoyez vos coordonnées.",
+        "Réservez un moment avec TM Contracting à l'aide du calendrier de rendez-vous en ligne.",
     },
     title: "Réservez un moment pour parler à TM Contracting",
-    intro: "Choisissez une date disponible, sélectionnez une plage horaire et envoyez vos coordonnées.",
+    intro: "Utilisez le calendrier de réservation ci-dessous pour choisir le moment qui vous convient.",
     booking: {
       availableDates: "Dates disponibles",
       preferredTime: "Heure souhaitée",

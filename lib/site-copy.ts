@@ -38,6 +38,52 @@ type AboutContentSection = {
   items: string[]
 }
 
+const contactSectorOptionsEn = [
+  "Gatineau",
+  "Aylmer",
+  "Hull",
+  "Buckingham",
+  "Masson-Angers",
+  "Chelsea",
+  "Cantley",
+  "Val-des-Monts",
+  "Wakefield",
+  "Ottawa",
+  "Kanata",
+  "Nepean",
+  "Orleans",
+  "Barrhaven",
+  "Montreal",
+  "Laval",
+  "Longueuil",
+  "Terrebonne",
+  "Repentigny",
+  "Other",
+] as const
+
+const contactSectorOptionsFr = [
+  "Gatineau",
+  "Aylmer",
+  "Hull",
+  "Buckingham",
+  "Masson-Angers",
+  "Chelsea",
+  "Cantley",
+  "Val-des-Monts",
+  "Wakefield",
+  "Ottawa",
+  "Kanata",
+  "Nepean",
+  "Orleans",
+  "Barrhaven",
+  "Montreal",
+  "Laval",
+  "Longueuil",
+  "Terrebonne",
+  "Repentigny",
+  "Autre",
+] as const
+
 export type SiteCopy = {
   metadata: {
     title: string
@@ -139,6 +185,10 @@ export type SiteCopy = {
       contact: {
         name: string
         phone: string
+        email: string
+        sector: string
+        sectorPlaceholder: string
+        sectorOptions: string[]
         preferredWindow: string
         preferredTimeToggle: string
         preferredTimeHint: string
@@ -157,6 +207,8 @@ export type SiteCopy = {
       heading: string
       name: string
       phone: string
+      email: string
+      sector: string
       preferredWindow: string
       preferredTime: string
     }
@@ -267,8 +319,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     },
     about: {
       eyebrow: "About Us",
-      titleLineOne: "Built on Trust.",
-      titleLineTwo: "Backed by Results.",
+      titleLineOne: "Try us and you'll see that it's not just website text",
+      titleLineTwo: "it's how our company is structured to plan, manage and deliver every project.",
       slides: [
         { src: "/images/about-real/about-01.jpeg", alt: "TM Contracting project photo 1" },
         { src: "/images/about-real/about-02.jpeg", alt: "TM Contracting project photo 2" },
@@ -291,8 +343,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         { src: "/images/about-real/about-19.jpeg", alt: "TM Contracting project photo 19" },
       ],
       goToSlide: "Go to slide",
-      note:
-        "Try us and you'll see that it's not just website text\n\nit's how our company is structured to plan, manage and deliver every project.",
+      note: "",
       paragraphs: [],
       sections: [
         {
@@ -399,6 +450,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         contact: {
           name: "Name",
           phone: "Phone Number",
+          email: "Email",
+          sector: "Sector",
+          sectorPlaceholder: "Select your sector...",
+          sectorOptions: [...contactSectorOptionsEn],
           preferredWindow: "Preferred Time to Call",
           preferredTimeToggle: "I have a specific time I would like to be called",
           preferredTimeHint: "Only choose this if you want us to call at a custom date and time.",
@@ -417,6 +472,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         heading: "New Contact Request",
         name: "Name",
         phone: "Phone",
+        email: "Email",
+        sector: "Sector",
         preferredWindow: "Preferred Time to Call",
         preferredTime: "Preferred Date & Time to Call",
       },
@@ -525,8 +582,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     },
     about: {
       eyebrow: "À propos",
-      titleLineOne: "Batie sur la confiance.",
-      titleLineTwo: "Portee par les resultats.",
+      titleLineOne: "Essayez-nous et vous verrez que ce n'est pas juste du texte sur un site web",
+      titleLineTwo: "c'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
       slides: [
         { src: "/images/about-real/about-01.jpeg", alt: "Photo de projet TM Contracting 1" },
         { src: "/images/about-real/about-02.jpeg", alt: "Photo de projet TM Contracting 2" },
@@ -549,19 +606,45 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         { src: "/images/about-real/about-19.jpeg", alt: "Photo de projet TM Contracting 19" },
       ],
       goToSlide: "Aller à la diapositive",
-      note:
-        "Essayez-nous et vous verrez que ce n'est pas juste du texte de site web\n\nc'est la façon dont notre entreprise est structurée pour planifier, gérer et livrer chaque projet.",
-      paragraphs: [
-        "TM Contracting est un nom de confiance dans la construction depuis 1991 - avec plus de 15 ans d'expérience concrète à transformer des propriétés partout au Québec et en Ontario.",
-        "Nous prenons tout en charge, de l'excavation à la remise des clés, comme une seule équipe unifiée. Pas de rotation interminable de sous-traitants, pas de mauvaise communication, pas de renvoi de responsabilité. Une équipe responsable gère chaque phase - planification, corps de métier, matériaux, échéancier et coordination du chantier.",
-        "Ce qui nous distingue est simple : nous traitons votre projet comme si c'était le nôtre. Cela signifie arriver à temps, être transparents à chaque étape et assumer pleinement notre travail.",
+      note: "",
+      paragraphs: [],
+      sections: [
+        {
+          heading: "Pourquoi nous ?",
+          items: [
+            "Nous ne vendons pas simplement des services - nous investissons dans des clients satisfaits et une confiance durable.",
+            "Nous visons une exécution fluide et propre : des étapes claires, un chantier propre et aucun chaos.",
+            "Nous relevons les défis complexes et trouvons des solutions concrètes lorsque les conditions changent sur le chantier.",
+            "Contrôle de qualité rigoureux avec une équipe interne formée et un minimum de sous-traitance.",
+            "Une vraie valeur : une planification efficace pour garder des prix compétitifs sans compromis sur la qualité.",
+            "Excellent service après-travaux : nous restons disponibles, nous répondons aux questions et nous assumons notre travail.",
+            "Exécution organisée : vous restez informé à chaque étape, et même pour les petits projets nous assignons un administrateur, un chargé de projet et un responsable de chantier avec une équipe dédiée pour que tout reste sur la bonne voie.",
+          ],
+        },
+        {
+          heading: "Qui sommes-nous ?",
+          items: [
+            "Une entreprise professionnelle en construction et en rénovation fondée sur une vraie expérience de terrain et un service centré sur le client.",
+            "Une gestion concrète avec une communication claire, une bonne planification et une discipline de chantier.",
+            "Des travaux exécutés principalement par des employés internes formés, avec une sous-traitance limitée pour garder une qualité constante.",
+            "Une structure d'équipe adaptée à chaque projet : administrateur + chargé de projet + responsable de chantier + équipe, même pour les plus petits mandats.",
+          ],
+        },
+        {
+          heading: "Où ?",
+          items: [
+            "Basés à Gatineau, Ottawa et Montréal.",
+            "Nous desservons toutes les villes situées dans un rayon d'environ 2 heures de ces secteurs.",
+            "Exemples : Aylmer, Hull, Buckingham, Masson-Angers, Chelsea, Cantley, Val-des-Monts, Wakefield, la région d'Ottawa (Kanata, Nepean, Orleans, Barrhaven) et la région de Montréal (Laval, Longueuil, Terrebonne, Repentigny).",
+          ],
+        },
       ],
       warranty: {
         title: "Garantie sans risque de 3 ans",
         body: "Chaque projet que nous réalisons est couvert à 100 %. Si quelque chose n'est pas conforme à ce que nous avons fait, nous le corrigeons - sans débat et sans excuse. Une vraie tranquillité d'esprit, soutenue par une vraie responsabilité.",
       },
       stats: [
-        { value: "15+", label: "Ans d'expérience" },
+        { value: "15+", label: "Années d'expérience" },
         { value: "500+", label: "Projets réalisés" },
         { value: "3 ans", label: "Garantie sans risque" },
         { value: "A à Z", label: "Une équipe, chaque étape" },
@@ -625,11 +708,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
           address: "Adresse du projet",
           description: "Description du projet",
           descriptionPlaceholder: "Décrivez l'ampleur des travaux, l'échéancier et toute exigence particulière...",
-          photos: "Photos du projet (plusieurs permises)",
+          photos: "Photos du chantier ou dessin existant",
         },
         contact: {
           name: "Nom",
           phone: "Numéro de téléphone",
+          email: "Courriel",
+          sector: "Secteur",
+          sectorPlaceholder: "Sélectionnez votre secteur...",
+          sectorOptions: [...contactSectorOptionsFr],
           preferredWindow: "Moment préféré pour l'appel",
           preferredTimeToggle: "J'ai un moment précis où je souhaite être appelé",
           preferredTimeHint: "Choisissez cette option seulement si vous voulez un appel à une date et une heure précises.",
@@ -648,6 +735,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         heading: "Nouvelle demande de contact",
         name: "Nom",
         phone: "Téléphone",
+        email: "Courriel",
+        sector: "Secteur",
         preferredWindow: "Moment préféré pour l'appel",
         preferredTime: "Date et heure préférées pour l'appel",
       },

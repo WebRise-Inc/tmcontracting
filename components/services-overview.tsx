@@ -9,6 +9,12 @@ import { useLocale } from "@/components/locale-provider"
 import { getHomepageServiceGallerySlides, isServiceSlug } from "@/lib/service-pages"
 import { getSampleProjectLocation } from "@/lib/sample-project-locations"
 
+const DISPLAY_HEADING_STYLE = {
+  fontFamily: "'Vogue', serif",
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+} as const
+
 export function ServicesOverview() {
   const { copy } = useLocale()
   const [activeFrame, setActiveFrame] = useState(0)
@@ -34,7 +40,7 @@ export function ServicesOverview() {
           </p>
           <h2
             className="text-4xl md:text-5xl text-[#24342C] text-balance leading-tight"
-            style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+            style={DISPLAY_HEADING_STYLE}
           >
             {copy.services.title}
           </h2>
@@ -99,7 +105,7 @@ export function ServicesOverview() {
                         ? "text-[0.96rem] whitespace-nowrap tracking-[-0.02em] sm:text-[0.94rem] lg:text-[0.92rem] xl:text-[0.98rem]"
                         : "text-lg"
                     }`}
-                    style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                    style={DISPLAY_HEADING_STYLE}
                   >
                     {service.title}
                   </h3>

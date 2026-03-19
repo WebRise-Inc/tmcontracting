@@ -35,6 +35,12 @@ const serviceIcons: Record<ServiceSlug, LucideIcon> = {
   "new-construction": HousePlus,
 }
 
+const DISPLAY_HEADING_STYLE = {
+  fontFamily: "'Vogue', serif",
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+} as const
+
 export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
   const { locale, copy } = useLocale()
   const chrome = servicePages[locale].chrome
@@ -78,7 +84,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                 <p className="text-xs uppercase tracking-[0.34em] text-[#C8D87A]" style={{ fontFamily: "'Vogue', serif" }}>
                   {chrome.heroLabel}
                 </p>
-                <h1 className="max-w-3xl text-4xl leading-tight text-balance md:text-5xl lg:text-6xl" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+                <h1 className="max-w-3xl text-4xl leading-tight text-balance md:text-5xl lg:text-6xl" style={DISPLAY_HEADING_STYLE}>
                   {page.title}
                 </h1>
                 <p className="max-w-2xl text-lg leading-relaxed text-[#E7E2D8]">
@@ -185,7 +191,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
               <p className="text-xs uppercase tracking-[0.28em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
                 {chrome.scopeTitle}
               </p>
-              <h2 className="text-3xl text-[#24342C] md:text-4xl" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+              <h2 className="text-3xl text-[#24342C] md:text-4xl" style={DISPLAY_HEADING_STYLE}>
                 {page.summary}
               </h2>
               <p className="max-w-xl text-base leading-relaxed text-[#5E685F]">
@@ -231,7 +237,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
               <p className="text-xs uppercase tracking-[0.28em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
                 {chrome.processTitle}
               </p>
-              <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+              <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={DISPLAY_HEADING_STYLE}>
                 {page.title}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-[#5E685F]">
@@ -245,7 +251,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                   <span className="text-[11px] uppercase tracking-[0.32em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 text-xl text-[#24342C]" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+                  <h3 className="mt-4 text-xl text-[#24342C]" style={DISPLAY_HEADING_STYLE}>
                     {step.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-[#5E685F]">
@@ -264,7 +270,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                 <p className="text-xs uppercase tracking-[0.28em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
                   {chrome.galleryTitle}
                 </p>
-                <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+                <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={DISPLAY_HEADING_STYLE}>
                   {page.title}
                 </h2>
               </div>
@@ -296,7 +302,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
               <p className="text-xs uppercase tracking-[0.28em] text-[#C8D87A]" style={{ fontFamily: "'Vogue', serif" }}>
                 {page.eyebrow}
               </p>
-              <h2 className="mt-4 text-3xl md:text-4xl" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+              <h2 className="mt-4 text-3xl md:text-4xl" style={DISPLAY_HEADING_STYLE}>
                 {page.ctaTitle}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-[#D8D4CC]">
@@ -331,7 +337,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
               <p className="text-xs uppercase tracking-[0.28em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
                 {chrome.relatedTitle}
               </p>
-              <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+              <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={DISPLAY_HEADING_STYLE}>
                 {chrome.relatedBody}
               </h2>
             </div>
@@ -362,7 +368,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                         <p className="text-xs uppercase tracking-[0.24em] text-[#7F8F57]" style={{ fontFamily: "'Vogue', serif" }}>
                           {relatedPage.eyebrow}
                         </p>
-                        <h3 className="mt-3 text-2xl text-[#24342C]" style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}>
+                        <h3 className="mt-3 text-2xl text-[#24342C]" style={DISPLAY_HEADING_STYLE}>
                           {relatedPage.title}
                         </h3>
                         <p className="mt-3 text-sm leading-relaxed text-[#5E685F]">

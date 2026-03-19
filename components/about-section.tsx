@@ -8,6 +8,12 @@ import { ProjectLocationChip } from "@/components/project-location-chip"
 import { getAboutGallerySlides } from "@/lib/about-gallery"
 import { useLocale } from "@/components/locale-provider"
 
+const DISPLAY_HEADING_STYLE = {
+  fontFamily: "'Vogue', serif",
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+} as const
+
 export function AboutSection() {
   const { copy, locale } = useLocale()
   const [current, setCurrent] = useState(0)
@@ -62,7 +68,7 @@ export function AboutSection() {
           <div className="mt-5 flex flex-col gap-4">
             <h3
               className="text-[1.6rem] leading-[0.98] text-[#24342C] sm:text-[1.85rem]"
-              style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+              style={DISPLAY_HEADING_STYLE}
             >
               {section.heading}
             </h3>
@@ -123,7 +129,7 @@ export function AboutSection() {
             {copy.about.titleLineOne ? (
               <h2
                 className="text-[2rem] leading-[1.02] text-[#24342C] sm:text-[2.55rem] xl:text-[3.15rem]"
-                style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                style={DISPLAY_HEADING_STYLE}
               >
                 {copy.about.titleLineOne}
               </h2>
@@ -132,7 +138,7 @@ export function AboutSection() {
             {copy.about.titleLineTwo ? (
               <p
                 className="mx-auto max-w-3xl text-[1.2rem] leading-[1.12] text-[#314B3E] sm:text-[1.45rem] xl:text-[1.75rem]"
-                style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                style={DISPLAY_HEADING_STYLE}
               >
                 {copy.about.titleLineTwo}
               </p>
@@ -159,7 +165,7 @@ export function AboutSection() {
                         </p>
                         <p
                           className="text-[1.38rem] leading-tight text-[#24342C] sm:text-[1.55rem]"
-                          style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                          style={DISPLAY_HEADING_STYLE}
                         >
                           {copy.about.warranty.title}
                         </p>

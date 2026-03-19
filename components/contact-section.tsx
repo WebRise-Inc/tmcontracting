@@ -8,6 +8,12 @@ import { useLocale } from "@/components/locale-provider"
 import type { Locale, SiteCopy } from "@/lib/site-copy"
 
 const VOGUE: React.CSSProperties = { fontFamily: "'Vogue', serif" }
+const PHONE_NUMBER_STYLE: React.CSSProperties = {
+  ...VOGUE,
+  fontWeight: 600,
+  letterSpacing: "0.02em",
+  fontVariantNumeric: "tabular-nums",
+} as const
 const offerSlides = Array.from({ length: 11 }, (_, index) => ({
   src: `/images/offers/offer-${String(index + 1).padStart(2, "0")}.jpeg`,
   alt: `TM Contracting offer ${index + 1}`,
@@ -714,7 +720,7 @@ export function ContactSection() {
                           <a
                             href={phone.href}
                             className="block text-[1.18rem] leading-tight text-[#24342C] transition-colors hover:text-[#314B3E] sm:text-[1.28rem]"
-                            style={VOGUE}
+                            style={PHONE_NUMBER_STYLE}
                           >
                             {phone.value}
                           </a>

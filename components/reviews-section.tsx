@@ -1,5 +1,7 @@
 "use client"
 
+import Script from "next/script"
+
 import { useLocale } from "@/components/locale-provider"
 
 export function ReviewsSection() {
@@ -7,6 +9,8 @@ export function ReviewsSection() {
 
   return (
     <section id="reviews" className="scroll-mt-28 bg-[#F7F6F1] px-6 py-20">
+      <Script src="https://elfsightcdn.com/platform.js" strategy="afterInteractive" />
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12 text-center">

@@ -52,16 +52,21 @@ export default async function RootLayout({
       <body className="font-sans antialiased">
         <LocaleProvider initialLocale={locale}>
           {children}
-          <div
-            className="elfsight-app-1a9a7b7d-ca85-4230-8c9f-24ca0e45ff67"
-            data-elfsight-app-lazy
-          />
           <Analytics />
         </LocaleProvider>
-        <Script
-          src="https://elfsightcdn.com/platform.js"
-          strategy="afterInteractive"
-        />
+        <Script id="crisp-chat" strategy="afterInteractive">
+          {`
+            window.$crisp = [];
+            window.CRISP_WEBSITE_ID = "201bb0ce-a919-487d-a2a9-a9faebecca0f";
+            (function() {
+              var d = document;
+              var s = d.createElement("script");
+              s.src = "https://client.crisp.chat/l.js";
+              s.async = 1;
+              d.getElementsByTagName("head")[0].appendChild(s);
+            })();
+          `}
+        </Script>
       </body>
     </html>
   )

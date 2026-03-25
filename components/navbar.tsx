@@ -19,7 +19,6 @@ export function Navbar() {
   const contactLinks = {
     estimate: "/online-estimate",
     quote: "/#contact",
-    career: "/#contact-career",
     contact: "/#contact-contact",
   } as const
   const mobileLinks = [
@@ -27,7 +26,6 @@ export function Navbar() {
     { label: copy.navbar.services, href: "/#services" },
     { label: copy.navbar.onlineEstimate, href: contactLinks.estimate },
     { label: copy.navbar.faq, href: "/faq" },
-    { label: copy.navbar.career, href: contactLinks.career },
     { label: copy.navbar.contactUs, href: contactLinks.contact },
   ]
 
@@ -52,16 +50,16 @@ export function Navbar() {
   const overlayMode = !scrolled && !mobileOpen
   const shellClass = overlayMode
     ? "border-transparent bg-transparent"
-    : "border-[#D6D1C4]/80 bg-[#F7F6F1]/86 shadow-[0_20px_50px_rgba(15,24,18,0.16)] backdrop-blur-xl"
+    : "border-[#CFC7B6] bg-[#F3F0E7]/96 shadow-[0_16px_32px_rgba(15,24,18,0.08)] backdrop-blur-md"
   const textClass = overlayMode ? "text-[#F7F6F1]" : "text-[#24342C]"
   const mutedClass = overlayMode ? "text-[#E7E2D8]/86" : "text-[#5E685F]"
-  const accentClass = overlayMode ? "text-[#C8D87A]" : "text-[#7F8F57]"
-  const hoverClass = overlayMode ? "hover:text-[#C8D87A]" : "hover:text-[#7F8F57]"
+  const accentClass = overlayMode ? "text-[#C8D87A]" : "text-[#036738]"
+  const hoverClass = overlayMode ? "hover:text-[#C8D87A]" : "hover:text-[#036738]"
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${shellClass}`}>
-      <div className="mx-auto flex h-20 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="-ml-24 flex min-w-0 items-center gap-3 pr-6 sm:-ml-28 lg:-ml-32">
+      <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
+        <Link href="/" className="flex min-w-0 items-center gap-3 justify-self-start">
           <Image
             src="/images/brand/navbar-logo-transparent.png"
             alt={copy.navbar.logoAlt}
@@ -79,34 +77,38 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-7 md:flex">
+        <nav className="hidden items-center justify-center gap-6 px-4 md:flex lg:gap-7">
           <Link
             href="/"
-            className={`text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
+            className={`border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass} ${pathname === "/" ? accentClass : ""}`}
             style={displayFont}
           >
             {copy.navbar.home}
           </Link>
 
-          <div className="relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+          >
             <button
-              onClick={() => setServicesOpen((current) => !current)}
-              className={`flex items-center gap-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
+              className={`flex items-center gap-1 border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
               style={displayFont}
               aria-expanded={servicesOpen}
               aria-haspopup="menu"
+              type="button"
             >
               {copy.navbar.services}
               <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`} />
             </button>
 
             {servicesOpen && (
-              <div className="absolute left-0 top-full mt-4 w-64 border border-[#D6D1C4] bg-[#F7F6F1]/96 py-2 shadow-[0_28px_70px_rgba(16,22,18,0.18)] backdrop-blur-xl">
+              <div className="absolute left-0 top-full mt-4 w-64 overflow-hidden border border-[#CFC7B6] bg-[#F3F0E7] py-2 shadow-[0_18px_30px_rgba(16,22,18,0.12)]">
                 {copy.services.items.map((service) => (
                   <Link
                     key={service.slug}
                     href={`/services/${service.slug}`}
-                    className="block px-5 py-3 text-sm text-[#5E685F] transition-colors hover:bg-[#ECE7DC] hover:text-[#24342C]"
+                    className="block px-5 py-3 text-sm text-[#5E685F] transition-colors hover:bg-[#E9E2D2] hover:text-[#24342C]"
                   >
                     {service.title}
                   </Link>
@@ -116,39 +118,31 @@ export function Navbar() {
           </div>
 
           <Link
-            href={contactLinks.estimate}
-            className={`text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
-            style={displayFont}
-          >
-            {copy.navbar.onlineEstimate}
-          </Link>
-
-          <Link
             href="/faq"
-            className={`text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
+            className={`border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass} ${pathname === "/faq" ? accentClass : ""}`}
             style={displayFont}
           >
             {copy.navbar.faq}
           </Link>
 
           <Link
-            href={contactLinks.career}
-            className={`text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
-            style={displayFont}
-          >
-            {copy.navbar.career}
-          </Link>
-
-          <Link
             href={contactLinks.contact}
-            className={`text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
+            className={`border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
             style={displayFont}
           >
             {copy.navbar.contactUs}
           </Link>
         </nav>
 
-        <div className="ml-auto hidden min-w-[92px] items-center justify-end md:flex">
+        <div className="hidden items-center justify-self-end gap-4 md:flex">
+          <Link
+            href={contactLinks.estimate}
+            className="inline-flex items-center gap-2 whitespace-nowrap border border-[#0A7A44] bg-[#24342C] px-5 py-3 text-sm uppercase tracking-[0.24em] text-[#F7F6F1] transition-colors hover:bg-[#0F2B1E] lg:px-6"
+            style={displayFont}
+          >
+            {copy.navbar.onlineEstimate}
+          </Link>
+
           <div className={`flex items-center gap-2 text-sm uppercase tracking-[0.3em] ${mutedClass}`} style={displayFont}>
             <button
               onClick={() => setLocale("en")}
@@ -169,46 +163,69 @@ export function Navbar() {
         </div>
 
         <button
-          className={`ml-auto md:hidden ${textClass}`}
+          className={`flex h-11 w-11 items-center justify-center justify-self-end rounded-full border transition-colors md:hidden ${
+            overlayMode
+              ? "border-white/20 bg-[#24342C]/18 text-[#F7F6F1] hover:bg-[#24342C]/28"
+              : "border-[#CFC7B6] bg-[#F3F0E7] text-[#24342C] hover:bg-[#E9E2D2]"
+          }`}
           onClick={() => setMobileOpen((current) => !current)}
           aria-label={copy.navbar.toggleMenu}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[#D6D1C4] bg-[#F7F6F1]/96 px-6 py-5 backdrop-blur-xl md:hidden">
-          <div className="flex flex-col gap-4">
-            {mobileLinks.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-sm uppercase tracking-[0.24em] text-[#24342C] transition-colors hover:text-[#7F8F57]"
+        <div className="border-t border-[#CFC7B6] bg-[#F3F0E7]/98 px-4 pb-5 pt-0 backdrop-blur-md sm:px-6 md:hidden">
+          <div className="border border-t-0 border-[#CFC7B6] bg-[#F3F0E7]">
+            <div className="p-5">
+              <div className="flex flex-col gap-4">
+                {mobileLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="border-l-2 border-transparent pl-3 text-sm uppercase tracking-[0.24em] text-[#24342C] transition-colors hover:border-[#0A7A44] hover:text-[#036738]"
+                    style={displayFont}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              <div
+                className="mt-6 flex items-center justify-between gap-3 border-t border-[#CFC7B6] pt-4 text-sm uppercase tracking-[0.3em] text-[#5E685F]"
                 style={displayFont}
               >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setLocale("en")}
+                    className={`transition-colors ${locale === "en" ? "text-[#036738]" : "hover:text-[#24342C]"}`}
+                    aria-pressed={locale === "en"}
+                  >
+                    EN
+                  </button>
+                  <span className="text-[#B7B1A3]">|</span>
+                  <button
+                    onClick={() => setLocale("fr")}
+                    className={`transition-colors ${locale === "fr" ? "text-[#036738]" : "hover:text-[#24342C]"}`}
+                    aria-pressed={locale === "fr"}
+                  >
+                    FR
+                  </button>
+                </div>
 
-          <div className="mt-6 flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-[#5E685F]" style={displayFont}>
-            <button
-              onClick={() => setLocale("en")}
-              className={`transition-colors ${locale === "en" ? "text-[#7F8F57]" : "hover:text-[#24342C]"}`}
-              aria-pressed={locale === "en"}
-            >
-              EN
-            </button>
-            <span className="text-[#B7B1A3]">|</span>
-            <button
-              onClick={() => setLocale("fr")}
-              className={`transition-colors ${locale === "fr" ? "text-[#7F8F57]" : "hover:text-[#24342C]"}`}
-              aria-pressed={locale === "fr"}
-            >
-              FR
-            </button>
+                <Link
+                  href={contactLinks.estimate}
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center whitespace-nowrap border border-[#0A7A44] bg-[#24342C] px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#F7F6F1] transition-colors hover:bg-[#0F2B1E]"
+                  style={displayFont}
+                >
+                  {copy.navbar.onlineEstimate}
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       )}

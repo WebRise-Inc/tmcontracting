@@ -53,13 +53,13 @@ export function AboutSection() {
     return (
       <article
         key={section.heading}
-        className={`relative overflow-hidden rounded-[30px] border border-[#D7D1C3] bg-[linear-gradient(180deg,rgba(247,246,241,0.98),rgba(238,233,221,0.9))] px-6 py-6 shadow-[0_24px_50px_rgba(36,52,44,0.08)] sm:px-7 ${className}`}
+        className={`relative overflow-hidden rounded-[30px] border border-[#D7D1C3] bg-[#F7F6F1] px-6 py-6 shadow-[0_24px_50px_rgba(36,52,44,0.08)] sm:px-7 ${className}`}
       >
-        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#7F8F57] via-[#C8D87A] to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-[3px] bg-[#036738]" />
 
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between gap-4">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#7F8F57]">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#036738]">
               {String(index + 1).padStart(2, "0")}
             </span>
             <span className="h-9 w-9 rounded-full border border-[#D7D1C3] bg-white/75" />
@@ -79,7 +79,7 @@ export function AboutSection() {
               <ul className="space-y-3 text-[0.95rem] leading-6 text-[#5E685F]">
                 {detailItems.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-2.5 h-[5px] w-[5px] shrink-0 rounded-full bg-[#7F8F57]" />
+                    <span className="mt-2.5 h-[5px] w-[5px] shrink-0 rounded-full bg-[#036738]" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -121,7 +121,7 @@ export function AboutSection() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-[#7F8F57]">
+          <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-[#036738]">
             {copy.about.eyebrow}
           </p>
 
@@ -155,12 +155,12 @@ export function AboutSection() {
 
                   <div className="overflow-hidden rounded-[30px] border border-[#D7D1C3] bg-[#F7F6F1]/94 px-6 py-6 shadow-[0_22px_60px_rgba(36,52,44,0.08)] backdrop-blur-sm sm:px-7 sm:py-7">
                     <div className="flex items-start gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#D6D1C4] bg-white text-[#7F8F57] shadow-[0_12px_24px_rgba(36,52,44,0.06)]">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#D6D1C4] bg-white text-[#036738] shadow-[0_12px_24px_rgba(36,52,44,0.06)]">
                         <ShieldCheck className="h-5 w-5" />
                       </div>
 
                       <div className="space-y-3">
-                        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#7F8F57]">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#036738]">
                           {warrantyLabel}
                         </p>
                         <p
@@ -179,11 +179,11 @@ export function AboutSection() {
                       {stats.map((stat) => (
                         <div
                           key={stat.label}
-                          className="rounded-[20px] border border-[#D8D2C4] bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(236,232,221,0.92))] px-4 py-4"
+                          className="rounded-[20px] border border-[#D8D2C4] bg-white px-4 py-4"
                         >
                           <span
                             className="block text-[1.55rem] leading-none text-[#24342C]"
-                            style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                            style={DISPLAY_HEADING_STYLE}
                           >
                             {stat.value}
                           </span>
@@ -250,7 +250,7 @@ export function AboutSection() {
               )
             })}
 
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(12,18,15,0.12),transparent_40%,rgba(12,18,15,0.72))]" />
+            <div className="pointer-events-none absolute inset-0 bg-[#121A16]/28" />
 
             <div className="absolute inset-x-0 bottom-0 px-5 pb-5 pt-12 sm:px-6 sm:pb-6">
               <ProjectLocationChip label={slides[current].locationLabel} compact />
@@ -260,15 +260,15 @@ export function AboutSection() {
           <div className="border-t border-[#D7D1C3] bg-[#F7F6F1]/96 px-5 py-4 sm:px-6 sm:py-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-1.5">
-                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#7F8F57]">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#036738]">
                   {galleryLabel}
                 </p>
                 <p
                   className="text-[1.75rem] leading-none text-[#24342C] sm:text-[2rem]"
-                  style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+                  style={DISPLAY_HEADING_STYLE}
                 >
                   {String(current + 1).padStart(2, "0")}
-                  <span className="ml-2 text-sm text-[#7F8F57] sm:text-base">
+                  <span className="ml-2 text-sm text-[#036738] sm:text-base">
                     / {String(totalSlides).padStart(2, "0")}
                   </span>
                 </p>
@@ -304,7 +304,7 @@ export function AboutSection() {
                     className={`group relative aspect-square overflow-hidden rounded-[14px] border transition duration-200 ${
                       isActive
                         ? "border-[#24342C] shadow-[0_10px_24px_rgba(36,52,44,0.16)]"
-                        : "border-[#D6D1C4] hover:-translate-y-0.5 hover:border-[#7F8F57]"
+                        : "border-[#D6D1C4] hover:-translate-y-0.5 hover:border-[#036738]"
                     }`}
                     aria-label={`${copy.about.goToSlide} ${slideIndex + 1}`}
                     aria-pressed={isActive}
@@ -317,7 +317,7 @@ export function AboutSection() {
                         isActive ? "scale-100" : "group-hover:scale-105"
                       }`}
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,22,18,0.08),rgba(16,22,18,0.5))]" />
+                    <div className="absolute inset-0 bg-[#101612]/22" />
                   </button>
                 )
               })}

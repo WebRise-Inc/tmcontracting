@@ -48,8 +48,9 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
       description:
         "Book a time with TM Contracting using the online appointment calendar.",
     },
-    title: "Book a Time to Speak With TM Contracting",
-    intro: "Use the online booking calendar below to choose the appointment time that works best for you.",
+    title: "Book a Time to Speak With a TM Contracting Representative",
+    intro:
+      "Use the online booking calendar below to choose the appointment time that works best for you. Online bookings must be made at least 24 hours in advance. If you would prefer an on-site visit, let us know and we will confirm availability within up to 2 weeks.",
     booking: {
       availableDates: "Available Dates",
       preferredTime: "Preferred Time",
@@ -63,7 +64,8 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
       submitIdle: "Book Appointment",
       submitLoading: "Booking Appointment",
       successTitle: "Your appointment request has been sent.",
-      successBody: "TM Contracting received your selected date and time and will confirm the booking with you directly.",
+      successBody:
+        "TM Contracting received your request. Online bookings are scheduled at least 24 hours in advance, and on-site visit confirmations may take up to 2 weeks.",
       reset: "Book another appointment",
       missingDate: "Please choose a date.",
       missingTime: "Please choose a time slot.",
@@ -89,8 +91,9 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
       description:
         "Réservez un moment avec TM Contracting à l'aide du calendrier de rendez-vous en ligne.",
     },
-    title: "Réservez un moment pour parler à TM Contracting",
-    intro: "Utilisez le calendrier de réservation ci-dessous pour choisir le moment qui vous convient.",
+    title: "Réservez un moment pour parler à TM Contracting Representative",
+    intro:
+      "Utilisez le calendrier de réservation ci-dessous pour choisir le moment qui vous convient. Les réservations en ligne doivent être faites au moins 24 heures à l'avance. Si vous préférez une visite sur place, faites-nous signe et nous confirmerons la disponibilité dans un délai pouvant aller jusqu'à 2 semaines.",
     booking: {
       availableDates: "Dates disponibles",
       preferredTime: "Heure souhaitée",
@@ -104,7 +107,8 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
       submitIdle: "Réserver le rendez-vous",
       submitLoading: "Réservation en cours",
       successTitle: "Votre demande de rendez-vous a été envoyée.",
-      successBody: "TM Contracting a bien reçu la date et l'heure choisies et confirmera le rendez-vous avec vous directement.",
+      successBody:
+        "TM Contracting a bien reçu votre demande. Les réservations en ligne sont planifiées au moins 24 heures à l'avance, et la confirmation des visites sur place peut prendre jusqu'à 2 semaines.",
       reset: "Réserver un autre rendez-vous",
       missingDate: "Veuillez choisir une date.",
       missingTime: "Veuillez choisir une plage horaire.",

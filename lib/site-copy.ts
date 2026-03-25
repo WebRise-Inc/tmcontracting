@@ -246,15 +246,15 @@ export type SiteCopy = {
 export const siteCopy: Record<Locale, SiteCopy> = {
   en: {
     metadata: {
-      title: "TM Contracting | Since 1991",
+      title: "TM Contracting",
       description:
         "Full-service general contracting from excavation to keys. 3-Year Risk-Free Warranty. Serving Quebec and Ontario. TM Contracting.",
     },
     navbar: {
-      logoAlt: "TM Contracting Since 1991",
+      logoAlt: "TM Contracting",
       home: "Home",
       services: "Services",
-      onlineEstimate: "Online Estimate",
+      onlineEstimate: "Let's Meet in Person",
       career: "Career",
       faq: "FAQ",
       contactUs: "Contact us",
@@ -464,7 +464,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       officeTitle: "TM Contracting Inc.",
       regionPrimary: "Ottawa-Gatineau Region",
       regionSecondary: "Quebec & Ontario",
-      serving: "Serving Quebec & Ontario since 1991.",
+      serving: "Serving Quebec & Ontario.",
     },
     emails: {
       contact: {
@@ -509,12 +509,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   },
   fr: {
     metadata: {
-      title: "TM Contracting | Depuis 1991",
+      title: "TM Contracting",
       description:
         "Entrepreneur général clé en main, de l'excavation à la remise des clés. Garantie sans risque de 3 ans. Au service du Québec et de l'Ontario. TM Contracting.",
     },
     navbar: {
-      logoAlt: "TM Contracting depuis 1991",
+      logoAlt: "TM Contracting",
       home: "Accueil",
       services: "Services",
       onlineEstimate: "Estimation en ligne",
@@ -727,7 +727,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       officeTitle: "TM Contracting Inc.",
       regionPrimary: "Région d'Ottawa-Gatineau",
       regionSecondary: "Québec et Ontario",
-      serving: "Au service du Québec et de l'Ontario depuis 1991.",
+      serving: "Au service du Québec et de l'Ontario.",
     },
     emails: {
       contact: {

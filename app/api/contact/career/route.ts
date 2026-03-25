@@ -1,25 +1,11 @@
 import { put } from "@vercel/blob"
 import { NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
 
+import { sendNotificationEmail } from "@/lib/notification-email"
 import { defaultLocale, isLocale, siteCopy } from "@/lib/site-copy"
-
-const FROM = "tm-contracting@notifications.webrise.ca"
-const TO = "tm-contracting@notifications.webrise.ca"
-
-function getResendClient() {
-  const apiKey = process.env.RESEND_API_KEY
-
-  if (!apiKey) {
-    throw new Error("RESEND_API_KEY is not configured")
-  }
-
-  return new Resend(apiKey)
-}
 
 export async function POST(request: NextRequest) {
   try {
-    const resend = getResendClient()
     const formData = await request.formData()
 
     const fullName = formData.get("fullName") as string
@@ -39,6 +25,21 @@ export async function POST(request: NextRequest) {
     const locale = typeof localeValue === "string" && isLocale(localeValue) ? localeValue : defaultLocale
     const copy = siteCopy[locale].emails.career
 
+    if (
+      !fullName ||
+      !city ||
+      !phone ||
+      !email ||
+      !workAuthorization ||
+      !driversLicense ||
+      !languages ||
+      !cvFile ||
+      !coverLetterFile ||
+      !photoFile
+    ) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
     // Upload files to Blob if provided
     let cvUrl = ""
     let coverLetterUrl = ""
@@ -57,25 +58,45 @@ export async function POST(request: NextRequest) {
       photoUrl = photoBlob.url
     }
 
-    await resend.emails.send({
-      from: FROM,
-      to: TO,
-      subject: `${copy.subjectPrefix} — ${fullName}`,
-      html: `
-        <h2 style="font-family:sans-serif;color:#24342C">${copy.heading}</h2>
-        <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse;width:100%">
-          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.fullName}</td><td style="padding:8px">${fullName}</td></tr>
-          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.city}</td><td style="padding:8px">${city}</td></tr>
-          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.phone}</td><td style="padding:8px">${phone}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.email}</td><td style="padding:8px">${email}</td></tr>
-          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.workAuthorization}</td><td style="padding:8px">${workAuthorization}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.driversLicense}</td><td style="padding:8px">${driversLicense}</td></tr>
-          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.languages}</td><td style="padding:8px">${languages}</td></tr>
-          ${cvUrl ? `<tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.cv}</td><td style="padding:8px"><a href="${cvUrl}">${copy.downloadCv}</a></td></tr>` : ""}
-          ${coverLetterUrl ? `<tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.coverLetter}</td><td style="padding:8px"><a href="${coverLetterUrl}">${copy.downloadCoverLetter}</a></td></tr>` : ""}
-          ${photoUrl ? `<tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.photo}</td><td style="padding:8px"><a href="${photoUrl}">${copy.viewPhoto}</a></td></tr>` : ""}
-        </table>
-      `,
+    await sendNotificationEmail({
+      fields: [
+        { label: copy.fullName, value: fullName },
+        { label: copy.city, value: city },
+        { label: copy.phone, value: phone },
+        { label: copy.email, value: email },
+        { label: copy.workAuthorization, value: workAuthorization },
+        { label: copy.driversLicense, value: driversLicense },
+        { label: copy.languages, value: languages },
+        ...(cvUrl
+          ? [
+              {
+                label: copy.cv,
+                links: [{ href: cvUrl, label: copy.downloadCv }],
+              },
+            ]
+          : []),
+        ...(coverLetterUrl
+          ? [
+              {
+                label: copy.coverLetter,
+                links: [{ href: coverLetterUrl, label: copy.downloadCoverLetter }],
+              },
+            ]
+          : []),
+        ...(photoUrl
+          ? [
+              {
+                label: copy.photo,
+                links: [{ href: photoUrl, label: copy.viewPhoto }],
+              },
+            ]
+          : []),
+      ],
+      locale,
+      preview: `${copy.subjectPrefix} - ${fullName}`,
+      replyTo: email,
+      subject: `${copy.subjectPrefix} - ${fullName}`,
+      title: copy.heading,
     })
 
     return NextResponse.json({ success: true })

@@ -33,7 +33,7 @@ export function ServicesOverview() {
         {/* Section header */}
         <div className="mb-16">
           <p
-            className="text-xs tracking-[0.3em] uppercase text-[#7F8F57] mb-3"
+            className="text-xs tracking-[0.3em] uppercase text-[#036738] mb-3"
             style={{ fontFamily: "'Vogue', serif" }}
           >
             {copy.services.eyebrow}
@@ -47,7 +47,7 @@ export function ServicesOverview() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {copy.services.items.map((service) => {
             const slides = isServiceSlug(service.slug)
               ? getHomepageServiceGallerySlides(service.slug)
@@ -58,10 +58,34 @@ export function ServicesOverview() {
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-sm bg-[#E9E5DA]"
+                className="group grid h-full overflow-hidden rounded-sm bg-[#E9E5DA] md:grid-cols-[1.02fr_0.98fr]"
               >
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <h3
+                    className={`mb-2 text-[#24342C] group-hover:text-[#036738] transition-colors duration-300 ${
+                      service.slug === "concrete"
+                        ? "text-[1rem] tracking-[-0.02em] lg:text-[1.02rem]"
+                        : "text-xl"
+                    }`}
+                    style={DISPLAY_HEADING_STYLE}
+                  >
+                    {service.title}
+                  </h3>
+                  <p className="mb-4 flex-1 text-sm leading-relaxed text-[#5E685F] font-sans">
+                    {service.description}
+                  </p>
+                  <span
+                    className="inline-flex items-center gap-1.5 text-xs tracking-widest uppercase text-[#314B3E] group-hover:text-[#036738] transition-colors duration-300"
+                    style={{ fontFamily: "'Vogue', serif" }}
+                  >
+                    {copy.services.learnMore}
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </div>
+
                 {/* Image */}
-                <div className="relative h-56 overflow-hidden bg-[#24342C]/10">
+                <div className="relative h-56 overflow-hidden bg-[#24342C]/10 md:h-full md:min-h-[260px]">
                   {slides.map((slide, index) => (
                     <div
                       key={slide.src}
@@ -93,32 +117,7 @@ export function ServicesOverview() {
                       ))}
                     </div>
                   ) : null}
-                  {/* Dark tint on hover */}
                   <div className="absolute inset-0 bg-[#24342C]/0 group-hover:bg-[#24342C]/25 transition-colors duration-500" />
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-5">
-                  <h3
-                    className={`mb-2 text-[#24342C] group-hover:text-[#7F8F57] transition-colors duration-300 ${
-                      service.slug === "concrete"
-                        ? "text-[0.96rem] whitespace-nowrap tracking-[-0.02em] sm:text-[0.94rem] lg:text-[0.92rem] xl:text-[0.98rem]"
-                        : "text-lg"
-                    }`}
-                    style={DISPLAY_HEADING_STYLE}
-                  >
-                    {service.title}
-                  </h3>
-                  <p className="mb-4 flex-1 text-sm leading-relaxed text-[#5E685F] font-sans">
-                    {service.description}
-                  </p>
-                  <span
-                    className="inline-flex items-center gap-1.5 text-xs tracking-widest uppercase text-[#314B3E] group-hover:text-[#7F8F57] transition-colors duration-300"
-                    style={{ fontFamily: "'Vogue', serif" }}
-                  >
-                    {copy.services.learnMore}
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                  </span>
                 </div>
               </Link>
             )

@@ -10,6 +10,12 @@ const handwrittenFont = {
   fontFamily: "'Backbon', 'Backbone', 'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Noteworthy', cursive",
 } as const
 
+const DISPLAY_HEADING_STYLE = {
+  fontFamily: "'Vogue', serif",
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+} as const
+
 export function HeroSection() {
   const { copy } = useLocale()
   const [current, setCurrent] = useState(0)
@@ -115,12 +121,11 @@ export function HeroSection() {
       {/* Province tabs — left side */}
       <div className="absolute left-3 top-1/2 -translate-y-1/2 z-20">
         <div className="relative overflow-hidden rounded-[30px] border border-[#F7F6F1]/12 bg-[#1E2D26]/42 px-2 py-3 shadow-[0_24px_50px_rgba(0,0,0,0.25)] backdrop-blur-md">
-          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#C8D87A]/20 to-transparent" />
           <div className="relative flex flex-col gap-2">
             {copy.hero.provinces.map((province) => (
               <div
                 key={province}
-                className="rounded-full border border-[#F7F6F1]/10 bg-[#F7F6F1]/6 text-[#F7F6F1] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-200 hover:border-[#C8D87A]/40 hover:text-[#DCE79F]"
+                className="rounded-full border border-[#F7F6F1]/10 bg-[#F7F6F1]/6 text-[#F7F6F1] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-200 hover:border-[#036738]/60 hover:text-[#F7F6F1]"
                 style={{
                   writingMode: "vertical-rl",
                   transform: "rotate(180deg)",
@@ -160,7 +165,7 @@ export function HeroSection() {
               {/* Heading */}
               <h1
                 className="mb-5 max-w-none text-[clamp(1.45rem,3.35vw,4.25rem)] leading-[1.06] text-[#F7F6F1]"
-                style={{ fontFamily: "'Vogue', serif", fontWeight: "normal", letterSpacing: "0.02em" }}
+                style={DISPLAY_HEADING_STYLE}
               >
                 {phrase.heading}
               </h1>
@@ -195,7 +200,7 @@ export function HeroSection() {
                     startTimer()
                   }}
                   className={`h-[3px] rounded-full transition-all duration-500 ${
-                    i === current ? "w-10 bg-[#7F8F57]" : "w-5 bg-[#F7F6F1]/35 hover:bg-[#F7F6F1]/60"
+                    i === current ? "w-10 bg-[#036738]" : "w-5 bg-[#F7F6F1]/35 hover:bg-[#F7F6F1]/60"
                   }`}
                   aria-label={`${copy.hero.goToPhrase} ${i + 1}`}
                 />

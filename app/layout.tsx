@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 
+import { Footer } from '@/components/footer'
 import { LocaleProvider } from '@/components/locale-provider'
 import { defaultLocale, isLocale, localeCookieName, siteCopy, type Locale } from '@/lib/site-copy'
 
@@ -52,6 +53,7 @@ export default async function RootLayout({
       <body className="font-sans antialiased">
         <LocaleProvider initialLocale={locale}>
           {children}
+          <Footer />
           <Analytics />
         </LocaleProvider>
         <Script id="crisp-chat" strategy="afterInteractive">

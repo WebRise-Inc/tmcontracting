@@ -4,6 +4,12 @@ import Script from "next/script"
 
 import { useLocale } from "@/components/locale-provider"
 
+const DISPLAY_HEADING_STYLE = {
+  fontFamily: "'Vogue', serif",
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+} as const
+
 export function ReviewsSection() {
   const { copy } = useLocale()
 
@@ -16,17 +22,17 @@ export function ReviewsSection() {
         <div className="mb-12 text-center">
           <p
             className="text-xs tracking-[0.28em] uppercase mb-3"
-            style={{ fontFamily: "'Vogue', serif", color: "#7F8F57" }}
+            style={{ fontFamily: "'Vogue', serif", color: "#036738" }}
           >
             {copy.reviews.eyebrow}
           </p>
           <h2
             className="text-4xl md:text-5xl text-[#24342C]"
-            style={{ fontFamily: "'Vogue', serif", fontWeight: "normal" }}
+            style={DISPLAY_HEADING_STYLE}
           >
             {copy.reviews.title}
           </h2>
-          <div className="mt-4 mx-auto w-16 h-px bg-[#7F8F57]" />
+          <div className="mt-4 mx-auto w-16 h-px bg-[#036738]" />
         </div>
 
         {/* Elfsight widget */}

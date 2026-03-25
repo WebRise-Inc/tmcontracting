@@ -8,6 +8,11 @@ import { useLocale } from "@/components/locale-provider"
 import type { Locale, SiteCopy } from "@/lib/site-copy"
 
 const VOGUE: React.CSSProperties = { fontFamily: "'Vogue', serif" }
+const DISPLAY_HEADING_STYLE: React.CSSProperties = {
+  ...VOGUE,
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+}
 const PHONE_NUMBER_STYLE: React.CSSProperties = {
   ...VOGUE,
   fontWeight: 600,
@@ -38,15 +43,21 @@ function getHashForTab(tab: Tab): string {
   return "#contact"
 }
 
+function getSubmitErrorMessage(locale: Locale) {
+  return locale === "fr"
+    ? "Une erreur est survenue. Veuillez reessayer."
+    : "Something went wrong. Please try again."
+}
+
 function SuccessMessage({ copy, onReset }: { copy: ContactCopy["success"]; onReset: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-4 text-center">
-      <CheckCircle className="w-10 h-10 text-[#7F8F57]" />
-      <p className="text-2xl text-[#24342C]" style={VOGUE}>{copy.title}</p>
+      <CheckCircle className="w-10 h-10 text-[#036738]" />
+      <p className="text-2xl text-[#24342C]" style={DISPLAY_HEADING_STYLE}>{copy.title}</p>
       <p className="text-[#5E685F] font-sans text-sm max-w-xs leading-relaxed">
         {copy.body}
       </p>
-      <button onClick={onReset} className="mt-2 text-sm text-[#314B3E] underline underline-offset-4 hover:text-[#7F8F57] transition-colors font-sans">
+      <button onClick={onReset} className="mt-2 text-sm text-[#314C3E] underline underline-offset-4 hover:text-[#036738] transition-colors font-sans">
         {copy.reset}
       </button>
     </div>
@@ -77,14 +88,14 @@ function FileInput({
   return (
     <div>
       <label className="block text-xs tracking-widest uppercase text-[#5E685F] mb-2 font-sans">
-        {label}{required && <span className="text-[#7F8F57] ml-1">*</span>}
+        {label}{required && <span className="text-[#036738] ml-1">*</span>}
       </label>
       <button
         type="button"
         onClick={() => ref.current?.click()}
-        className="w-full flex items-center gap-3 px-4 py-3 border border-[#C8C3B8] bg-[#F0EDE6] text-[#5E685F] text-sm font-sans hover:border-[#7F8F57] transition-colors text-left"
+        className="w-full flex items-center gap-3 px-4 py-3 border border-[#C8C3B8] bg-[#F0EDE6] text-[#5E685F] text-sm font-sans hover:border-[#036738] transition-colors text-left"
       >
-        <Upload className="w-4 h-4 flex-shrink-0 text-[#7F8F57]" />
+        <Upload className="w-4 h-4 flex-shrink-0 text-[#036738]" />
         <span className="truncate">
           {files && files.length > 0
             ? multiple
@@ -122,12 +133,12 @@ function Field({
 }: {
   label: string; name: string; type?: string; as?: "textarea" | "select"; rows?: number; placeholder?: string; required?: boolean; selectOptions?: string[]; labelClassName?: string
 }) {
-  const inputClass = "w-full px-4 py-3 border border-[#C8C3B8] bg-[#F0EDE6] text-[#24342C] text-sm font-sans placeholder:text-[#A8A098] focus:outline-none focus:border-[#7F8F57] transition-colors"
+  const inputClass = "w-full px-4 py-3 border border-[#C8C3B8] bg-[#F0EDE6] text-[#24342C] text-sm font-sans placeholder:text-[#A8A098] focus:outline-none focus:border-[#036738] transition-colors"
 
   return (
     <div>
       <label htmlFor={name} className={`block text-xs tracking-widest uppercase text-[#5E685F] mb-2 font-sans ${labelClassName ?? ""}`}>
-        {label}{required && <span className="text-[#7F8F57] ml-1">*</span>}
+        {label}{required && <span className="text-[#036738] ml-1">*</span>}
       </label>
       {as === "textarea" ? (
         <textarea id={name} name={name} rows={rows ?? 4} placeholder={placeholder} required={required} className={`${inputClass} resize-none`} />
@@ -168,7 +179,7 @@ function MultiSelectField({
     <div>
       <label className="block text-xs tracking-widest uppercase text-[#5E685F] mb-2 font-sans">
         {label}
-        {required && <span className="text-[#7F8F57] ml-1">*</span>}
+        {required && <span className="text-[#036738] ml-1">*</span>}
       </label>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -182,8 +193,8 @@ function MultiSelectField({
               onClick={() => toggleOption(option)}
               className={`flex min-h-12 items-center justify-center border px-4 py-3 text-center text-sm transition-colors ${
                 active
-                  ? "border-[#314B3E] bg-[#314B3E] text-[#F7F6F1]"
-                  : "border-[#C8C3B8] bg-[#F0EDE6] text-[#24342C] hover:border-[#7F8F57]"
+                  ? "border-[#036738] bg-[#036738] text-[#F7F6F1]"
+                  : "border-[#C8C3B8] bg-[#F0EDE6] text-[#24342C] hover:border-[#036738]"
               }`}
             >
               <span className="font-sans">{option}</span>
@@ -213,14 +224,14 @@ function SubmitButton({ loading, copy }: { loading: boolean; copy: ContactCopy["
     <button
       type="submit"
       disabled={loading}
-      className="group relative overflow-hidden w-full flex items-center justify-center gap-2 px-8 py-4 bg-[#314B3E] text-[#F7F6F1] text-sm tracking-widest uppercase transition-colors duration-300 disabled:opacity-60"
+      className="group relative overflow-hidden w-full flex items-center justify-center gap-2 px-8 py-4 bg-[#036738] text-[#F7F6F1] text-sm tracking-widest uppercase transition-colors duration-300 disabled:opacity-60"
       style={VOGUE}
     >
       <span className="relative z-10 flex items-center gap-2">
         {loading && <Loader2 className="w-4 h-4 animate-spin" />}
         {loading ? copy.submitLoading : copy.submitIdle}
       </span>
-      {!loading && <span className="absolute inset-0 bg-[#7F8F57] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />}
+      {!loading && <span className="absolute inset-0 bg-[#314C3E] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />}
     </button>
   )
 }
@@ -266,7 +277,7 @@ function OfferShowcase() {
         </div>
       ))}
 
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#162118]/78 via-[#162118]/20 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-[#162118]/48" />
 
       <div className="absolute inset-x-0 top-0 flex items-start justify-end gap-4 p-4 sm:p-5">
         <div className="flex items-center gap-2">
@@ -274,7 +285,7 @@ function OfferShowcase() {
             type="button"
             onClick={() => goTo(current - 1)}
             aria-label="Previous offer"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/16 bg-[#24342C]/52 text-[#F7F6F1] backdrop-blur-sm transition-colors hover:border-[#C8D87A] hover:text-[#C8D87A]"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/16 bg-[#24342C]/52 text-[#F7F6F1] backdrop-blur-sm transition-colors hover:border-[#036738] hover:text-[#036738]"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -282,7 +293,7 @@ function OfferShowcase() {
             type="button"
             onClick={() => goTo(current + 1)}
             aria-label="Next offer"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/16 bg-[#24342C]/52 text-[#F7F6F1] backdrop-blur-sm transition-colors hover:border-[#C8D87A] hover:text-[#C8D87A]"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/16 bg-[#24342C]/52 text-[#F7F6F1] backdrop-blur-sm transition-colors hover:border-[#036738] hover:text-[#036738]"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -307,7 +318,7 @@ function OfferShowcase() {
             >
               <span
                 className={`h-[3px] flex-1 transition-all duration-300 ${
-                  index === current ? "bg-[#C8D87A]" : "bg-white/28 group-hover:bg-white/50"
+                  index === current ? "bg-[#036738]" : "bg-white/28 group-hover:bg-white/50"
                 }`}
               />
             </button>
@@ -321,14 +332,28 @@ function OfferShowcase() {
 function CareerForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    const formData = new FormData(e.currentTarget)
-    await fetch("/api/contact/career", { method: "POST", body: formData })
-    setLoading(false)
-    setDone(true)
+    setError(null)
+
+    try {
+      const formData = new FormData(e.currentTarget)
+      const response = await fetch("/api/contact/career", { method: "POST", body: formData })
+
+      if (!response.ok) {
+        throw new Error("Career form submission failed")
+      }
+
+      setDone(true)
+    } catch (submissionError) {
+      console.error("[tm] Career form submission failed:", submissionError)
+      setError(getSubmitErrorMessage(locale))
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (done) return <SuccessMessage copy={copy.success} onReset={() => setDone(false)} />
@@ -373,6 +398,7 @@ function CareerForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
       <div className="sm:col-span-2 pt-2">
         <SubmitButton loading={loading} copy={copy.forms} />
       </div>
+      {error ? <p className="sm:col-span-2 text-sm text-[#9B3A34] font-sans">{error}</p> : null}
       <p className="sm:col-span-2 text-xs text-[#5E685F] font-sans">{copy.forms.requiredNotice}</p>
     </form>
   )
@@ -381,14 +407,28 @@ function CareerForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
 function QuoteForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    const formData = new FormData(e.currentTarget)
-    await fetch("/api/contact/quote", { method: "POST", body: formData })
-    setLoading(false)
-    setDone(true)
+    setError(null)
+
+    try {
+      const formData = new FormData(e.currentTarget)
+      const response = await fetch("/api/contact/quote", { method: "POST", body: formData })
+
+      if (!response.ok) {
+        throw new Error("Quote form submission failed")
+      }
+
+      setDone(true)
+    } catch (submissionError) {
+      console.error("[tm] Quote form submission failed:", submissionError)
+      setError(getSubmitErrorMessage(locale))
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (done) return <SuccessMessage copy={copy.success} onReset={() => setDone(false)} />
@@ -419,6 +459,7 @@ function QuoteForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
       <div className="sm:col-span-2 pt-2">
         <SubmitButton loading={loading} copy={copy.forms} />
       </div>
+      {error ? <p className="sm:col-span-2 text-sm text-[#9B3A34] font-sans">{error}</p> : null}
       <p className="sm:col-span-2 text-xs text-[#5E685F] font-sans">{copy.forms.requiredNotice}</p>
     </form>
   )
@@ -428,26 +469,40 @@ function ContactUsForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) 
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [customTimeEnabled, setCustomTimeEnabled] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    const fd = new FormData(e.currentTarget)
-    await fetch("/api/contact/us", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: fd.get("name"),
-        phone: fd.get("phone"),
-        email: fd.get("email"),
-        sector: fd.get("sector"),
-        preferredWindow: fd.get("preferredWindow"),
-        preferredTime: fd.get("preferredTime"),
-        locale,
-      }),
-    })
-    setLoading(false)
-    setDone(true)
+    setError(null)
+
+    try {
+      const fd = new FormData(e.currentTarget)
+      const response = await fetch("/api/contact/us", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fd.get("name"),
+          phone: fd.get("phone"),
+          email: fd.get("email"),
+          sector: fd.get("sector"),
+          preferredWindow: fd.get("preferredWindow"),
+          preferredTime: fd.get("preferredTime"),
+          locale,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Contact form submission failed")
+      }
+
+      setDone(true)
+    } catch (submissionError) {
+      console.error("[tm] Contact form submission failed:", submissionError)
+      setError(getSubmitErrorMessage(locale))
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (done) {
@@ -484,12 +539,12 @@ function ContactUsForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) 
         />
       </div>
       <div className="sm:col-span-2">
-        <label className="flex items-start gap-3 border border-[#C8C3B8] bg-[#F0EDE6] px-4 py-4 text-sm text-[#24342C] transition-colors hover:border-[#7F8F57]">
+        <label className="flex items-start gap-3 border border-[#C8C3B8] bg-[#F0EDE6] px-4 py-4 text-sm text-[#24342C] transition-colors hover:border-[#036738]">
           <input
             type="checkbox"
             checked={customTimeEnabled}
             onChange={(event) => setCustomTimeEnabled(event.target.checked)}
-            className="mt-1 h-4 w-4 accent-[#314B3E]"
+            className="mt-1 h-4 w-4 accent-[#036738]"
           />
           <span className="flex flex-col gap-1">
             <span className="font-sans">{copy.forms.contact.preferredTimeToggle}</span>
@@ -511,6 +566,7 @@ function ContactUsForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) 
       <div className="sm:col-span-2 pt-2">
         <SubmitButton loading={loading} copy={copy.forms} />
       </div>
+      {error ? <p className="sm:col-span-2 text-sm text-[#9B3A34] font-sans">{error}</p> : null}
       <p className="sm:col-span-2 text-xs text-[#5E685F] font-sans">{copy.forms.requiredNotice}</p>
     </form>
   )
@@ -629,8 +685,8 @@ export function ContactSection() {
 
         {/* Header */}
         <div className="mb-14">
-          <p className="text-xs tracking-[0.3em] uppercase text-[#7F8F57] mb-3 font-sans">{copy.contact.eyebrow}</p>
-          <h2 className="text-4xl md:text-5xl text-[#24342C] text-balance" style={VOGUE}>
+          <p className="text-xs tracking-[0.3em] uppercase text-[#036738] mb-3 font-sans">{copy.contact.eyebrow}</p>
+          <h2 className="text-4xl md:text-5xl text-[#24342C] text-balance" style={DISPLAY_HEADING_STYLE}>
             {copy.contact.title}
           </h2>
         </div>
@@ -648,7 +704,7 @@ export function ContactSection() {
                   onClick={() => handleTabChange(tab.id)}
                   className={`px-5 py-3 text-xs tracking-widest uppercase transition-colors duration-200 border-b-2 -mb-px whitespace-nowrap ${
                     active === tab.id
-                      ? "border-[#314B3E] text-[#24342C]"
+                      ? "border-[#036738] text-[#24342C]"
                       : "border-transparent text-[#5E685F] hover:text-[#24342C]"
                   }`}
                   style={VOGUE}
@@ -672,8 +728,8 @@ export function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="space-y-4 p-6 md:p-7">
                   <div>
-                    <h3 className="text-2xl text-[#24342C]" style={VOGUE}>{businessInfo.company}</h3>
-                    <p className="mt-1 text-sm tracking-[0.12em] text-[#7F8F57]" style={VOGUE}>
+                    <h3 className="text-2xl text-[#24342C]" style={DISPLAY_HEADING_STYLE}>{businessInfo.company}</h3>
+                    <p className="mt-1 text-sm tracking-[0.12em] text-[#036738]" style={VOGUE}>
                       {businessInfo.legalEntity}
                     </p>
                   </div>
@@ -714,7 +770,7 @@ export function ContactSection() {
                     <div className="space-y-4">
                       {businessInfo.phones.map((phone) => (
                         <div key={phone.label} className="space-y-1">
-                          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#7F8F57]">
+                          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#036738]">
                             {phone.label}:
                           </p>
                           <a

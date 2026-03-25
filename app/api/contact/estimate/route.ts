@@ -1,21 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
 
+import { sendNotificationEmail } from "@/lib/notification-email"
 import { onlineEstimatePage } from "@/lib/online-estimate-page"
 import { defaultLocale, isLocale } from "@/lib/site-copy"
-
-const FROM = "tm-contracting@notifications.webrise.ca"
-const TO = "tm-contracting@notifications.webrise.ca"
-
-function getResendClient() {
-  const apiKey = process.env.RESEND_API_KEY
-
-  if (!apiKey) {
-    throw new Error("RESEND_API_KEY is not configured")
-  }
-
-  return new Resend(apiKey)
-}
 
 function formatMeetingDate(value: string, locale: "en" | "fr") {
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
@@ -35,7 +22,6 @@ function formatMeetingDate(value: string, locale: "en" | "fr") {
 
 export async function POST(request: NextRequest) {
   try {
-    const resend = getResendClient()
     const {
       fullName,
       phone,
@@ -52,20 +38,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    await resend.emails.send({
-      from: FROM,
-      to: TO,
-      subject: `${copy.subjectPrefix} — ${fullName}`,
-      html: `
-        <h2 style="font-family:sans-serif;color:#24342C">${copy.heading}</h2>
-        <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse;width:100%">
-          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.fullName}</td><td style="padding:8px">${fullName}</td></tr>
-          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.phone}</td><td style="padding:8px">${phone}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.email}</td><td style="padding:8px">${email}</td></tr>
-          <tr style="background:#f7f6f1"><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.date}</td><td style="padding:8px">${formatMeetingDate(preferredDate, locale)}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#5E685F">${copy.time}</td><td style="padding:8px">${preferredTime}</td></tr>
-        </table>
-      `,
+    await sendNotificationEmail({
+      fields: [
+        { label: copy.fullName, value: fullName },
+        { label: copy.phone, value: phone },
+        { label: copy.email, value: email },
+        { label: copy.date, value: formatMeetingDate(preferredDate, locale) },
+        { label: copy.time, value: preferredTime },
+      ],
+      locale,
+      preview: `${copy.subjectPrefix} - ${fullName}`,
+      replyTo: email,
+      subject: `${copy.subjectPrefix} - ${fullName}`,
+      title: copy.heading,
     })
 
     return NextResponse.json({ success: true })

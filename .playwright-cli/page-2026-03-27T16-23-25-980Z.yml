@@ -1,0 +1,236 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "TM Contracting TM Contracting" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TM Contracting" [ref=e6]
+        - generic [ref=e7]: TM Contracting
+      - navigation [ref=e8]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - button "Services" [ref=e11]:
+          - text: Services
+          - img [ref=e12]
+        - link "FAQ" [ref=e14] [cursor=pointer]:
+          - /url: /faq
+        - link "Contact us" [ref=e15] [cursor=pointer]:
+          - /url: /#contact-contact
+      - generic [ref=e16]:
+        - link "Let's Meet in Person" [ref=e17] [cursor=pointer]:
+          - /url: /online-estimate
+        - generic [ref=e18]:
+          - button "EN" [pressed] [ref=e19]
+          - generic [ref=e20]: "|"
+          - button "FR" [ref=e21]
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - heading "Book a Time to Speak With a TM Contracting Representative" [level=1] [ref=e25]
+        - paragraph [ref=e26]: Use the online booking calendar below to choose the appointment time that works best for you. Online bookings must be made at least 24 hours in advance. If you would prefer an on-site visit, let us know and we will confirm availability within up to 2 weeks.
+      - generic [ref=e27]:
+        - button "Online Meeting" [ref=e28]
+        - button "Physical Meeting" [ref=e29]
+      - article [ref=e30]:
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: Online Meeting
+          - paragraph [ref=e33]: Choose a 30-minute online meeting for faster planning, pricing questions, and early project discussions.
+        - iframe [ref=e113]:
+          - generic [active] [ref=f2e1]:
+            - img
+            - main [ref=f2e2]:
+              - generic [ref=f2e3]:
+                - generic [ref=f2e4]:
+                  - generic [ref=f2e8]:
+                    - list [ref=f2e9]:
+                      - listitem [ref=f2e10]:
+                        - link "TM Contracting" [ref=f2e11] [cursor=pointer]:
+                          - /url: https://cal.com/tmforcontracting?redirect=false
+                          - img "TM Contracting" [ref=f2e13]
+                    - paragraph [ref=f2e14]: TM Contracting
+                    - heading "Online Appointment" [level=1] [ref=f2e15]
+                    - generic [ref=f2e16]:
+                      - generic [ref=f2e17]:
+                        - img [ref=f2e18]
+                        - generic [ref=f2e20]: 30m
+                      - generic [ref=f2e23]:
+                        - img "map-pin" [ref=f2e24]
+                        - paragraph [ref=f2e25]: 2 location options
+                      - generic [ref=f2e26] [cursor=pointer]:
+                        - img [ref=f2e27]
+                        - generic [ref=f2e30]:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: America/Montreal
+                                - generic:
+                                  - generic:
+                                    - img
+                  - generic [ref=f2e32]:
+                    - generic [ref=f2e33]:
+                      - time [ref=f2e35]:
+                        - strong [ref=f2e36]: March
+                        - text: "2026"
+                      - generic [ref=f2e38]:
+                        - button "View previous month" [disabled] [ref=f2e39]:
+                          - img [ref=f2e40]
+                        - button "View next month" [ref=f2e42] [cursor=pointer]:
+                          - img [ref=f2e43]
+                    - generic [ref=f2e45]:
+                      - generic [ref=f2e46]: Sun
+                      - generic [ref=f2e47]: Mon
+                      - generic [ref=f2e48]: Tue
+                      - generic [ref=f2e49]: Wed
+                      - generic [ref=f2e50]: Thu
+                      - generic [ref=f2e51]: Fri
+                      - generic [ref=f2e52]: Sat
+                    - generic [ref=f2e53]:
+                      - button "8" [disabled] [ref=f2e55]
+                      - button "9" [disabled] [ref=f2e57]
+                      - button "10" [disabled] [ref=f2e59]
+                      - button "11" [disabled] [ref=f2e61]
+                      - button "12" [disabled] [ref=f2e63]
+                      - button "13" [disabled] [ref=f2e65]
+                      - button "14" [disabled] [ref=f2e67]
+                      - button "15" [disabled] [ref=f2e69]
+                      - button "16" [disabled] [ref=f2e71]
+                      - button "17" [disabled] [ref=f2e73]
+                      - button "18" [disabled] [ref=f2e75]
+                      - button "19" [disabled] [ref=f2e77]
+                      - button "20" [disabled] [ref=f2e79]
+                      - button "21" [disabled] [ref=f2e81]
+                      - button "22" [disabled] [ref=f2e83]
+                      - button "23" [disabled] [ref=f2e85]
+                      - button "24" [disabled] [ref=f2e87]
+                      - button "25" [disabled] [ref=f2e89]
+                      - button "26" [disabled] [ref=f2e91]
+                      - button "27 Today" [disabled] [ref=f2e93]:
+                        - text: "27"
+                        - generic [ref=f2e95]: Today
+                      - button "28" [ref=f2e97]
+                      - button "29" [disabled] [ref=f2e99]
+                      - button "30" [ref=f2e101]
+                      - button "31" [ref=f2e103]
+                      - generic [ref=f2e104]:
+                        - generic [ref=f2e105]: Apr
+                        - button "1" [ref=f2e106]
+                      - button "2" [ref=f2e108]
+                      - button "3" [ref=f2e110]
+                      - button "4" [ref=f2e112]
+                      - button "5" [disabled] [ref=f2e114]
+                      - button "6" [ref=f2e116]
+                      - button "7" [ref=f2e118]
+                      - button "8" [ref=f2e120]
+                      - button "9" [ref=f2e122]
+                      - button "10" [ref=f2e124]
+                      - button "11" [ref=f2e126]
+                  - generic [ref=f2e127]:
+                    - generic [ref=f2e129]:
+                      - generic [ref=f2e130]:
+                        - text: Sat
+                        - generic [ref=f2e131]: "28"
+                      - group "Time format" [ref=f2e133]:
+                        - radio "12h" [checked] [ref=f2e134] [cursor=pointer]:
+                          - generic [ref=f2e135]: 12h
+                        - radio "24h" [ref=f2e136] [cursor=pointer]:
+                          - generic [ref=f2e137]: 24h
+                    - generic [ref=f2e141]:
+                      - button "12:30pm" [ref=f2e143] [cursor=pointer]:
+                        - generic [ref=f2e145]: 12:30pm
+                      - button "1:00pm" [ref=f2e147] [cursor=pointer]:
+                        - generic [ref=f2e149]: 1:00pm
+                      - button "1:30pm" [ref=f2e151] [cursor=pointer]:
+                        - generic [ref=f2e153]: 1:30pm
+                      - button "2:00pm" [ref=f2e155] [cursor=pointer]:
+                        - generic [ref=f2e157]: 2:00pm
+                      - button "2:30pm" [ref=f2e159] [cursor=pointer]:
+                        - generic [ref=f2e161]: 2:30pm
+                      - button "3:00pm" [ref=f2e163] [cursor=pointer]:
+                        - generic [ref=f2e165]: 3:00pm
+                      - button "3:30pm" [ref=f2e167] [cursor=pointer]:
+                        - generic [ref=f2e169]: 3:30pm
+                      - button "4:00pm" [ref=f2e171] [cursor=pointer]:
+                        - generic [ref=f2e173]: 4:00pm
+                      - button "4:30pm" [ref=f2e175] [cursor=pointer]:
+                        - generic [ref=f2e177]: 4:30pm
+                - link "Cal.com Logo" [ref=f2e180] [cursor=pointer]:
+                  - /url: https://go.cal.com/booking
+                  - img "Cal.com Logo" [ref=f2e181]
+              - region "Notifications alt+T"
+            - alert [ref=f2e182]
+            - generic:
+              - region "Notifications"
+            - generic:
+              - region "Notifications"
+  - contentinfo [ref=e39]:
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - paragraph [ref=e44]: TM Contracting
+          - heading "TMcontrc Inc." [level=2] [ref=e45]
+          - paragraph [ref=e46]: Canada inc.
+        - generic [ref=e47]:
+          - paragraph [ref=e48]: Locations
+          - generic [ref=e49]:
+            - generic [ref=e50]:
+              - paragraph [ref=e51]: Head Office
+              - paragraph [ref=e52]: 247 Maloney Est, Gatineau, QC J8P 1C2
+            - generic [ref=e53]:
+              - paragraph [ref=e54]: Montreal Hub
+              - paragraph [ref=e55]: Avenue Rothesay Saint-Lambert, QC J4R 2H5
+            - generic [ref=e56]:
+              - paragraph [ref=e57]: Ottawa Hub
+              - paragraph [ref=e58]: Walkley Rd, Ottawa, ON K1V 2J6
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - paragraph [ref=e61]: Email
+            - generic [ref=e62]:
+              - link "info@tmforcontracting.com" [ref=e63] [cursor=pointer]:
+                - /url: mailto:info@tmforcontracting.com
+              - link "Admin@tmforcontracting.com" [ref=e64] [cursor=pointer]:
+                - /url: mailto:Admin@tmforcontracting.com
+              - link "Payment@tmforcontracting.com" [ref=e65] [cursor=pointer]:
+                - /url: mailto:Payment@tmforcontracting.com
+              - link "hr@tmforcontracting.com" [ref=e66] [cursor=pointer]:
+                - /url: mailto:hr@tmforcontracting.com
+          - generic [ref=e67]:
+            - paragraph [ref=e68]: Contact
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - paragraph [ref=e71]: For Call
+                - link "+1 (800) 430-0555" [ref=e72] [cursor=pointer]:
+                  - /url: tel:+18004300555
+              - generic [ref=e73]:
+                - paragraph [ref=e74]: For Text
+                - link "+1 (613) 914-8543" [ref=e75] [cursor=pointer]:
+                  - /url: sms:+16139148543
+      - generic [ref=e77]:
+        - paragraph [ref=e78]: Registration
+        - generic [ref=e79]:
+          - generic [ref=e80]:
+            - paragraph [ref=e81]: RBQ
+            - paragraph [ref=e82]: 5859-9481
+          - generic [ref=e83]:
+            - paragraph [ref=e84]: Canada Inc.
+            - paragraph [ref=e85]: 1646071-2
+          - generic [ref=e86]:
+            - paragraph [ref=e87]: NEQ (Quebec)
+            - paragraph [ref=e88]: "1180362890"
+          - generic [ref=e89]:
+            - paragraph [ref=e90]: HST
+            - paragraph [ref=e91]: 704356955 RC 0001
+          - generic [ref=e92]:
+            - paragraph [ref=e93]: GST (TPS)
+            - paragraph [ref=e94]: 70435 6955 RT 0001
+          - generic [ref=e95]:
+            - paragraph [ref=e96]: QST (TVQ)
+            - paragraph [ref=e97]: 12 3224 0781 IC 0001
+      - generic [ref=e98]:
+        - paragraph [ref=e99]: Copyright © 2026 TM Contracting.
+        - paragraph [ref=e100]:
+          - text: Built by
+          - link "Webrise" [ref=e101] [cursor=pointer]:
+            - /url: https://webrise.ca
+  - button "Open Next.js Dev Tools" [ref=e107] [cursor=pointer]:
+    - img [ref=e108]
+  - alert [ref=e111]

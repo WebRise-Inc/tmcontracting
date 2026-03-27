@@ -1,0 +1,103 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "TM Contracting TM Contracting" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TM Contracting" [ref=e6]
+        - generic [ref=e7]: TM Contracting
+      - navigation [ref=e8]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - button "Services" [ref=e11]:
+          - text: Services
+          - img [ref=e12]
+        - link "FAQ" [ref=e14] [cursor=pointer]:
+          - /url: /faq
+        - link "Contact us" [ref=e15] [cursor=pointer]:
+          - /url: /#contact-contact
+      - generic [ref=e16]:
+        - link "Let's Meet in Person" [ref=e17] [cursor=pointer]:
+          - /url: /online-estimate
+        - generic [ref=e18]:
+          - button "EN" [pressed] [ref=e19]
+          - generic [ref=e20]: "|"
+          - button "FR" [ref=e21]
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - heading "Book a Time to Speak With a TM Contracting Representative" [level=1] [ref=e25]
+        - paragraph [ref=e26]: Use the online booking calendar below to choose the appointment time that works best for you. Online bookings must be made at least 24 hours in advance. If you would prefer an on-site visit, let us know and we will confirm availability within up to 2 weeks.
+      - generic [ref=e27]:
+        - button "Online Meeting" [ref=e28]
+        - button "Physical Meeting" [ref=e29]
+  - contentinfo [ref=e32]:
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - paragraph [ref=e37]: TM Contracting
+          - heading "TMcontrc Inc." [level=2] [ref=e38]
+          - paragraph [ref=e39]: Canada inc.
+        - generic [ref=e40]:
+          - paragraph [ref=e41]: Locations
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - paragraph [ref=e44]: Head Office
+              - paragraph [ref=e45]: 247 Maloney Est, Gatineau, QC J8P 1C2
+            - generic [ref=e46]:
+              - paragraph [ref=e47]: Montreal Hub
+              - paragraph [ref=e48]: Avenue Rothesay Saint-Lambert, QC J4R 2H5
+            - generic [ref=e49]:
+              - paragraph [ref=e50]: Ottawa Hub
+              - paragraph [ref=e51]: Walkley Rd, Ottawa, ON K1V 2J6
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - paragraph [ref=e54]: Email
+            - generic [ref=e55]:
+              - link "info@tmforcontracting.com" [ref=e56] [cursor=pointer]:
+                - /url: mailto:info@tmforcontracting.com
+              - link "Admin@tmforcontracting.com" [ref=e57] [cursor=pointer]:
+                - /url: mailto:Admin@tmforcontracting.com
+              - link "Payment@tmforcontracting.com" [ref=e58] [cursor=pointer]:
+                - /url: mailto:Payment@tmforcontracting.com
+              - link "hr@tmforcontracting.com" [ref=e59] [cursor=pointer]:
+                - /url: mailto:hr@tmforcontracting.com
+          - generic [ref=e60]:
+            - paragraph [ref=e61]: Contact
+            - generic [ref=e62]:
+              - generic [ref=e63]:
+                - paragraph [ref=e64]: For Call
+                - link "+1 (800) 430-0555" [ref=e65] [cursor=pointer]:
+                  - /url: tel:+18004300555
+              - generic [ref=e66]:
+                - paragraph [ref=e67]: For Text
+                - link "+1 (613) 914-8543" [ref=e68] [cursor=pointer]:
+                  - /url: sms:+16139148543
+      - generic [ref=e70]:
+        - paragraph [ref=e71]: Registration
+        - generic [ref=e72]:
+          - generic [ref=e73]:
+            - paragraph [ref=e74]: RBQ
+            - paragraph [ref=e75]: 5859-9481
+          - generic [ref=e76]:
+            - paragraph [ref=e77]: Canada Inc.
+            - paragraph [ref=e78]: 1646071-2
+          - generic [ref=e79]:
+            - paragraph [ref=e80]: NEQ (Quebec)
+            - paragraph [ref=e81]: "1180362890"
+          - generic [ref=e82]:
+            - paragraph [ref=e83]: HST
+            - paragraph [ref=e84]: 704356955 RC 0001
+          - generic [ref=e85]:
+            - paragraph [ref=e86]: GST (TPS)
+            - paragraph [ref=e87]: 70435 6955 RT 0001
+          - generic [ref=e88]:
+            - paragraph [ref=e89]: QST (TVQ)
+            - paragraph [ref=e90]: 12 3224 0781 IC 0001
+      - generic [ref=e91]:
+        - paragraph [ref=e92]: Copyright © 2026 TM Contracting.
+        - paragraph [ref=e93]:
+          - text: Built by
+          - link "Webrise" [ref=e94] [cursor=pointer]:
+            - /url: https://webrise.ca
+  - button "Open Next.js Dev Tools" [ref=e100] [cursor=pointer]:
+    - img [ref=e101]
+  - alert [ref=e104]

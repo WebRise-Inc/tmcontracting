@@ -1,0 +1,16 @@
+Total messages: 14 (Errors: 0, Warnings: 3)
+
+[LOG] [Fast Refresh] rebuilding @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[LOG] [Fast Refresh] done in 214ms @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[LOG] [HMR] connected @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /online-estimate, path: /online-estimate} @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[LOG] %c[Vercel Web Analytics]%c [view] http://127.0.0.1:3002/online-estimate color: rgb(120, 120, 120) color: inherit {o: http://127.0.0.1:3002/online-estimate, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 1.6.1, ts: 1774628579374} /_vercel/insights/view @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[WARNING] `markdownToSafeHTML` should not be imported on the client side. @ https://app.cal.com/_next/static/chunks/a2c2771ef0257e39.js:8
+[WARNING] [DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937 @ https://app.cal.com/_next/static/chunks/a2c2771ef0257e39.js:8
+[WARNING] react-i18next:: You will need to pass in an i18next instance by using initReactI18next @ https://app.cal.com/_next/static/chunks/a2c2771ef0257e39.js:8
+[LOG] QuickAvailabilityCheck feature enabled: false @ https://app.cal.com/_next/static/chunks/a2c2771ef0257e39.js:8
+[LOG] QuickAvailabilityCheck feature enabled: false @ https://app.cal.com/_next/static/chunks/a2c2771ef0257e39.js:8
+[LOG] [Fast Refresh] rebuilding @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297
+[LOG] [Fast Refresh] done in 110ms @ http://127.0.0.1:3002/_next/static/chunks/979b6_next_dist_2a67324b._.js:2297

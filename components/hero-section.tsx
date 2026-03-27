@@ -1,29 +1,28 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
+import Link from "next/link"
 
-const phrases = [
-  {
-    label: "BECAUSE YOU DESERVE",
-    heading: "3-YEARS RISK-FREE Warranty",
-    body: "Our 3-YEARS RISK-FREE Warranty means zero risk for you: it covers 100% of our work, and if anything we did isn't right, we fix it—no debates, no excuses. It's simple: you get real peace of mind, backed by real accountability.",
-  },
-  {
-    label: "BECAUSE YOU DESERVE",
-    heading: "One Team, A to Z",
-    body: "We handle your project A to Z — excavation to keys — with one accountable team managing every phase. We take care of planning, trades, materials, scheduling, and site coordination, so you get one point of contact and zero headache.",
-  },
-  {
-    label: "BECAUSE YOU DESERVE",
-    heading: "Fast Estimates, Zero Wait",
-    body: "Fast online or in-person appointments, and once you book a time slot, you can often get a clear estimate and a practical game plan within minutes — usually from a short call or video plus a few photos.",
-  },
-]
+import { useLocale } from "@/components/locale-provider"
+
+const handwrittenFont = {
+  fontFamily: "'Backbon', 'Backbone', 'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Noteworthy', cursive",
+} as const
+
+const DISPLAY_HEADING_STYLE = {
+  fontFamily: "'Vogue', serif",
+  fontWeight: 600,
+  letterSpacing: "0.012em",
+} as const
 
 export function HeroSection() {
+  const { copy } = useLocale()
   const [current, setCurrent] = useState(0)
   const [phase, setPhase] = useState<"visible" | "exit" | "enter">("visible")
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const phrases = copy.hero.phrases
 
   const goTo = (index: number) => {
     if (index === current) return
@@ -47,7 +46,7 @@ export function HeroSection() {
         setPhase("enter")
         setTimeout(() => setPhase("visible"), 50)
       }, 450)
-    }, 5500)
+    }, 10000)
   }
 
   useEffect(() => {
@@ -56,6 +55,39 @@ export function HeroSection() {
       if (timerRef.current) clearInterval(timerRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const syncPlaybackRate = () => {
+      video.playbackRate = 0.72
+    }
+
+    const ensurePlayback = () => {
+      const playback = video.play()
+      if (playback && typeof playback.catch === "function") {
+        playback.catch(() => {})
+      }
+    }
+
+    const restartLoop = () => {
+      video.currentTime = 0
+      ensurePlayback()
+    }
+
+    syncPlaybackRate()
+    ensurePlayback()
+    video.addEventListener("loadeddata", syncPlaybackRate)
+    video.addEventListener("canplay", ensurePlayback)
+    video.addEventListener("ended", restartLoop)
+
+    return () => {
+      video.removeEventListener("loadeddata", syncPlaybackRate)
+      video.removeEventListener("canplay", ensurePlayback)
+      video.removeEventListener("ended", restartLoop)
+    }
   }, [])
 
   const phrase = phrases[current]
@@ -71,102 +103,123 @@ export function HeroSection() {
     <section className="relative w-full min-h-screen overflow-hidden flex items-center">
       {/* Background video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
+        preload="auto"
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden="true"
       >
-        <source
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0307%20%281%29-1KIrAJJC7ATtGc3nieiOPQiuccBUUE.mp4"
-          type="video/mp4"
-        />
+        <source src="/videos/hero-homepage-0317.webm" type="video/webm" />
       </video>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-[#24342C]/60" />
 
       {/* Province tabs — left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-0">
-        {["Quebec", "Ontario"].map((province) => (
-          <button
-            key={province}
-            className="bg-[#F7F6F1] text-[#24342C] text-xs font-semibold tracking-widest border border-[#D6D1C4] hover:bg-[#7F8F57] hover:text-[#F7F6F1] transition-colors duration-200"
-            style={{
-              writingMode: "vertical-rl",
-              transform: "rotate(180deg)",
-              padding: "14px 8px",
-            }}
-          >
-            {province}
-          </button>
-        ))}
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 z-20">
+        <div className="relative overflow-hidden rounded-[30px] border border-[#F7F6F1]/12 bg-[#1E2D26]/42 px-2 py-3 shadow-[0_24px_50px_rgba(0,0,0,0.25)] backdrop-blur-md">
+          <div className="relative flex flex-col gap-2">
+            {copy.hero.provinces.map((province) => (
+              <div
+                key={province}
+                className="rounded-full border border-[#F7F6F1]/10 bg-[#F7F6F1]/6 text-[#F7F6F1] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-200 hover:border-[#036738]/60 hover:text-[#F7F6F1]"
+                style={{
+                  writingMode: "vertical-rl",
+                  transform: "rotate(180deg)",
+                  padding: "24px 14px",
+                  textShadow: "0 2px 10px rgba(0,0,0,0.3)",
+                }}
+              >
+                <span className="block text-[0.95rem] font-semibold uppercase tracking-[0.34em] sm:text-[1.05rem]">
+                  {province}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Layout: content centered-left */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-24 pb-16 flex justify-start">
-        <div className="w-full max-w-2xl pl-24">
+      {/* Layout: content + brand visual */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-24">
+        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(300px,480px)] lg:gap-0">
+          <div className="w-full pl-20 sm:pl-24">
+            {/* Static "Book a call" + dots stay in place */}
+            {/* Animated content block */}
+            <div style={contentStyle}>
+              {/* Label */}
+              <p
+                className="mb-5 text-[1.7rem] leading-none sm:text-[2rem] md:text-[2.35rem]"
+                style={{
+                  ...handwrittenFont,
+                  color: "#C8D87A",
+                  textShadow: "0 2px 12px rgba(0,0,0,0.5)",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {phrase.label}
+              </p>
 
-          {/* Static "Book a call" + dots stay in place */}
-          {/* Animated content block */}
-          <div style={contentStyle}>
-            {/* Label */}
-            <p
-              className="text-sm font-bold tracking-[0.28em] uppercase mb-4"
-              style={{
-                fontFamily: "'Vogue', serif",
-                color: "#C8D87A",
-                textShadow: "0 1px 8px rgba(0,0,0,0.55)",
-                letterSpacing: "0.28em",
-              }}
+              {/* Heading */}
+              <h1
+                className="mb-5 max-w-none text-[clamp(1.45rem,3.35vw,4.25rem)] leading-[1.06] text-[#F7F6F1]"
+                style={DISPLAY_HEADING_STYLE}
+              >
+                {phrase.heading}
+              </h1>
+
+              {/* Body */}
+              <p className="mb-0 max-w-xl text-lg leading-relaxed text-[#E1DDD5] md:text-xl">
+                {phrase.body}
+              </p>
+            </div>
+
+            {/* CTA — stays pinned, does not animate */}
+            <Link
+              href="/online-estimate"
+              className="group relative overflow-hidden inline-flex items-center gap-2 mt-8 px-8 py-3.5 border-2 border-[#F7F6F1] text-[#F7F6F1] text-sm tracking-widest uppercase transition-colors duration-300"
+              style={{ fontFamily: "'Vogue', serif" }}
             >
-              {phrase.label}
-            </p>
+              <span className="relative z-10">{copy.hero.bookCall}</span>
+              <span className="relative z-10 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+              <span className="absolute inset-0 bg-[#F7F6F1] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+              <span className="absolute inset-0 flex items-center justify-center gap-2 text-[#314B3E] text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" style={{ fontFamily: "'Vogue', serif" }}>
+                {copy.hero.bookCall} →
+              </span>
+            </Link>
 
-            {/* Heading */}
-            <h1
-              className="text-4xl md:text-5xl lg:text-6xl text-[#F7F6F1] leading-tight text-balance mb-5 max-w-xl"
-              style={{ fontFamily: "'Vogue', serif", fontWeight: "normal", letterSpacing: "0.02em" }}
-            >
-              {phrase.heading}
-            </h1>
-
-            {/* Body */}
-            <p className="text-[#D8D4CC] text-base md:text-lg leading-relaxed max-w-lg mb-0">
-              {phrase.body}
-            </p>
+            {/* Dots */}
+            <div className="flex gap-2 mt-8">
+              {phrases.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    goTo(i)
+                    startTimer()
+                  }}
+                  className={`h-[3px] rounded-full transition-all duration-500 ${
+                    i === current ? "w-10 bg-[#036738]" : "w-5 bg-[#F7F6F1]/35 hover:bg-[#F7F6F1]/60"
+                  }`}
+                  aria-label={`${copy.hero.goToPhrase} ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* CTA — stays pinned, does not animate */}
-          <a
-            href="#"
-            className="group relative overflow-hidden inline-flex items-center gap-2 mt-8 px-8 py-3.5 border-2 border-[#F7F6F1] text-[#F7F6F1] text-sm tracking-widest uppercase transition-colors duration-300"
-            style={{ fontFamily: "'Vogue', serif" }}
-          >
-            <span className="relative z-10">Book a call</span>
-            <span className="relative z-10 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-            <span className="absolute inset-0 bg-[#F7F6F1] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
-            <span className="absolute inset-0 flex items-center justify-center gap-2 text-[#314B3E] text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" style={{ fontFamily: "'Vogue', serif" }}>
-              Book a call →
-            </span>
-          </a>
-
-          {/* Dots */}
-          <div className="flex gap-2 mt-8">
-            {phrases.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  goTo(i)
-                  startTimer()
-                }}
-                className={`h-[3px] rounded-full transition-all duration-500 ${
-                  i === current ? "w-10 bg-[#7F8F57]" : "w-5 bg-[#F7F6F1]/35 hover:bg-[#F7F6F1]/60"
-                }`}
-                aria-label={`Go to phrase ${i + 1}`}
+          <div className="relative flex justify-center lg:justify-start lg:-ml-10">
+            <div className="absolute inset-[12%] rounded-full bg-[#C8D87A]/16 blur-3xl" />
+            <div className="relative w-full max-w-[20rem] sm:max-w-[23rem] lg:max-w-[29rem]">
+              <Image
+                src="/images/brand/hero-logo-tm-wall-fullpage.png"
+                alt={copy.navbar.logoAlt}
+                width={3603}
+                height={2803}
+                priority
+                className="relative h-auto w-full object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.42)]"
               />
-            ))}
+            </div>
           </div>
         </div>
       </div>

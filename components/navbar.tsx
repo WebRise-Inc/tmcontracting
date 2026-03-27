@@ -1,143 +1,234 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { ChevronDown, Menu, X } from "lucide-react"
 
+import { useLocale } from "@/components/locale-provider"
+
+const displayFont = { fontFamily: "'Vogue', serif" } as const
+
 export function Navbar() {
+  const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
-  const [lang, setLang] = useState<"EN" | "FR">("EN")
+  const [scrolled, setScrolled] = useState(false)
+  const { locale, setLocale, copy } = useLocale()
+  const contactLinks = {
+    estimate: "/online-estimate",
+    quote: "/#contact",
+    contact: "/#contact-contact",
+  } as const
+  const mobileLinks = [
+    { label: copy.navbar.home, href: "/" },
+    { label: copy.navbar.services, href: "/#services" },
+    { label: copy.navbar.onlineEstimate, href: contactLinks.estimate },
+    { label: copy.navbar.faq, href: "/faq" },
+    { label: copy.navbar.contactUs, href: contactLinks.contact },
+  ]
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 24)
+    }
+
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    setMobileOpen(false)
+    setServicesOpen(false)
+  }, [pathname])
+
+  const overlayMode = !scrolled && !mobileOpen
+  const shellClass = overlayMode
+    ? "border-transparent bg-transparent"
+    : "border-[#CFC7B6] bg-[#F3F0E7]/96 shadow-[0_16px_32px_rgba(15,24,18,0.08)] backdrop-blur-md"
+  const textClass = overlayMode ? "text-[#F7F6F1]" : "text-[#24342C]"
+  const mutedClass = overlayMode ? "text-[#E7E2D8]/86" : "text-[#5E685F]"
+  const accentClass = overlayMode ? "text-[#C8D87A]" : "text-[#036738]"
+  const hoverClass = overlayMode ? "hover:text-[#C8D87A]" : "hover:text-[#036738]"
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-[#F7F6F1]/90 backdrop-blur-sm border-b border-[#D6D1C4]">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex-shrink-0">
+    <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${shellClass}`}>
+      <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
+        <Link href="/" className="flex min-w-0 items-center gap-3 justify-self-start">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-CKmfA4i0Lqr5vMTUqZ4P98LEmP6FHz.png"
-            alt="TM Contracting Since 1991"
-            width={72}
-            height={72}
-            className="h-14 w-auto"
+            src="/images/brand/navbar-logo-transparent.png"
+            alt={copy.navbar.logoAlt}
+            width={919}
+            height={734}
+            priority
+            className="h-14 w-auto max-w-[4.8rem] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.14)] sm:h-16 sm:max-w-[5.4rem]"
           />
-        </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="#" className="text-base tracking-widest uppercase text-[#24342C] hover:text-[#7F8F57] transition-colors" style={{ fontFamily: "'Vogue', serif" }}>
-            Home
-          </a>
-          <div className="relative">
+          <span
+            className={`block truncate text-[1.2rem] leading-none tracking-[0.05em] sm:text-[1.45rem] ${textClass}`}
+            style={displayFont}
+          >
+            TM Contracting
+          </span>
+        </Link>
+
+        <nav className="hidden items-center justify-center gap-6 px-4 md:flex lg:gap-7">
+          <Link
+            href="/"
+            className={`border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass} ${pathname === "/" ? accentClass : ""}`}
+            style={displayFont}
+          >
+            {copy.navbar.home}
+          </Link>
+
+          <div
+            className="relative"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+          >
             <button
-              onClick={() => setServicesOpen(!servicesOpen)}
-              className="flex items-center gap-1 text-base tracking-widest uppercase text-[#24342C] hover:text-[#7F8F57] transition-colors"
-              style={{ fontFamily: "'Vogue', serif" }}
+              className={`flex items-center gap-1 border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
+              style={displayFont}
+              aria-expanded={servicesOpen}
+              aria-haspopup="menu"
+              type="button"
             >
-              Services <ChevronDown className="w-4 h-4" />
+              {copy.navbar.services}
+              <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`} />
             </button>
+
             {servicesOpen && (
-              <div className="absolute top-full mt-2 left-0 w-56 bg-[#F7F6F1] border border-[#D6D1C4] shadow-md rounded-sm py-1">
-                {[
-                  { label: "Renovation", slug: "renovation" },
-                  { label: "Concrete", slug: "concrete" },
-                  { label: "Excavation & Lifting", slug: "excavation-lifting" },
-                  { label: "New Construction", slug: "new-construction" },
-                ].map((s) => (
-                  <a key={s.slug} href={`/services/${s.slug}`} className="block px-4 py-2.5 text-sm text-[#5E685F] hover:bg-[#E9E5DA] hover:text-[#24342C] transition-colors font-sans">
-                    {s.label}
-                  </a>
+              <div className="absolute left-0 top-full mt-4 w-64 overflow-hidden border border-[#CFC7B6] bg-[#F3F0E7] py-2 shadow-[0_18px_30px_rgba(16,22,18,0.12)]">
+                {copy.services.items.map((service) => (
+                  <Link
+                    key={service.slug}
+                    href={`/services/${service.slug}`}
+                    className="block px-5 py-3 text-sm text-[#5E685F] transition-colors hover:bg-[#E9E2D2] hover:text-[#24342C]"
+                  >
+                    {service.title}
+                  </Link>
                 ))}
               </div>
             )}
           </div>
-          <a href="#" className="text-base tracking-widest uppercase text-[#24342C] hover:text-[#7F8F57] transition-colors" style={{ fontFamily: "'Vogue', serif" }}>
-            Career
-          </a>
-          <a href="#" className="text-base tracking-widest uppercase text-[#24342C] hover:text-[#7F8F57] transition-colors" style={{ fontFamily: "'Vogue', serif" }}>
-            FAQ
-          </a>
+
+          <Link
+            href="/faq"
+            className={`border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass} ${pathname === "/faq" ? accentClass : ""}`}
+            style={displayFont}
+          >
+            {copy.navbar.faq}
+          </Link>
+
+          <Link
+            href={contactLinks.contact}
+            className={`border-b border-transparent pb-1 text-sm uppercase tracking-[0.28em] transition-colors ${textClass} ${hoverClass}`}
+            style={displayFont}
+          >
+            {copy.navbar.contactUs}
+          </Link>
         </nav>
 
-        {/* Right side: lang switcher + CTA */}
-        <div className="hidden md:flex items-center gap-4">
-          {/* Language switcher */}
-          <div className="flex items-center border border-[#D6D1C4] overflow-hidden" style={{ fontFamily: "'Vogue', serif" }}>
+        <div className="hidden items-center justify-self-end gap-4 md:flex">
+          <Link
+            href={contactLinks.estimate}
+            className="inline-flex items-center gap-2 whitespace-nowrap border border-[#0A7A44] bg-[#24342C] px-5 py-3 text-sm uppercase tracking-[0.24em] text-[#F7F6F1] transition-colors hover:bg-[#0F2B1E] lg:px-6"
+            style={displayFont}
+          >
+            {copy.navbar.onlineEstimate}
+          </Link>
+
+          <div className={`flex items-center gap-2 text-sm uppercase tracking-[0.3em] ${mutedClass}`} style={displayFont}>
             <button
-              onClick={() => setLang("EN")}
-              className={`px-3 py-1.5 text-sm tracking-widest uppercase transition-colors duration-200 ${
-                lang === "EN"
-                  ? "bg-[#314B3E] text-[#F7F6F1]"
-                  : "text-[#5E685F] hover:text-[#24342C] hover:bg-[#E9E5DA]"
-              }`}
+              onClick={() => setLocale("en")}
+              className={`transition-colors ${locale === "en" ? accentClass : hoverClass}`}
+              aria-pressed={locale === "en"}
             >
               EN
             </button>
-            <span className="w-px h-5 bg-[#D6D1C4]" />
+            <span className={overlayMode ? "text-white/28" : "text-[#B7B1A3]"}>|</span>
             <button
-              onClick={() => setLang("FR")}
-              className={`px-3 py-1.5 text-sm tracking-widest uppercase transition-colors duration-200 ${
-                lang === "FR"
-                  ? "bg-[#314B3E] text-[#F7F6F1]"
-                  : "text-[#5E685F] hover:text-[#24342C] hover:bg-[#E9E5DA]"
-              }`}
+              onClick={() => setLocale("fr")}
+              className={`transition-colors ${locale === "fr" ? accentClass : hoverClass}`}
+              aria-pressed={locale === "fr"}
             >
               FR
             </button>
           </div>
-
-          {/* CTA */}
-          <a
-            href="#"
-            className="group relative overflow-hidden px-6 py-2.5 bg-[#314B3E] text-[#F7F6F1] text-base tracking-widest uppercase transition-colors duration-300 hover:text-[#F7F6F1] flex items-center gap-2"
-            style={{ fontFamily: "'Vogue', serif" }}
-          >
-            <span className="relative z-10">Contact us</span>
-            <span className="relative z-10 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-            <span className="absolute inset-0 bg-[#7F8F57] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
-          </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
-          className="md:hidden text-[#24342C]"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          className={`flex h-11 w-11 items-center justify-center justify-self-end rounded-full border transition-colors md:hidden ${
+            overlayMode
+              ? "border-white/20 bg-[#24342C]/18 text-[#F7F6F1] hover:bg-[#24342C]/28"
+              : "border-[#CFC7B6] bg-[#F3F0E7] text-[#24342C] hover:bg-[#E9E2D2]"
+          }`}
+          onClick={() => setMobileOpen((current) => !current)}
+          aria-label={copy.navbar.toggleMenu}
+          aria-expanded={mobileOpen}
         >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#F7F6F1] border-t border-[#D6D1C4] px-6 py-4 flex flex-col gap-4">
-          {["Home", "Services", "Career", "FAQ"].map((item) => (
-            <a key={item} href="#" className="text-sm font-medium text-[#24342C] hover:text-[#7F8F57] transition-colors">
-              {item}
-            </a>
-          ))}
-          {/* Mobile lang switcher */}
-          <div className="flex items-center border border-[#D6D1C4] self-start overflow-hidden" style={{ fontFamily: "'Vogue', serif" }}>
-            <button
-              onClick={() => setLang("EN")}
-              className={`px-3 py-1.5 text-sm tracking-widest uppercase transition-colors ${lang === "EN" ? "bg-[#314B3E] text-[#F7F6F1]" : "text-[#5E685F]"}`}
-            >
-              EN
-            </button>
-            <span className="w-px h-5 bg-[#D6D1C4]" />
-            <button
-              onClick={() => setLang("FR")}
-              className={`px-3 py-1.5 text-sm tracking-widest uppercase transition-colors ${lang === "FR" ? "bg-[#314B3E] text-[#F7F6F1]" : "text-[#5E685F]"}`}
-            >
-              FR
-            </button>
+        <div className="border-t border-[#CFC7B6] bg-[#F3F0E7]/98 px-4 pb-5 pt-0 backdrop-blur-md sm:px-6 md:hidden">
+          <div className="border border-t-0 border-[#CFC7B6] bg-[#F3F0E7]">
+            <div className="p-5">
+              <div className="flex flex-col gap-4">
+                {mobileLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="border-l-2 border-transparent pl-3 text-sm uppercase tracking-[0.24em] text-[#24342C] transition-colors hover:border-[#0A7A44] hover:text-[#036738]"
+                    style={displayFont}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              <div
+                className="mt-6 flex items-center justify-between gap-3 border-t border-[#CFC7B6] pt-4 text-sm uppercase tracking-[0.3em] text-[#5E685F]"
+                style={displayFont}
+              >
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setLocale("en")}
+                    className={`transition-colors ${locale === "en" ? "text-[#036738]" : "hover:text-[#24342C]"}`}
+                    aria-pressed={locale === "en"}
+                  >
+                    EN
+                  </button>
+                  <span className="text-[#B7B1A3]">|</span>
+                  <button
+                    onClick={() => setLocale("fr")}
+                    className={`transition-colors ${locale === "fr" ? "text-[#036738]" : "hover:text-[#24342C]"}`}
+                    aria-pressed={locale === "fr"}
+                  >
+                    FR
+                  </button>
+                </div>
+
+                <Link
+                  href={contactLinks.estimate}
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center whitespace-nowrap border border-[#0A7A44] bg-[#24342C] px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#F7F6F1] transition-colors hover:bg-[#0F2B1E]"
+                  style={displayFont}
+                >
+                  {copy.navbar.onlineEstimate}
+                </Link>
+              </div>
+            </div>
           </div>
-          <a href="#" className="px-5 py-2 text-sm font-semibold border-2 border-[#314B3E] text-[#314B3E] text-center hover:bg-[#314B3E] hover:text-[#F7F6F1] transition-colors">
-            Contact us
-          </a>
         </div>
       )}
     </header>
   )
 }
-

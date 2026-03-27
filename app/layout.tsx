@@ -1,44 +1,74 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { cookies } from 'next/headers'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
+
+import { Footer } from '@/components/footer'
+import { LocaleProvider } from '@/components/locale-provider'
+import { defaultLocale, isLocale, localeCookieName, siteCopy, type Locale } from '@/lib/site-copy'
+
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: 'TM Contracting | Since 1991',
-  description: 'Full-service general contracting from excavation to keys. 3-Year Risk-Free Warranty. Serving Quebec and Ontario. TM Contracting.',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+async function getRequestLocale(): Promise<Locale> {
+  const cookieStore = await cookies()
+  const cookieLocale = cookieStore.get(localeCookieName)?.value
+
+  return isLocale(cookieLocale) ? cookieLocale : defaultLocale
 }
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale()
+
+  return {
+    title: siteCopy[locale].metadata.title,
+    description: siteCopy[locale].metadata.description,
+    generator: 'v0.app',
+    icons: {
+      icon: [
+        {
+          url: '/favicon-triangle.png',
+          type: 'image/png',
+          sizes: '512x512',
+        },
+      ],
+      shortcut: '/favicon-triangle.png',
+      apple: '/logo_LQ.png',
+    },
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getRequestLocale()
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="font-sans antialiased">
-        {children}
-        <Analytics />
+        <LocaleProvider initialLocale={locale}>
+          {children}
+          <Footer />
+          <Analytics />
+        </LocaleProvider>
+        <Script id="crisp-chat" strategy="afterInteractive">
+          {`
+            window.$crisp = [];
+            window.CRISP_WEBSITE_ID = "201bb0ce-a919-487d-a2a9-a9faebecca0f";
+            (function() {
+              var d = document;
+              var s = d.createElement("script");
+              s.src = "https://client.crisp.chat/l.js";
+              s.async = 1;
+              d.getElementsByTagName("head")[0].appendChild(s);
+            })();
+          `}
+        </Script>
       </body>
     </html>
   )

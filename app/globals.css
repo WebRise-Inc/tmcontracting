@@ -9,6 +9,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Backbon';
+  src: local('Backbon'), local('Backbone');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -17,8 +25,8 @@
   --brand-section: #E9E5DA;
   --brand-heading: #24342C;
   --brand-body: #5E685F;
-  --brand-btn: #314B3E;
-  --brand-accent: #7F8F57;
+  --brand-btn: #314C3E;
+  --brand-accent: #036738;
 
   --background: #F7F6F1;
   --foreground: #24342C;
@@ -26,19 +34,19 @@
   --card-foreground: #24342C;
   --popover: #F7F6F1;
   --popover-foreground: #24342C;
-  --primary: #314B3E;
+  --primary: #314C3E;
   --primary-foreground: #F7F6F1;
   --secondary: #E9E5DA;
   --secondary-foreground: #24342C;
   --muted: #E9E5DA;
   --muted-foreground: #5E685F;
-  --accent: #7F8F57;
+  --accent: #036738;
   --accent-foreground: #F7F6F1;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: #D6D1C4;
   --input: #D6D1C4;
-  --ring: #7F8F57;
+  --ring: #036738;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -47,12 +55,12 @@
   --radius: 0.25rem;
   --sidebar: #E9E5DA;
   --sidebar-foreground: #24342C;
-  --sidebar-primary: #314B3E;
+  --sidebar-primary: #314C3E;
   --sidebar-primary-foreground: #F7F6F1;
-  --sidebar-accent: #7F8F57;
+  --sidebar-accent: #036738;
   --sidebar-accent-foreground: #F7F6F1;
   --sidebar-border: #D6D1C4;
-  --sidebar-ring: #7F8F57;
+  --sidebar-ring: #036738;
 }
 
 .dark {
@@ -136,6 +144,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  [style*="'Vogue'"],
+  [style*="\"Vogue\""] {
+    font-weight: 600;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

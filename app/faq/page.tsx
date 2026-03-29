@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { cookies } from "next/headers"
 
 import { FaqPage } from "@/components/faq-page"
-import { faqPage } from "@/lib/faq-page"
 import { defaultLocale, isLocale, localeCookieName, type Locale } from "@/lib/site-copy"
+import { loadFaqEntries } from "@/lib/faq-store"
 
 async function getRequestLocale(): Promise<Locale> {
   const cookieStore = await cookies()
@@ -14,7 +14,8 @@ async function getRequestLocale(): Promise<Locale> {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale()
-  const page = faqPage[locale]
+  const entries = await loadFaqEntries()
+  const page = entries[locale]
 
   return {
     title: page.metadata.title,
@@ -22,6 +23,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function Page() {
-  return <FaqPage />
+export default async function Page() {
+  const entries = await loadFaqEntries()
+
+  return <FaqPage entries={entries} />
 }

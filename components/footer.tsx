@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 
 const displayFont = { fontFamily: "'Vogue', serif" } as const

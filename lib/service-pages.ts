@@ -30,6 +30,8 @@ type ServicePageEntry = {
   eyebrow: string
   summary: string
   description: string
+  scopeTitle?: string
+  scopeDescription?: string
   highlights: ServiceHighlight[]
   groups: ServiceGroup[]
   processIntro: string
@@ -79,6 +81,48 @@ export type ServiceGalleryImage = {
   src: string
   locationLabel: string
 }
+
+const SHARED_SERVICE_PROCESS_INTRO_EN = ""
+
+const SHARED_SERVICE_PROCESS_EN: ServiceStep[] = [
+  {
+    title: "Free Consultation, Online or On Site",
+    body: "Free online and on-site consultations, often within 24 hours. We assess your needs, discuss possible solutions, answer your questions, and provide a preliminary average cost estimate.",
+  },
+  {
+    title: "Detailed Technical Quotation & Clear Scope",
+    body: "A detailed and technically structured quotation outlining the scope of work, execution steps, materials, timeline, and pricing with full clarity. Give you a professional and well-defined proposal so you can review the project confidently and make a clear decision without uncertainty.",
+  },
+  {
+    title: "Live Coordination & Recorded Updates",
+    body: "After confirmation, a group is created with the client, our team, and any involved subcontractors. Through this group, we share moment-by-moment updates, site arrival and departure times, progress photos, questions, answers, and key decisions, so the client remains fully involved at all times, even without being physically present, while keeping the entire process clearly documented and authenticated.",
+  },
+  {
+    title: "Completion, Adjustments & Warranty",
+    body: "If any issue, detail, or correction is identified during the work and falls within our quotation, our team takes care of it directly without unnecessary delays, complications, or extra headaches. Our 3 Years Risk-Free Warranty stands behind the work to give you confidence that the decision you made was the right one.",
+  },
+]
+
+const SHARED_SERVICE_PROCESS_INTRO_FR = ""
+
+const SHARED_SERVICE_PROCESS_FR: ServiceStep[] = [
+  {
+    title: "Consultation gratuite, en ligne ou sur place",
+    body: "Consultations gratuites en ligne et sur place, souvent dans les 24 heures. Nous évaluons vos besoins, discutons des solutions possibles, répondons à vos questions et fournissons une estimation préliminaire du coût moyen.",
+  },
+  {
+    title: "Soumission technique détaillée et portée claire",
+    body: "Une soumission détaillée et techniquement structurée décrivant la portée des travaux, les étapes d'exécution, les matériaux, l'échéancier et les prix avec une clarté complète. Elle vous donne une proposition professionnelle et bien définie afin que vous puissiez examiner le projet avec confiance et prendre une décision claire sans incertitude.",
+  },
+  {
+    title: "Coordination en direct et mises à jour consignées",
+    body: "Après la confirmation, un groupe est créé avec le client, notre équipe et tous les sous-traitants impliqués. Par l'entremise de ce groupe, nous partageons les mises à jour au fur et à mesure, les heures d'arrivée et de départ au chantier, les photos d'avancement, les questions, les réponses et les décisions clés, afin que le client demeure pleinement impliqué en tout temps, même sans être physiquement sur place, tout en gardant l'ensemble du processus clairement documenté et authentifié.",
+  },
+  {
+    title: "Achèvement, ajustements et garantie",
+    body: "Si un problème, un détail ou une correction est relevé pendant les travaux et entre dans notre soumission, notre équipe s'en charge directement sans délais inutiles, complications ou casse-tête supplémentaire. Notre garantie sans risque de 3 ans couvre les travaux pour vous donner confiance que la décision que vous avez prise était la bonne.",
+  },
+]
 
 // Curated homepage subsets prioritize variety inside the tighter card crop.
 const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide[]> = {
@@ -141,7 +185,7 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
       breadcrumbServices: "Services",
       heroLabel: "TM Contracting Service",
       scopeTitle: "What This Service Covers",
-      processTitle: "How The Work Moves",
+      processTitle: "How the Work Moves",
       galleryTitle: "Field Gallery",
       relatedTitle: "Other Services",
       relatedBody: "Need another phase handled by the same team? These services connect directly to the work above.",
@@ -156,12 +200,8 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         summary:
           "Interior and exterior renovation work handled start to finish by one accountable crew.",
         description:
-          "We take renovation projects from demolition and framing through drywall, finishing, and exterior completion so you are not coordinating separate trades on your own. Whether the scope is inside, outside, or both, one team keeps the sequence, workmanship, and final delivery aligned.",
-        highlights: [
-          { value: "Interior", label: "Basements, bathrooms, kitchens, flooring, framing, drywall, finishing" },
-          { value: "Exterior", label: "Siding, decks, brick work, ramps, landscaping" },
-          { value: "One Team", label: "Single crew managing the job from opening to final hand-off" },
-        ],
+          "Renovation work covers situations where interior or exterior areas can no longer properly serve the needs of the property due to wear, damage, outdated finishes, poor layout, or incomplete construction. This may be necessary when spaces require repair, modernization, reconfiguration, or coordinated improvements across multiple phases of work. By managing the project under one organized scope, the work can be completed more smoothly, more consistently, and with better control over quality, sequencing, and final results.",
+        highlights: [],
         groups: [
           {
             title: "Interior renovations",
@@ -173,6 +213,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
               "Framing",
               "Drywall",
               "Finishing",
+              "Isolation",
+              "Beams",
+              "Joists",
+              "Posts",
+              "Tiles",
             ],
           },
           {
@@ -183,37 +228,15 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
               "Brick work",
               "Ramps",
               "Landscaping",
-            ],
-          },
-          {
-            title: "Delivery model",
-            items: [
-              "Start-to-finish coordination by one team",
-              "Scope sequencing without subcontractor confusion",
-              "Consistent finishing from rough work to close-out",
+              "Fences and gates",
+              "Stairs",
+              "Soffit",
+              "Pergolas",
             ],
           },
         ],
-        processIntro:
-          "Renovation work succeeds when the sequence is controlled. We structure the site, move through the build cleanly, and finish with the same team that started the work.",
-        process: [
-          {
-            title: "Review the space",
-            body: "We walk through the existing conditions, confirm priorities, and map the renovation scope so the work starts with a clear plan.",
-          },
-          {
-            title: "Open and prepare",
-            body: "Demolition, framing adjustments, and rough preparation are handled in the right order to keep the project moving cleanly.",
-          },
-          {
-            title: "Build and finish",
-            body: "Core construction, drywall, flooring, trim, exterior work, and detail finishing are completed as one coordinated sequence.",
-          },
-          {
-            title: "Deliver ready",
-            body: "Final refinements, site cleanup, and hand-off happen with the same accountability that carried the project from day one.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_EN,
+        process: SHARED_SERVICE_PROCESS_EN,
         galleryIntro:
           "A look at renovation work in progress, from opened-up interiors to active finishing stages on site.",
         ctaTitle: "Need renovation work handled by one team?",
@@ -229,14 +252,10 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Concrete Services (New / Repair)",
         eyebrow: "New pours + structural repair",
         summary:
-          "Concrete work covering new pours and foundation crack repair, including reinforcement when structural support is needed.",
+          "CONCRETE SOLUTIONS FOR NEW AND EXISTING CONDITIONS",
         description:
-          "We handle new concrete installations such as slabs, foundations, retaining walls, stairs, patios, and driveways, while also addressing existing foundation issues with crack filling, pressure injections, and carbon-fiber stitching where reinforcement is required. The result is one crew that can build new concrete or stabilize existing structures without splitting responsibility.",
-        highlights: [
-          { value: "New Pours", label: "Slabs, foundations, retaining walls, stairs, patios, driveways" },
-          { value: "Crack Repair", label: "Crack filling and pressure injection for active issues" },
-          { value: "Reinforcement", label: "Carbon-fiber stitching when structural support is needed" },
-        ],
+          "Concrete work covers both new installations and corrective repairs where concrete surfaces or foundation areas need to be improved, replaced, or stabilized. This may include extending existing concrete, creating a cleaner walkway, upgrading a sidewalk, modernizing a driveway, or addressing cracks, deterioration, water infiltration, and structural movement. By matching the scope to the actual condition of the site, the work can be completed with a cleaner finish, stronger performance, and better long-term reliability.",
+        highlights: [],
         groups: [
           {
             title: "New concrete work",
@@ -244,9 +263,13 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
               "Slabs",
               "Foundations",
               "Retaining walls",
-              "Stairs",
+              "Stairs and landings",
               "Patios",
               "Driveways",
+              "Sidewalks and walkways",
+              "Concrete pads",
+              "Garage floors",
+              "Entrance aprons",
             ],
           },
           {
@@ -254,120 +277,111 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
             items: [
               "Crack filling",
               "Pressure injections",
-              "Localized repair planning",
+              "Leak-point sealing",
+              "Interior crack repair",
+              "Exterior crack repair",
+              "Localized concrete restoration",
+              "Repair planning by site condition",
+              "Water-infiltration treatment",
+              "Crack sealing solutions",
+              "Targeted repair scope",
             ],
           },
           {
             title: "Structural reinforcement",
             items: [
               "Carbon-fiber stitching",
-              "Repair strategy tied to foundation condition",
-              "One scope for both repair and stabilization",
+              "Structural crack stabilization",
+              "Reinforcement where required",
+              "Condition-based reinforcement",
+              "Localized strengthening",
+              "Support for weakened concrete",
+              "Active crack stabilization",
+              "Repair tied to site conditions",
+              "One scope for repair and support",
+              "Integrated stabilization work",
             ],
           },
         ],
-        processIntro:
-          "Concrete work demands strong prep and clear repair logic. We keep the site organized from forming and pours through targeted structural repair work.",
-        process: [
-          {
-            title: "Assess and lay out",
-            body: "We review the site, existing foundation condition, or new installation scope and set the right approach before concrete work begins.",
-          },
-          {
-            title: "Form or expose",
-            body: "For new pours we prepare forms and base conditions. For repairs we expose the affected areas and confirm the crack or structural issue.",
-          },
-          {
-            title: "Pour or repair",
-            body: "We complete the pour or carry out crack filling and pressure injections based on the work required at that location.",
-          },
-          {
-            title: "Reinforce where needed",
-            body: "When the condition calls for it, carbon-fiber stitching and related reinforcement steps are added to strengthen the structure.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_EN,
+        process: SHARED_SERVICE_PROCESS_EN,
         galleryIntro:
-          "Concrete work on site, from active pours to installation conditions around residential properties.",
-        ctaTitle: "Planning new concrete or dealing with foundation cracks?",
+          "Concrete work in the field, covering both new installation phases and structural repair conditions around existing residential properties.",
+        ctaTitle: "Planning new concrete work or dealing with an existing structural concrete issue?",
         ctaBody:
-          "Send the location, the surface or foundation involved, and any photos you have. We can help determine whether the scope is a new pour, a repair, or both.",
+          "Send the site details, the concrete area or foundation involved, and any photos or drawings you have. We can help determine the right scope, whether the project is new concrete, repair, stabilization, or a combination of all three.",
         metadata: {
           title: "Concrete Services | TM Contracting",
           description:
-            "Concrete services including slabs, foundations, retaining walls, stairs, patios, driveways, crack filling, pressure injections, and carbon-fiber stitching.",
+            "Concrete services for new slabs, foundations, retaining walls, stairs, patios, walkways, and driveways, plus crack filler, high-pressure injection, carbon fibre stitches, and underpinning for repair and stabilization.",
         },
       },
       "excavation-lifting": {
         title: "Excavation & House Lifting Services",
         eyebrow: "Groundwork + structural support",
         summary:
-          "Excavation, drainage, and foundation-prep work combined with safe house lifting and structural support for foundation repair or replacement.",
+          "Excavation & House Lifting Services",
         description:
-          "We handle trenching, grading, drainage, backfill, and site preparation for foundations and slabs, then support more complex structural work with house lifting, temporary shoring, stabilization, re-leveling, and underpinning. That lets one team manage both the ground conditions and the structural support strategy when a foundation needs to be repaired, replaced, strengthened, or deepened.",
-        highlights: [
-          { value: "Site Prep", label: "Trenching, grading, drainage, backfill, and slab or foundation preparation" },
-          { value: "House Lifting", label: "Safe lifting and support for foundation repair or replacement" },
-          { value: "Foundation Support", label: "Shoring, stabilization, re-leveling, and underpinning" },
-        ],
+          "excavation and elevation services when foundation problems or structural conditions cannot be properly addressed without opening the ground and temporarily supporting the build",
+        highlights: [],
         groups: [
           {
-            title: "Excavation scope",
+            title: "EXCAVATION & SITE PREPARATION",
             items: [
               "Trenching",
               "Grading",
               "Drainage",
-              "Backfill",
-              "Site preparation for foundations and slabs",
+              "Backfilling",
+              "Site preparation",
+              "Excavation for foundations",
+              "Slab sub-base preparation",
+              "Soil removal and reshaping",
+              "Access preparation",
+              "Groundwork coordination",
             ],
           },
           {
-            title: "House lifting and support",
+            title: "HOUSE LIFTING AND SUPPORT",
             items: [
               "Safe house lifting",
               "Structural support during foundation work",
               "Temporary shoring",
               "Stabilization",
+              "Load transfer planning",
+              "Controlled lifting sequence",
+              "Structural bracing",
+              "Support for repair access",
+              "Lift preparation and setup",
+              "Temporary structural holding",
             ],
           },
           {
-            title: "Foundation strengthening",
+            title: "FOUNDATION STRENGTHENING",
             items: [
               "Re-leveling",
               "Underpinning",
-              "Strengthening existing foundations",
-              "Deepening existing foundations",
+              "Existing foundation strengthening",
+              "Foundation deepening",
+              "Structural stabilization",
+              "Load support improvement",
+              "Localized reinforcement",
+              "Settlement correction",
+              "Support restoration",
+              "Strengthening for repair work",
             ],
           },
         ],
-        processIntro:
-          "This work depends on site control and structural sequencing. We move carefully from excavation and exposure into lifting, support, and final stabilization.",
-        process: [
-          {
-            title: "Prepare the site",
-            body: "We establish access, protect the structure, and organize trenching, grading, drainage, or backfill requirements around the foundation area.",
-          },
-          {
-            title: "Excavate and expose",
-            body: "The foundation or slab area is opened safely so the structural condition and required repair or replacement path are fully accessible.",
-          },
-          {
-            title: "Lift and support",
-            body: "Where necessary, we carry out house lifting, temporary shoring, and stabilization to protect the structure while the foundation work proceeds.",
-          },
-          {
-            title: "Re-level and strengthen",
-            body: "Final stabilization can include re-leveling and underpinning to strengthen or deepen the existing foundation before close-out.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_EN,
+        process: SHARED_SERVICE_PROCESS_EN,
         galleryIntro:
-          "Excavation and lifting work in the field, showing exposed foundations, machine access, and structural support conditions.",
-        ctaTitle: "Need excavation or foundation support work on an active structure?",
+          "Excavation, site-preparation, and lifting work in the field, showing exposed foundations, machine access, and structural support conditions.",
+        ctaTitle: "Need excavation, site preparation, or house lifting tied to foundation work?",
         ctaBody:
-          "If the job involves drainage, trenching, settlement, exposed footings, or lifting for repair or replacement, send the site details and we can help frame the next step.",
+          "If the project involves trenching, grading, drainage, exposed foundations, lifting, shoring, or underpinning, send the site details and any photos you have and we can help define the next step clearly.",
         metadata: {
           title: "Excavation & House Lifting Services | TM Contracting",
           description:
-            "Excavation, grading, drainage, backfill, house lifting, shoring, stabilization, re-leveling, and underpinning for foundation repair, replacement, or strengthening.",
+            "Excavation and site preparation services including trenching, grading, drainage, backfill, and foundation prep, plus house lifting, shoring, stabilization, re-leveling, and underpinning for structural support work.",
         },
       },
       "new-construction": {
@@ -377,18 +391,35 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
           "Homes, garages, extensions, and structural layout modifications managed from planning and permits through final delivery.",
         description:
           "We build new homes, garages, and extensions, and we also handle building modifications that change structure, layout, or flow. The work is managed across planning, permits, excavation, foundation, framing, exterior scope, interior finishes, and final completion so the entire build path stays tied to one accountable team.",
+        scopeTitle: "Ground-Up Construction & Structural Modification Services",
+        scopeDescription:
+          "Your project requires more than basic construction work and needs a clear, fully managed process from planning to final delivery. Whether you are building a new structure or modifying an existing one, the main advantage is having one accountable team manage the technical scope, coordination, sequencing, and execution under a single direction. This reduces confusion, limits delays, keeps the work aligned from one phase to the next, and gives you a more reliable path for structural changes, additions, or complete new construction.",
         highlights: [
-          { value: "New Builds", label: "Homes, garages, and extensions" },
-          { value: "Modifications", label: "Structural changes and layout revisions to existing buildings" },
-          { value: "Full Delivery", label: "Planning, permits, excavation, framing, finishes, and final hand-off" },
+          {
+            value: "NEW CONSTRUCTION",
+            label:
+              "We manage new construction projects from the ground up, including homes, garages, and extensions, through one clear and accountable process. From planning and permits to excavation, foundation, framing, finishes, and final hand-off, every phase is organized to keep the project coordinated, efficient, and built to last.",
+          },
+          {
+            value: "BUILDING MODIFICATIONS",
+            label:
+              "For existing buildings, we provide modification work when changes to structure, layout, or overall functionality are needed. Whether the project involves structural adjustments, layout revisions, or expansion of the existing space, the work is handled with proper planning, disciplined execution, and full coordination under one responsible team.",
+          },
         ],
         groups: [
           {
-            title: "New construction scope",
+            title: "New construction",
             items: [
               "Homes",
               "Garages",
               "Extensions",
+              "Additions",
+              "Detached structures",
+              "Foundation work",
+              "Structural framing",
+              "Exterior build scope",
+              "New layout construction",
+              "Full build coordination",
             ],
           },
           {
@@ -396,39 +427,19 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
             items: [
               "Structural changes",
               "Layout modifications",
-              "Integrated work across existing and new areas",
-            ],
-          },
-          {
-            title: "Managed phases",
-            items: [
-              "Planning and permits",
-              "Excavation and foundation",
-              "Framing and exterior work",
-              "Interior finishes and final delivery",
+              "Wall removal and reconfiguration",
+              "Expansion of existing spaces",
+              "Integration of new and existing areas",
+              "Interior restructuring",
+              "Open-concept conversions",
+              "Framing adjustments",
+              "Functional space upgrades",
+              "Flow and access improvements",
             ],
           },
         ],
-        processIntro:
-          "Ground-up work and structural modifications need a disciplined path from paper to site. We keep each phase tied together so the build moves forward without disconnect between planning and execution.",
-        process: [
-          {
-            title: "Plan and permit",
-            body: "We define the project scope, align the build sequence, and move through the planning and permit stage before physical work starts.",
-          },
-          {
-            title: "Break ground",
-            body: "Excavation and foundation work establish the base conditions for the build, extension, or structural modification.",
-          },
-          {
-            title: "Frame and close in",
-            body: "Framing and exterior construction shape the structure while keeping the shell and build path on schedule.",
-          },
-          {
-            title: "Finish and deliver",
-            body: "Interior work, final adjustments, and completion are carried through to hand-off as part of one managed scope.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_EN,
+        process: SHARED_SERVICE_PROCESS_EN,
         galleryIntro:
           "Construction conditions in the field, including active site work, lifting operations, and structural build stages.",
         ctaTitle: "Starting a new build or major building modification?",
@@ -463,12 +474,8 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         summary:
           "Des rénovations intérieures et extérieures prises en charge du début à la fin par une seule équipe responsable.",
         description:
-          "Nous réalisons les projets de rénovation depuis l'ouverture du chantier et la charpente jusqu'au gypse, aux finitions et aux travaux extérieurs, sans vous laisser coordonner plusieurs équipes séparées. Que la portée soit à l'intérieur, à l'extérieur, ou les deux, une seule équipe garde le rythme, la qualité d'exécution et la livraison finale alignés.",
-        highlights: [
-          { value: "Intérieur", label: "Sous-sols, salles de bain, cuisines, planchers, charpente, gypse, finitions" },
-          { value: "Extérieur", label: "Revêtement, terrasses, maçonnerie de brique, rampes, aménagement paysager" },
-          { value: "Une équipe", label: "Un seul équipage responsable du début du chantier à la remise finale" },
-        ],
+          "Les travaux de rénovation couvrent les situations où les espaces intérieurs ou extérieurs ne répondent plus correctement aux besoins de la propriété en raison de l'usure, de dommages, de finis dépassés, d'un mauvais aménagement ou de travaux incomplets. Cela peut être nécessaire lorsque des espaces demandent une réparation, une modernisation, une reconfiguration ou des améliorations coordonnées sur plusieurs phases de travail. En gérant le projet sous une seule portée organisée, les travaux peuvent être réalisés plus fluidement, plus uniformément et avec un meilleur contrôle sur la qualité, le séquençage et le résultat final.",
+        highlights: [],
         groups: [
           {
             title: "Rénovations intérieures",
@@ -480,6 +487,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
               "Charpente",
               "Gypse",
               "Finitions",
+              "Isolation",
+              "Poutres",
+              "Solives",
+              "Poteaux",
+              "Tuiles",
             ],
           },
           {
@@ -490,37 +502,15 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
               "Travaux de brique",
               "Rampes",
               "Aménagement paysager",
-            ],
-          },
-          {
-            title: "Mode de livraison",
-            items: [
-              "Coordination complète par une seule équipe",
-              "Séquençage clair sans confusion entre sous-traitants",
-              "Finition cohérente du gros oeuvre jusqu'à la remise du projet",
+              "Clôtures et barrières",
+              "Escaliers",
+              "Soffite",
+              "Pergolas",
             ],
           },
         ],
-        processIntro:
-          "La rénovation fonctionne quand la séquence de travail est maîtrisée. Nous structurons le chantier, avançons proprement dans l'exécution et terminons avec la même équipe que celle qui a démarré le projet.",
-        process: [
-          {
-            title: "Analyser l'espace",
-            body: "Nous passons en revue les conditions existantes, confirmons les priorités et définissons la portée pour démarrer avec un plan clair.",
-          },
-          {
-            title: "Ouvrir et préparer",
-            body: "Démolition, ajustements de charpente et préparation brute sont exécutés dans le bon ordre pour garder l'élan du projet.",
-          },
-          {
-            title: "Construire et finir",
-            body: "Construction principale, gypse, planchers, moulures, travaux extérieurs et finitions sont réalisés comme une seule séquence coordonnée.",
-          },
-          {
-            title: "Livrer prêt",
-            body: "Les derniers ajustements, le nettoyage du chantier et la remise finale sont faits avec la même responsabilité qu'au premier jour.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_FR,
+        process: SHARED_SERVICE_PROCESS_FR,
         galleryIntro:
           "Un aperçu de chantiers de rénovation en cours, de l'ouverture des espaces intérieurs aux étapes actives de finition.",
         ctaTitle: "Besoin de travaux de rénovation gérés par une seule équipe ?",
@@ -536,14 +526,10 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Services de béton (Neuf / Réparation)",
         eyebrow: "Nouveaux coulages + réparation structurale",
         summary:
-          "Travaux de béton pour nouveaux coulages et réparation de fissures de fondation, avec renforcement structural lorsque nécessaire.",
+          "SOLUTIONS DE BÉTON POUR LES NOUVEAUX TRAVAUX ET LES CONDITIONS EXISTANTES",
         description:
-          "Nous réalisons de nouvelles installations de béton comme les dalles, fondations, murs de soutènement, escaliers, patios et entrées, tout en réparant les problèmes existants de fondation avec le remplissage de fissures, les injections sous pression et la couture au carbone lorsque le renforcement est requis. Le résultat : une seule équipe capable de construire du neuf ou de stabiliser l'existant sans diviser les responsabilités.",
-        highlights: [
-          { value: "Nouveau béton", label: "Dalles, fondations, murs de soutènement, escaliers, patios, entrées" },
-          { value: "Réparation", label: "Remplissage de fissures et injections sous pression selon la condition" },
-          { value: "Renfort", label: "Couture en fibre de carbone lorsque le support structural est requis" },
-        ],
+          "Les travaux de béton couvrent à la fois les nouvelles installations et les réparations correctives lorsque des surfaces de béton ou des zones de fondation doivent être améliorées, remplacées ou stabilisées. Cela peut inclure l'agrandissement d'un béton existant, la création d'une allée plus propre, l'amélioration d'un trottoir, la modernisation d'une entrée ou le traitement de fissures, de détérioration, d'infiltration d'eau et de mouvements structuraux. En adaptant la portée à la condition réelle du site, les travaux peuvent être exécutés avec une finition plus propre, une meilleure performance et une fiabilité accrue à long terme.",
+        highlights: [],
         groups: [
           {
             title: "Travaux de béton neuf",
@@ -551,130 +537,125 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
               "Dalles",
               "Fondations",
               "Murs de soutènement",
-              "Escaliers",
+              "Escaliers et paliers",
               "Patios",
               "Entrées",
+              "Trottoirs et allées",
+              "Dalles de béton",
+              "Planchers de garage",
+              "Tabliers d'entrée",
             ],
           },
           {
-            title: "Réparation de fissures",
+            title: "Réparation de fissures de fondation",
             items: [
               "Remplissage de fissures",
               "Injections sous pression",
-              "Plan de réparation ciblé",
+              "Scellement des points de fuite",
+              "Réparation intérieure des fissures",
+              "Réparation extérieure des fissures",
+              "Restauration locale du béton",
+              "Planification des réparations selon l'état du site",
+              "Traitement des infiltrations d'eau",
+              "Solutions de scellement des fissures",
+              "Portée de réparation ciblée",
             ],
           },
           {
             title: "Renforcement structural",
             items: [
               "Couture en fibre de carbone",
-              "Stratégie adaptée à l'état de la fondation",
-              "Une seule portée pour réparer et stabiliser",
+              "Stabilisation structurale des fissures",
+              "Renforcement lorsque requis",
+              "Renforcement selon la condition",
+              "Renforcement localisé",
+              "Support pour béton affaibli",
+              "Stabilisation des fissures actives",
+              "Réparation liée aux conditions du site",
+              "Une seule portée pour réparation et support",
+              "Travaux intégrés de stabilisation",
             ],
           },
         ],
-        processIntro:
-          "Les travaux de béton demandent une préparation solide et une logique de réparation claire. Nous gardons le chantier structuré du coffrage jusqu'aux interventions de renforcement ciblées.",
-        process: [
-          {
-            title: "Évaluer et implanter",
-            body: "Nous analysons le site, l'état de la fondation existante ou la portée du nouveau béton avant de définir l'approche.",
-          },
-          {
-            title: "Coffrer ou dégager",
-            body: "Pour le neuf, nous préparons les formes et la base. Pour la réparation, nous ouvrons les zones touchées et confirmons la condition réelle.",
-          },
-          {
-            title: "Couler ou réparer",
-            body: "Nous effectuons le coulage ou les réparations par remplissage et injection selon ce que la situation exige.",
-          },
-          {
-            title: "Renforcer si requis",
-            body: "Lorsque la condition le demande, nous ajoutons la couture en fibre de carbone et les étapes de support nécessaires pour renforcer la structure.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_FR,
+        process: SHARED_SERVICE_PROCESS_FR,
         galleryIntro:
-          "Travaux de béton sur le terrain, de l'installation active jusqu'aux conditions de chantier autour des propriétés résidentielles.",
-        ctaTitle: "Vous prévoyez du béton neuf ou vous gérez des fissures de fondation ?",
+          "Travaux de béton sur le terrain, autant pour les nouvelles installations que pour les conditions de réparation structurale autour de propriétés résidentielles existantes.",
+        ctaTitle: "Vous planifiez du béton neuf ou vous faites face à un problème structurel dans un béton existant ?",
         ctaBody:
-          "Envoyez l'emplacement, la surface ou la fondation en cause, ainsi que des photos si vous en avez. Nous pourrons déterminer s'il s'agit d'un nouveau coulage, d'une réparation, ou des deux.",
+          "Envoyez les détails du site, la zone de béton ou la fondation visée, ainsi que les photos ou dessins disponibles. Nous pourrons définir la bonne portée, qu'il s'agisse de béton neuf, de réparation, de stabilisation, ou d'une combinaison des trois.",
         metadata: {
           title: "Services de béton | TM Contracting",
           description:
-            "Services de béton incluant dalles, fondations, murs de soutènement, escaliers, patios, entrées, remplissage de fissures, injections sous pression et couture en fibre de carbone.",
+            "Services de béton pour dalles, fondations, murs de soutènement, escaliers, patios, trottoirs et entrées, ainsi que remplissage de fissures, injection à haute pression, coutures en fibre de carbone et sous-oeuvre pour la réparation et la stabilisation.",
         },
       },
       "excavation-lifting": {
         title: "Services d'excavation et de levage de maison",
         eyebrow: "Travaux de sol + support structural",
         summary:
-          "Excavation, drainage et préparation de fondation combinés à un levage de maison sécuritaire et à un support structural pour réparer ou remplacer une fondation.",
+          "Services d'excavation et de levage de maison",
         description:
-          "Nous prenons en charge les tranchées, le nivellement, le drainage, le remblai et la préparation du site pour les fondations et dalles, puis nous soutenons les interventions plus complexes avec le levage de maison, l'étaiement temporaire, la stabilisation, le redressement et le sous-oeuvre. Une seule équipe peut ainsi gérer à la fois les conditions de sol et la stratégie de support structural lorsqu'une fondation doit être réparée, remplacée, renforcée ou approfondie.",
-        highlights: [
-          { value: "Préparation", label: "Tranchées, nivellement, drainage, remblai et préparation de fondations ou dalles" },
-          { value: "Levage", label: "Levage sécuritaire et support structural pendant les travaux de fondation" },
-          { value: "Renforcement", label: "Étaiement, stabilisation, redressement et sous-oeuvre" },
-        ],
+          "services d'excavation et d'élévation lorsque les problèmes de fondation ou les conditions structurales ne peuvent pas être traités correctement sans ouvrir le sol et soutenir temporairement le bâtiment",
+        highlights: [],
         groups: [
           {
-            title: "Portée d'excavation",
+            title: "EXCAVATION & PRÉPARATION DE SITE",
             items: [
               "Tranchées",
               "Nivellement",
               "Drainage",
-              "Remblai",
-              "Préparation de site pour fondations et dalles",
+              "Remblayage",
+              "Préparation de site",
+              "Excavation pour fondations",
+              "Préparation de sous-base pour dalle",
+              "Retrait et reprofilage du sol",
+              "Préparation des accès",
+              "Coordination des travaux de sol",
             ],
           },
           {
-            title: "Levage et support",
+            title: "LEVAGE DE MAISON ET SUPPORT",
             items: [
               "Levage sécuritaire de maison",
-              "Support structural pendant les travaux",
+              "Support structural pendant les travaux de fondation",
               "Étaiement temporaire",
               "Stabilisation",
+              "Planification du transfert de charge",
+              "Séquence de levage contrôlée",
+              "Contreventement structural",
+              "Support pour accès aux réparations",
+              "Préparation et installation du levage",
+              "Maintien structural temporaire",
             ],
           },
           {
-            title: "Renforcement de fondation",
+            title: "RENFORCEMENT DE FONDATION",
             items: [
               "Redressement",
               "Sous-oeuvre",
               "Renforcement de fondations existantes",
-              "Approfondissement de fondations existantes",
+              "Approfondissement de fondations",
+              "Stabilisation structurale",
+              "Amélioration du support de charge",
+              "Renforcement localisé",
+              "Correction de l'affaissement",
+              "Restauration du support",
+              "Renforcement pour travaux de réparation",
             ],
           },
         ],
-        processIntro:
-          "Ce type de travail repose sur le contrôle du site et une séquence structurale rigoureuse. Nous avançons avec méthode, de l'excavation jusqu'au support et à la stabilisation finale.",
-        process: [
-          {
-            title: "Préparer le site",
-            body: "Nous organisons l'accès, protégeons la structure et cadrons les besoins en tranchées, nivellement, drainage ou remblai autour de la zone de fondation.",
-          },
-          {
-            title: "Excaver et dégager",
-            body: "La zone de fondation ou de dalle est ouverte de façon sécuritaire afin de rendre la condition structurale entièrement accessible.",
-          },
-          {
-            title: "Lever et soutenir",
-            body: "Lorsque requis, nous effectuons le levage de maison, l'étaiement temporaire et la stabilisation pour protéger la structure pendant l'intervention.",
-          },
-          {
-            title: "Redresser et renforcer",
-            body: "La stabilisation finale peut inclure le redressement et le sous-oeuvre afin de renforcer ou d'approfondir la fondation existante avant la fermeture du chantier.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_FR,
+        process: SHARED_SERVICE_PROCESS_FR,
         galleryIntro:
-          "Travaux d'excavation et de levage sur le terrain, avec fondations exposées, accès machinerie et conditions de support structural.",
-        ctaTitle: "Besoin d'excavation ou de support de fondation sur une structure existante ?",
+          "Travaux d'excavation, de préparation de site et de levage sur le terrain, avec fondations exposées, accès machinerie et conditions de support structural.",
+        ctaTitle: "Besoin d'excavation, de préparation de site ou de levage de maison lié à des travaux de fondation ?",
         ctaBody:
-          "Si le chantier implique drainage, tranchées, affaissement, semelles exposées ou levage pour réparation ou remplacement, envoyez-nous les détails du site et nous pourrons cadrer la prochaine étape.",
+          "Si le projet implique tranchées, nivellement, drainage, fondations exposées, levage, étaiement ou sous-oeuvre, envoyez-nous les détails du site et les photos disponibles et nous pourrons clarifier la prochaine étape.",
         metadata: {
           title: "Services d'excavation et de levage de maison | TM Contracting",
           description:
-            "Services d'excavation, nivellement, drainage, remblai, levage de maison, étaiement, stabilisation, redressement et sous-oeuvre pour la réparation, le remplacement ou le renforcement de fondations.",
+            "Services d'excavation et de préparation de site incluant tranchées, nivellement, drainage, remblai et préparation de fondations, ainsi que levage de maison, étaiement, stabilisation, redressement et sous-oeuvre pour les travaux de support structural.",
         },
       },
       "new-construction": {
@@ -716,26 +697,8 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
             ],
           },
         ],
-        processIntro:
-          "Les projets de construction neuve et de modification majeure demandent un cheminement discipliné du papier jusqu'au chantier. Nous gardons chaque phase attachée à une même logique d'exécution.",
-        process: [
-          {
-            title: "Planifier et obtenir les permis",
-            body: "Nous définissons la portée, alignons la séquence de construction et faisons avancer la planification ainsi que les permis avant le début physique des travaux.",
-          },
-          {
-            title: "Ouvrir le chantier",
-            body: "L'excavation et les fondations établissent les conditions de base du bâtiment neuf, de l'agrandissement ou de la modification structurale.",
-          },
-          {
-            title: "Charpenter et fermer l'enveloppe",
-            body: "La charpente et les travaux extérieurs donnent forme à la structure tout en gardant l'avancement du chantier cohérent.",
-          },
-          {
-            title: "Finaliser et livrer",
-            body: "Les travaux intérieurs, les ajustements finaux et la complétion sont menés jusqu'à la remise dans le cadre d'une seule portée gérée.",
-          },
-        ],
+        processIntro: SHARED_SERVICE_PROCESS_INTRO_FR,
+        process: SHARED_SERVICE_PROCESS_FR,
         galleryIntro:
           "Conditions de chantier liées à la construction, incluant opérations de site, levage et différentes étapes structurales.",
         ctaTitle: "Vous démarrez une construction neuve ou une modification majeure ?",

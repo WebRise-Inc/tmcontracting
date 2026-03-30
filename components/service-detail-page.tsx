@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import {
   ArrowLeft,
   Building2,
@@ -39,6 +40,8 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
   const highlights = page.highlights.filter(
     (highlight) => highlight.value !== "One Team" && highlight.value !== "Une équipe",
   )
+  const scopeTitle = page.scopeTitle ?? page.summary
+  const scopeDescription = page.scopeDescription ?? page.description
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -108,22 +111,23 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                   </p>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3">
-                  {highlights.map((highlight) => (
-                    <div
-                      key={highlight.label}
-                      className="border border-white/10 bg-white/5 px-5 py-5 transition-transform duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_18px_36px_rgba(0,0,0,0.24)]"
-                    >
-                      <p className="text-sm uppercase tracking-[0.24em] text-[#C8D87A]" style={{ fontFamily: "'Vogue', serif" }}>
-                        {highlight.value}
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed text-[#D8D4CC]">
-                        {highlight.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
+                {highlights.length > 0 ? (
+                  <div className={`grid gap-4 ${highlights.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
+                    {highlights.map((highlight) => (
+                      <div
+                        key={highlight.label}
+                        className="border border-white/10 bg-white/5 px-5 py-5 transition-transform duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_18px_36px_rgba(0,0,0,0.24)]"
+                      >
+                        <p className="text-sm uppercase tracking-[0.24em] text-[#C8D87A]" style={{ fontFamily: "'Vogue', serif" }}>
+                          {highlight.value}
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-[#D8D4CC]">
+                          {highlight.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="max-w-2xl border border-white/10 bg-[#1E2B25] p-6">
                   <div className="flex items-center gap-3">
                     <ShieldCheck className="h-5 w-5 text-[#C8D87A]" />
@@ -191,10 +195,10 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                 {chrome.scopeTitle}
               </p>
               <h2 className="text-3xl text-[#24342C] md:text-4xl" style={DISPLAY_HEADING_STYLE}>
-                {page.summary}
+                {scopeTitle}
               </h2>
               <p className="max-w-xl text-base leading-relaxed text-[#5E685F]">
-                {page.description}
+                {scopeDescription}
               </p>
 
               <div className="border border-[#D6D1C4] bg-[#E9E5DA] p-6">
@@ -239,9 +243,11 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
               <h2 className="mt-4 text-3xl text-[#24342C] md:text-4xl" style={DISPLAY_HEADING_STYLE}>
                 {page.title}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#5E685F]">
-                {page.processIntro}
-              </p>
+              {page.processIntro ? (
+                <p className="mt-4 text-base leading-relaxed text-[#5E685F]">
+                  {page.processIntro}
+                </p>
+              ) : null}
             </div>
 
             <div className="mt-10 grid gap-5 lg:grid-cols-4">
@@ -277,14 +283,14 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <a
-                href="#contact"
+              <Link
+                href="/#contact"
                 className="inline-flex items-center gap-2 bg-[#036738] px-6 py-3 text-sm uppercase tracking-[0.24em] text-[#F7F6F1] transition-colors hover:bg-[#314C3E]"
                 style={{ fontFamily: "'Vogue', serif" }}
               >
                 {chrome.primaryCta}
                 <MoveRight className="h-4 w-4" />
-              </a>
+              </Link>
               <a
                 href="tel:+18004300555"
                 className="inline-flex items-center gap-2 border border-white/20 px-6 py-3 text-sm uppercase tracking-[0.24em] text-[#F7F6F1] transition-colors hover:border-[#036738] hover:text-[#036738]"

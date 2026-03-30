@@ -1,17 +1,17 @@
 import type { Locale } from "@/lib/site-copy"
 
-type FaqItem = {
+export type FaqItem = {
   question: string
   answer: string
 }
 
-type FaqCategory = {
+export type FaqCategory = {
   title: string
   description: string
   items: FaqItem[]
 }
 
-type FaqPageContent = {
+export type FaqPageContent = {
   metadata: {
     title: string
     description: string

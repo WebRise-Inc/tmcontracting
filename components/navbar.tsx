@@ -103,16 +103,18 @@ export function Navbar() {
             </button>
 
             {servicesOpen && (
-              <div className="absolute left-0 top-full mt-4 w-64 overflow-hidden border border-[#CFC7B6] bg-[#F3F0E7] py-2 shadow-[0_18px_30px_rgba(16,22,18,0.12)]">
-                {copy.services.items.map((service) => (
-                  <Link
-                    key={service.slug}
-                    href={`/services/${service.slug}`}
-                    className="block px-5 py-3 text-sm text-[#5E685F] transition-colors hover:bg-[#E9E2D2] hover:text-[#24342C]"
-                  >
-                    {service.title}
-                  </Link>
-                ))}
+              <div className="absolute left-0 top-full z-20 pt-4">
+                <div className="w-64 overflow-hidden border border-[#CFC7B6] bg-[#F3F0E7] py-2 shadow-[0_18px_30px_rgba(16,22,18,0.12)]">
+                  {copy.services.items.map((service) => (
+                    <Link
+                      key={service.slug}
+                      href={`/services/${service.slug}`}
+                      className="block px-5 py-3 text-sm text-[#5E685F] transition-colors hover:bg-[#E9E2D2] hover:text-[#24342C]"
+                    >
+                      {service.title}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>

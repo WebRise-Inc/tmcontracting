@@ -56,16 +56,17 @@ export default async function RootLayout({
           <Footer />
           <Analytics />
         </LocaleProvider>
-        <Script id="crisp-chat" strategy="afterInteractive">
+        <Script id="tawk-to-chat" strategy="afterInteractive">
           {`
-            window.$crisp = [];
-            window.CRISP_WEBSITE_ID = "201bb0ce-a919-487d-a2a9-a9faebecca0f";
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
             (function() {
-              var d = document;
-              var s = d.createElement("script");
-              s.src = "https://client.crisp.chat/l.js";
-              s.async = 1;
-              d.getElementsByTagName("head")[0].appendChild(s);
+              var s1 = document.createElement("script");
+              var s0 = document.getElementsByTagName("script")[0];
+              s1.async = true;
+              s1.src = "https://embed.tawk.to/69c2f974ffb4f81c353b5452/1jkgpsrvl";
+              s1.charset = "UTF-8";
+              s1.setAttribute("crossorigin", "*");
+              s0.parentNode.insertBefore(s1, s0);
             })();
           `}
         </Script>

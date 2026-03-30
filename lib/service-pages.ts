@@ -198,8 +198,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Renovation Services",
         eyebrow: "Interior + exterior upgrades",
         summary:
-          "Interior and exterior renovation work handled start to finish by one accountable crew.",
+          "TM Contracting handles renovation work from start to finish through one accountable and coordinated team. Whether the project involves interior upgrades, exterior improvements, or both, we manage each phase with clear planning, technical structure, and professional execution so the client does not have to deal with the confusion of separate trades and disconnected timelines.",
         description:
+          "Our difference is in the way we work: fast consultation, detailed quotations, live communication during execution, and reliable follow-through after completion. The result is a renovation process that is clear, efficient, well documented, and backed by our 3-Year Risk-Free Warranty.",
+        scopeTitle: "Coordinated Interior & Exterior Renovation Work",
+        scopeDescription:
           "Renovation work covers situations where interior or exterior areas can no longer properly serve the needs of the property due to wear, damage, outdated finishes, poor layout, or incomplete construction. This may be necessary when spaces require repair, modernization, reconfiguration, or coordinated improvements across multiple phases of work. By managing the project under one organized scope, the work can be completed more smoothly, more consistently, and with better control over quality, sequencing, and final results.",
         highlights: [],
         groups: [
@@ -252,8 +255,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Concrete Services (New / Repair)",
         eyebrow: "New pours + structural repair",
         summary:
-          "CONCRETE SOLUTIONS FOR NEW AND EXISTING CONDITIONS",
+          "NEW CONCRETE. We handle new concrete projects from start to finish with one accountable team, including slabs, foundations, retaining walls, stairs, patios, walkways, and driveways. Every phase is planned and executed with clear preparation, proper reinforcement, controlled pouring, quality finishing, and durable final delivery.",
         description:
+          "REPAIR & STRUCTURAL STABILIZATION. For existing concrete and foundation problems, we provide focused repair and reinforcement solutions based on the condition of the structure. This includes crack filler, high-pressure injection, carbon fibre stitches, and underpinning where deeper support is required. Our objective is not only to repair the visible issue, but to restore stability and deliver a reliable long-term solution.",
+        scopeTitle: "CONCRETE SOLUTIONS FOR NEW AND EXISTING CONDITIONS",
+        scopeDescription:
           "Concrete work covers both new installations and corrective repairs where concrete surfaces or foundation areas need to be improved, replaced, or stabilized. This may include extending existing concrete, creating a cleaner walkway, upgrading a sidewalk, modernizing a driveway, or addressing cracks, deterioration, water infiltration, and structural movement. By matching the scope to the actual condition of the site, the work can be completed with a cleaner finish, stronger performance, and better long-term reliability.",
         highlights: [],
         groups: [
@@ -320,8 +326,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Excavation & House Lifting Services",
         eyebrow: "Groundwork + structural support",
         summary:
-          "Excavation & House Lifting Services",
+          "EXCAVATION & SITE PREPARATION. We manage excavation and site preparation work from start to finish, including trenching, grading, drainage, backfill, and preparation for foundations and slabs. Every stage is planned and executed with close attention to ground conditions, structural requirements, and proper sequencing to ensure a safe, efficient, and reliable base for the work ahead.",
         description:
+          "HOUSE LIFTING & STRUCTURAL SUPPORT. For projects involving foundation repair, replacement, reinforcement, or deepening, we provide safe house lifting and structural support solutions through one coordinated team. Our services include lifting, temporary shoring, stabilization, re-leveling, and underpinning as required to protect the structure, maintain control of the process, and complete the work with clarity and accountability.",
+        scopeTitle: "Excavation & House Lifting Services",
+        scopeDescription:
           "excavation and elevation services when foundation problems or structural conditions cannot be properly addressed without opening the ground and temporarily supporting the build",
         highlights: [],
         groups: [
@@ -388,24 +397,13 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "New Construction & Building Modifications",
         eyebrow: "Ground-up builds + structural changes",
         summary:
-          "Homes, garages, extensions, and structural layout modifications managed from planning and permits through final delivery.",
+          "NEW CONSTRUCTION. We manage new construction projects from the ground up, including homes, garages, and extensions, through one clear and accountable process. From planning and permits to excavation, foundation, framing, finishes, and final hand-off, every phase is organized to keep the project coordinated, efficient, and built to last.",
         description:
-          "We build new homes, garages, and extensions, and we also handle building modifications that change structure, layout, or flow. The work is managed across planning, permits, excavation, foundation, framing, exterior scope, interior finishes, and final completion so the entire build path stays tied to one accountable team.",
+          "BUILDING MODIFICATIONS. For existing buildings, we provide modification work when changes to structure, layout, or overall functionality are needed. Whether the project involves structural adjustments, layout revisions, or expansion of the existing space, the work is handled with proper planning, disciplined execution, and full coordination under one responsible team.",
         scopeTitle: "Ground-Up Construction & Structural Modification Services",
         scopeDescription:
           "Your project requires more than basic construction work and needs a clear, fully managed process from planning to final delivery. Whether you are building a new structure or modifying an existing one, the main advantage is having one accountable team manage the technical scope, coordination, sequencing, and execution under a single direction. This reduces confusion, limits delays, keeps the work aligned from one phase to the next, and gives you a more reliable path for structural changes, additions, or complete new construction.",
-        highlights: [
-          {
-            value: "NEW CONSTRUCTION",
-            label:
-              "We manage new construction projects from the ground up, including homes, garages, and extensions, through one clear and accountable process. From planning and permits to excavation, foundation, framing, finishes, and final hand-off, every phase is organized to keep the project coordinated, efficient, and built to last.",
-          },
-          {
-            value: "BUILDING MODIFICATIONS",
-            label:
-              "For existing buildings, we provide modification work when changes to structure, layout, or overall functionality are needed. Whether the project involves structural adjustments, layout revisions, or expansion of the existing space, the work is handled with proper planning, disciplined execution, and full coordination under one responsible team.",
-          },
-        ],
+        highlights: [],
         groups: [
           {
             title: "New construction",
@@ -472,8 +470,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Services de rénovation",
         eyebrow: "Travaux intérieurs + extérieurs",
         summary:
-          "Des rénovations intérieures et extérieures prises en charge du début à la fin par une seule équipe responsable.",
+          "TM Contracting prend en charge les travaux de rénovation du début à la fin avec une seule équipe coordonnée et responsable. Que le projet concerne des améliorations intérieures, des travaux extérieurs ou les deux, nous gérons chaque étape avec une planification claire, une structure technique et une exécution professionnelle afin que le client n'ait pas à composer avec la confusion de corps de métier séparés et d'échéanciers déconnectés.",
         description:
+          "Notre différence se voit dans notre façon de travailler : consultation rapide, soumissions détaillées, communication en direct pendant l'exécution et suivi fiable après la fin des travaux. Le résultat est un processus de rénovation clair, efficace, bien documenté et appuyé par notre garantie sans risque de 3 ans.",
+        scopeTitle: "Travaux de rénovation intérieure et extérieure coordonnés",
+        scopeDescription:
           "Les travaux de rénovation couvrent les situations où les espaces intérieurs ou extérieurs ne répondent plus correctement aux besoins de la propriété en raison de l'usure, de dommages, de finis dépassés, d'un mauvais aménagement ou de travaux incomplets. Cela peut être nécessaire lorsque des espaces demandent une réparation, une modernisation, une reconfiguration ou des améliorations coordonnées sur plusieurs phases de travail. En gérant le projet sous une seule portée organisée, les travaux peuvent être réalisés plus fluidement, plus uniformément et avec un meilleur contrôle sur la qualité, le séquençage et le résultat final.",
         highlights: [],
         groups: [
@@ -526,8 +527,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Services de béton (Neuf / Réparation)",
         eyebrow: "Nouveaux coulages + réparation structurale",
         summary:
-          "SOLUTIONS DE BÉTON POUR LES NOUVEAUX TRAVAUX ET LES CONDITIONS EXISTANTES",
+          "BÉTON NEUF. Nous prenons en charge les projets de béton neuf du début à la fin avec une seule équipe responsable, incluant les dalles, fondations, murs de soutènement, escaliers, patios, allées piétonnes et entrées. Chaque étape est planifiée et exécutée avec une préparation claire, un bon renforcement, un coulage contrôlé, une finition de qualité et une livraison finale durable.",
         description:
+          "RÉPARATION ET STABILISATION STRUCTURALE. Pour les problèmes existants de béton et de fondation, nous offrons des solutions ciblées de réparation et de renforcement selon la condition réelle de la structure. Cela comprend le remplissage de fissures, les injections à haute pression, les coutures en fibre de carbone et la sous-oeuvre lorsque un support plus profond est requis. Notre objectif n'est pas seulement de corriger le problème visible, mais de rétablir la stabilité et d'offrir une solution fiable à long terme.",
+        scopeTitle: "SOLUTIONS DE BÉTON POUR LES NOUVEAUX TRAVAUX ET LES CONDITIONS EXISTANTES",
+        scopeDescription:
           "Les travaux de béton couvrent à la fois les nouvelles installations et les réparations correctives lorsque des surfaces de béton ou des zones de fondation doivent être améliorées, remplacées ou stabilisées. Cela peut inclure l'agrandissement d'un béton existant, la création d'une allée plus propre, l'amélioration d'un trottoir, la modernisation d'une entrée ou le traitement de fissures, de détérioration, d'infiltration d'eau et de mouvements structuraux. En adaptant la portée à la condition réelle du site, les travaux peuvent être exécutés avec une finition plus propre, une meilleure performance et une fiabilité accrue à long terme.",
         highlights: [],
         groups: [
@@ -594,8 +598,11 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Services d'excavation et de levage de maison",
         eyebrow: "Travaux de sol + support structural",
         summary:
-          "Services d'excavation et de levage de maison",
+          "EXCAVATION ET PRÉPARATION DE SITE. Nous prenons en charge les travaux d'excavation et de préparation de site du début à la fin, y compris les tranchées, le nivellement, le drainage, le remblayage et la préparation pour les fondations et les dalles. Chaque étape est planifiée et exécutée avec une attention soutenue aux conditions du sol, aux exigences structurales et au bon séquençage afin d'assurer une base sûre, efficace et fiable pour les travaux à venir.",
         description:
+          "LEVAGE DE MAISON ET SUPPORT STRUCTURAL. Pour les projets impliquant la réparation, le remplacement, le renforcement ou l'approfondissement de fondations, nous fournissons des solutions sécuritaires de levage de maison et de support structural par l'entremise d'une seule équipe coordonnée. Nos services incluent le levage, l'étaiement temporaire, la stabilisation, le redressement et la sous-oeuvre au besoin afin de protéger la structure, garder le contrôle du processus et compléter les travaux avec clarté et responsabilité.",
+        scopeTitle: "Services d'excavation et de levage de maison",
+        scopeDescription:
           "services d'excavation et d'élévation lorsque les problèmes de fondation ou les conditions structurales ne peuvent pas être traités correctement sans ouvrir le sol et soutenir temporairement le bâtiment",
         highlights: [],
         groups: [
@@ -662,21 +669,27 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
         title: "Construction neuve et modifications de bâtiment",
         eyebrow: "Construction complète + changements structuraux",
         summary:
-          "Maisons, garages, agrandissements et modifications structurales gérés de la planification jusqu'à la livraison finale.",
+          "CONSTRUCTION NEUVE. Nous gérons les projets de construction neuve à partir du sol, y compris les maisons, les garages et les agrandissements, par un seul processus clair et responsable. De la planification et des permis à l'excavation, aux fondations, à la charpente, aux finitions et à la remise finale, chaque étape est organisée pour garder le projet coordonné, efficace et bâti pour durer.",
         description:
-          "Nous construisons des maisons, garages et agrandissements, et nous réalisons aussi les modifications de bâtiment qui changent la structure, la disposition ou le fonctionnement des espaces. Le travail est géré à travers la planification, les permis, l'excavation, la fondation, la charpente, l'enveloppe extérieure, les finitions intérieures et la complétion finale, afin qu'une seule équipe demeure responsable de l'ensemble du parcours.",
-        highlights: [
-          { value: "Neuf", label: "Maisons, garages et agrandissements" },
-          { value: "Modification", label: "Changements structuraux et ajustements de configuration intérieure" },
-          { value: "Livraison", label: "Planification, permis, excavation, charpente, finitions et remise finale" },
-        ],
+          "MODIFICATIONS DE BÂTIMENT. Pour les bâtiments existants, nous réalisons les travaux de modification lorsque des changements à la structure, à la disposition ou au fonctionnement général sont nécessaires. Que le projet implique des ajustements structuraux, des révisions d'aménagement ou l'agrandissement de l'espace existant, les travaux sont pris en charge avec une bonne planification, une exécution disciplinée et une coordination complète sous une seule équipe responsable.",
+        scopeTitle: "Services de construction neuve et de modification structurale",
+        scopeDescription:
+          "Votre projet exige plus qu'un simple travail de construction et demande un processus clair et entièrement pris en charge, de la planification à la livraison finale. Que vous construisiez une nouvelle structure ou que vous modifiiez un bâtiment existant, l'avantage principal est d'avoir une seule équipe responsable pour gérer la portée technique, la coordination, le séquençage et l'exécution sous une direction unique. Cela réduit la confusion, limite les retards, garde les travaux alignés d'une phase à l'autre et vous donne un chemin plus fiable pour les changements structuraux, les agrandissements ou une construction neuve complète.",
+        highlights: [],
         groups: [
           {
-            title: "Portée de construction neuve",
+            title: "Construction neuve",
             items: [
               "Maisons",
               "Garages",
               "Agrandissements",
+              "Ajouts",
+              "Structures détachées",
+              "Travaux de fondation",
+              "Charpente structurale",
+              "Travaux extérieurs",
+              "Construction de nouveaux aménagements",
+              "Coordination complète du chantier",
             ],
           },
           {
@@ -684,16 +697,14 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
             items: [
               "Changements structuraux",
               "Modifications de disposition",
-              "Intégration entre existant et nouveau",
-            ],
-          },
-          {
-            title: "Phases gérées",
-            items: [
-              "Planification et permis",
-              "Excavation et fondation",
-              "Charpente et travaux extérieurs",
-              "Finitions intérieures et livraison finale",
+              "Démolition de murs et reconfiguration",
+              "Agrandissement des espaces existants",
+              "Intégration de zones nouvelles et existantes",
+              "Restructuration intérieure",
+              "Conversions à aire ouverte",
+              "Ajustements de charpente",
+              "Amélioration fonctionnelle des espaces",
+              "Amélioration de la circulation et des accès",
             ],
           },
         ],

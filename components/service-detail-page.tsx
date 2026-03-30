@@ -103,10 +103,10 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                   <h1 className="max-w-3xl text-4xl leading-tight text-balance md:text-5xl lg:text-6xl" style={DISPLAY_HEADING_STYLE}>
                     {page.title}
                   </h1>
-                  <p className="max-w-2xl text-lg leading-relaxed text-[#E7E2D8]">
+                  <p className="max-w-2xl text-base leading-relaxed text-[#E7E2D8] md:text-lg">
                     {page.summary}
                   </p>
-                  <p className="max-w-2xl text-base leading-relaxed text-[#D8D4CC]">
+                  <p className="max-w-2xl text-base leading-relaxed text-[#D8D4CC] md:text-lg">
                     {page.description}
                   </p>
                 </div>

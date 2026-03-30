@@ -36,7 +36,6 @@ const CAL_EMBEDS = [
     namespace: "onlineappointment",
     containerId: "my-cal-inline-onlineappointment",
     calLink: "tmforcontracting/onlineappointment",
-    buttonLabel: "Online Meeting",
     frameClassName: "h-[760px] md:h-[800px] lg:h-[720px]",
   },
   {
@@ -44,7 +43,6 @@ const CAL_EMBEDS = [
     namespace: "on-site-consultation",
     containerId: "my-cal-inline-on-site-consultation",
     calLink: "tmforcontracting/on-site-consultation",
-    buttonLabel: "Physical Meeting",
     frameClassName: "h-[860px] md:h-[900px] lg:h-[760px]",
   },
 ] as const
@@ -190,7 +188,7 @@ export function OnlineEstimatePage() {
                   }`}
                   style={DISPLAY_HEADING_STYLE}
                 >
-                  {embed.buttonLabel}
+                  {page.meetingLabels[embed.id]}
                 </button>
               )
             })}

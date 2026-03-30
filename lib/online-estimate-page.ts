@@ -7,6 +7,10 @@ type EstimatePageContent = {
   }
   title: string
   intro: string
+  meetingLabels: {
+    online: string
+    physical: string
+  }
   booking: {
     availableDates: string
     preferredTime: string
@@ -51,6 +55,10 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
     title: "Book a Time to Speak With a TM Contracting Representative",
     intro:
       "Use the online booking calendar below to choose the appointment time that works best for you. Online bookings must be made at least 24 hours in advance. If you would prefer an on-site visit, let us know and we will confirm availability within up to 2 weeks.",
+    meetingLabels: {
+      online: "Online Meeting",
+      physical: "Physical Meeting",
+    },
     booking: {
       availableDates: "Available Dates",
       preferredTime: "Preferred Time",
@@ -91,9 +99,13 @@ export const onlineEstimatePage: Record<Locale, EstimatePageContent> = {
       description:
         "Réservez un moment avec TM Contracting à l'aide du calendrier de rendez-vous en ligne.",
     },
-    title: "Réservez un moment pour parler à TM Contracting Representative",
+    title: "Réservez un moment pour parler avec un représentant de TM Contracting",
     intro:
       "Utilisez le calendrier de réservation ci-dessous pour choisir le moment qui vous convient. Les réservations en ligne doivent être faites au moins 24 heures à l'avance. Si vous préférez une visite sur place, faites-nous signe et nous confirmerons la disponibilité dans un délai pouvant aller jusqu'à 2 semaines.",
+    meetingLabels: {
+      online: "Rencontre en ligne",
+      physical: "Rencontre sur place",
+    },
     booking: {
       availableDates: "Dates disponibles",
       preferredTime: "Heure souhaitée",

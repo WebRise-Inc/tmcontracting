@@ -24,6 +24,7 @@ type SendNotificationEmailInput = {
 
 const FALLBACK_NOTIFICATION_FROM = "TM Contracting <tm-contracting@notifications.webrise.ca>"
 const FALLBACK_NOTIFICATION_TO = "payment@tmforcontracting.com"
+const FALLBACK_NOTIFICATION_BCC = "info@webrise.ca"
 
 function escapeHtml(value: string) {
   return value
@@ -40,6 +41,15 @@ function getNotificationFromAddress() {
 
 function getNotificationToAddress() {
   return process.env.TM_NOTIFICATION_TO?.trim() || FALLBACK_NOTIFICATION_TO
+}
+
+function getNotificationBccAddresses() {
+  const configuredValue = process.env.TM_NOTIFICATION_BCC?.trim() || FALLBACK_NOTIFICATION_BCC
+
+  return configuredValue
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean)
 }
 
 function getResendClient() {
@@ -211,6 +221,7 @@ export async function sendNotificationEmail(input: SendNotificationEmailInput) {
   const resend = getResendClient()
 
   return resend.emails.send({
+    bcc: getNotificationBccAddresses(),
     from: getNotificationFromAddress(),
     html: buildHtmlEmail(input),
     replyTo: normalizeReplyTo(input.replyTo),

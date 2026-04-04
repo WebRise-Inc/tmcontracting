@@ -18,12 +18,18 @@ export async function POST(request: NextRequest) {
       .getAll("languages")
       .filter((value): value is string => typeof value === "string" && value.length > 0)
       .join(", ")
+    const cvUrlValue = formData.get("cvUrl")
+    const coverLetterUrlValue = formData.get("coverLetterUrl")
+    const photoUrlValue = formData.get("photoUrl")
     const cvFile = formData.get("cv") as File | null
     const coverLetterFile = formData.get("coverLetter") as File | null
     const photoFile = formData.get("photo") as File | null
     const localeValue = formData.get("locale")
     const locale = typeof localeValue === "string" && isLocale(localeValue) ? localeValue : defaultLocale
     const copy = siteCopy[locale].emails.career
+    const cvUrlInput = typeof cvUrlValue === "string" ? cvUrlValue.trim() : ""
+    const coverLetterUrlInput = typeof coverLetterUrlValue === "string" ? coverLetterUrlValue.trim() : ""
+    const photoUrlInput = typeof photoUrlValue === "string" ? photoUrlValue.trim() : ""
 
     if (
       !fullName ||
@@ -33,27 +39,27 @@ export async function POST(request: NextRequest) {
       !workAuthorization ||
       !driversLicense ||
       !languages ||
-      !cvFile ||
-      !coverLetterFile ||
-      !photoFile
+      (!cvUrlInput && !cvFile) ||
+      (!coverLetterUrlInput && !coverLetterFile) ||
+      (!photoUrlInput && !photoFile)
     ) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Upload files to Blob if provided
-    let cvUrl = ""
-    let coverLetterUrl = ""
-    let photoUrl = ""
+    // Use direct-uploaded Blob URLs when available, otherwise fall back to server uploads.
+    let cvUrl = cvUrlInput
+    let coverLetterUrl = coverLetterUrlInput
+    let photoUrl = photoUrlInput
 
-    if (cvFile && cvFile.size > 0) {
+    if (!cvUrl && cvFile && cvFile.size > 0) {
       const cvBlob = await put(`careers/${Date.now()}-${cvFile.name}`, cvFile, { access: "public" })
       cvUrl = cvBlob.url
     }
-    if (coverLetterFile && coverLetterFile.size > 0) {
+    if (!coverLetterUrl && coverLetterFile && coverLetterFile.size > 0) {
       const coverLetterBlob = await put(`careers/${Date.now()}-${coverLetterFile.name}`, coverLetterFile, { access: "public" })
       coverLetterUrl = coverLetterBlob.url
     }
-    if (photoFile && photoFile.size > 0) {
+    if (!photoUrl && photoFile && photoFile.size > 0) {
       const photoBlob = await put(`careers/${Date.now()}-${photoFile.name}`, photoFile, { access: "public" })
       photoUrl = photoBlob.url
     }

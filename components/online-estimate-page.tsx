@@ -33,16 +33,16 @@ declare global {
 const CAL_EMBEDS = [
   {
     id: "online",
-    namespace: "onlineappointment",
-    containerId: "my-cal-inline-onlineappointment",
-    calLink: "tmforcontracting/onlineappointment",
+    namespace: "online-appointment",
+    containerId: "my-cal-inline-online-appointment",
+    calLink: "tmforcontracting/online-appointment",
     frameClassName: "h-[760px] md:h-[800px] lg:h-[720px]",
   },
   {
     id: "physical",
-    namespace: "on-site-consultation",
-    containerId: "my-cal-inline-on-site-consultation",
-    calLink: "tmforcontracting/on-site-consultation",
+    namespace: "physical-appoitment",
+    containerId: "my-cal-inline-physical-appoitment",
+    calLink: "tmforcontracting/physical-appoitment",
     frameClassName: "h-[860px] md:h-[900px] lg:h-[760px]",
   },
 ] as const

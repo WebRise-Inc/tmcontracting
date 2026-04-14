@@ -517,7 +517,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       logoAlt: "TM Contracting",
       home: "Accueil",
       services: "Services",
-      onlineEstimate: "Estimation en ligne",
+      onlineEstimate: "organisons une recontre",
       career: "Carrière",
       faq: "FAQ",
       contactUs: "Nous joindre",

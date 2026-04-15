@@ -13,7 +13,13 @@ export async function POST(request: NextRequest) {
     const email = formData.get("email") as string
     const address = formData.get("address") as string
     const description = formData.get("description") as string
-    const photos = formData.getAll("photos") as File[]
+    const photos = formData
+      .getAll("photos")
+      .filter((value): value is File => value instanceof File && value.size > 0)
+    const uploadedPhotoUrls = formData
+      .getAll("photoUrls")
+      .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+      .map((value) => value.trim())
     const localeValue = formData.get("locale")
     const locale = typeof localeValue === "string" && isLocale(localeValue) ? localeValue : defaultLocale
     const copy = siteCopy[locale].emails.quote
@@ -22,13 +28,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Upload photos to Blob
-    const photoUrls: string[] = []
+    // Use direct-uploaded Blob URLs when available, otherwise fall back to server uploads.
+    const photoUrls = [...uploadedPhotoUrls]
     for (const photo of photos) {
-      if (photo && photo.size > 0) {
-        const blob = await put(`quotes/${Date.now()}-${photo.name}`, photo, { access: "public" })
-        photoUrls.push(blob.url)
-      }
+      const blob = await put(`quotes/${Date.now()}-${photo.name}`, photo, { access: "public" })
+      photoUrls.push(blob.url)
     }
 
     await sendNotificationEmail({

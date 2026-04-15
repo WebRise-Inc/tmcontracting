@@ -1,10 +1,21 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { upload } from "@vercel/blob/client"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, Upload, CheckCircle, Loader2 } from "lucide-react"
 
 import { useLocale } from "@/components/locale-provider"
+import {
+  CAREER_UPLOAD_LIMITS,
+  CONTACT_UPLOAD_ROUTE,
+  QUOTE_UPLOAD_LIMITS,
+  formatUploadLimit,
+  sanitizeUploadFilename,
+  type CareerUploadField,
+  type ContactUploadPayload,
+  type QuoteUploadField,
+} from "@/lib/contact-file-upload"
 import type { Locale, SiteCopy } from "@/lib/site-copy"
 
 const VOGUE: React.CSSProperties = { fontFamily: "'Vogue', serif" }
@@ -23,6 +34,7 @@ const offerSlides = Array.from({ length: 11 }, (_, index) => ({
   src: `/images/offers/offer-${String(index + 1).padStart(2, "0")}.jpeg`,
   alt: `TM Contracting offer ${index + 1}`,
 }))
+const MULTIPART_UPLOAD_THRESHOLD = 5 * 1024 * 1024
 
 type Tab = "career" | "quote" | "contact"
 type ContactCopy = SiteCopy["contact"]
@@ -47,6 +59,109 @@ function getSubmitErrorMessage(locale: Locale) {
   return locale === "fr"
     ? "Une erreur est survenue. Veuillez reessayer."
     : "Something went wrong. Please try again."
+}
+
+function getCareerUploadErrorMessage(locale: Locale) {
+  return locale === "fr"
+    ? `Le CV et la lettre de motivation doivent etre de ${formatUploadLimit(CAREER_UPLOAD_LIMITS.cv)} ou moins, et la photo doit etre de ${formatUploadLimit(CAREER_UPLOAD_LIMITS.photo)} ou moins.`
+    : `The CV and cover letter must be ${formatUploadLimit(CAREER_UPLOAD_LIMITS.cv)} or less, and the photo must be ${formatUploadLimit(CAREER_UPLOAD_LIMITS.photo)} or less.`
+}
+
+function getQuoteUploadErrorMessage(locale: Locale) {
+  return locale === "fr"
+    ? `Chaque photo doit etre de ${formatUploadLimit(QUOTE_UPLOAD_LIMITS.photos)} ou moins.`
+    : `Each photo must be ${formatUploadLimit(QUOTE_UPLOAD_LIMITS.photos)} or less.`
+}
+
+class ContactUploadError extends Error {
+  code: "file-too-large"
+
+  constructor(code: "file-too-large") {
+    super(code)
+    this.code = code
+  }
+}
+
+function isFilledFile(value: FormDataEntryValue | null): value is File {
+  return value instanceof File && value.size > 0
+}
+
+function getFormFile(formData: FormData, name: string) {
+  const value = formData.get(name)
+  return isFilledFile(value) ? value : null
+}
+
+function getFormFiles(formData: FormData, name: string) {
+  return formData.getAll(name).filter((value): value is File => isFilledFile(value))
+}
+
+function stripFilesFromFormData(formData: FormData, fileFieldNames: string[]) {
+  const nextFormData = new FormData()
+  const fileFields = new Set(fileFieldNames)
+
+  for (const [key, value] of formData.entries()) {
+    if (fileFields.has(key) && value instanceof File) {
+      continue
+    }
+
+    nextFormData.append(key, value)
+  }
+
+  return nextFormData
+}
+
+function createUploadPathname(prefix: "careers" | "quotes", fieldName: string, fileName: string) {
+  const uniqueId =
+    typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+
+  return `${prefix}/${fieldName}-${uniqueId}-${sanitizeUploadFilename(fileName)}`
+}
+
+async function uploadContactFile({
+  file,
+  kind,
+  fieldName,
+  maximumSizeInBytes,
+}: {
+  file: File
+  kind: ContactUploadPayload["kind"]
+  fieldName: CareerUploadField | QuoteUploadField
+  maximumSizeInBytes: number
+}) {
+  if (file.size > maximumSizeInBytes) {
+    throw new ContactUploadError("file-too-large")
+  }
+
+  try {
+    const payload: ContactUploadPayload =
+      kind === "career"
+        ? { kind, fieldName: fieldName as CareerUploadField }
+        : { kind, fieldName: fieldName as QuoteUploadField }
+
+    return await upload(createUploadPathname(kind === "career" ? "careers" : "quotes", fieldName, file.name), file, {
+      access: "public",
+      contentType: file.type || undefined,
+      handleUploadUrl: CONTACT_UPLOAD_ROUTE,
+      clientPayload: JSON.stringify(payload),
+      multipart: file.size > MULTIPART_UPLOAD_THRESHOLD,
+    })
+  } catch (error) {
+    if (error instanceof Error) {
+      const normalizedMessage = error.message.toLowerCase()
+
+      if (
+        normalizedMessage.includes("too large") ||
+        normalizedMessage.includes("maximum size") ||
+        normalizedMessage.includes("size limit")
+      ) {
+        throw new ContactUploadError("file-too-large")
+      }
+    }
+
+    throw error
+  }
 }
 
 function SuccessMessage({ copy, onReset }: { copy: ContactCopy["success"]; onReset: () => void }) {
@@ -340,8 +455,42 @@ function CareerForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
     setError(null)
 
     try {
-      const formData = new FormData(e.currentTarget)
-      const response = await fetch("/api/contact/career", { method: "POST", body: formData })
+      const sourceFormData = new FormData(e.currentTarget)
+      const cvFile = getFormFile(sourceFormData, "cv")
+      const coverLetterFile = getFormFile(sourceFormData, "coverLetter")
+      const photoFile = getFormFile(sourceFormData, "photo")
+
+      if (!cvFile || !coverLetterFile || !photoFile) {
+        throw new Error("Missing required career files")
+      }
+
+      const [cvUpload, coverLetterUpload, photoUpload] = await Promise.all([
+        uploadContactFile({
+          file: cvFile,
+          kind: "career",
+          fieldName: "cv",
+          maximumSizeInBytes: CAREER_UPLOAD_LIMITS.cv,
+        }),
+        uploadContactFile({
+          file: coverLetterFile,
+          kind: "career",
+          fieldName: "coverLetter",
+          maximumSizeInBytes: CAREER_UPLOAD_LIMITS.coverLetter,
+        }),
+        uploadContactFile({
+          file: photoFile,
+          kind: "career",
+          fieldName: "photo",
+          maximumSizeInBytes: CAREER_UPLOAD_LIMITS.photo,
+        }),
+      ])
+
+      const submissionData = stripFilesFromFormData(sourceFormData, ["cv", "coverLetter", "photo"])
+      submissionData.set("cvUrl", cvUpload.url)
+      submissionData.set("coverLetterUrl", coverLetterUpload.url)
+      submissionData.set("photoUrl", photoUpload.url)
+
+      const response = await fetch("/api/contact/career", { method: "POST", body: submissionData })
 
       if (!response.ok) {
         throw new Error("Career form submission failed")
@@ -350,7 +499,11 @@ function CareerForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
       setDone(true)
     } catch (submissionError) {
       console.error("[tm] Career form submission failed:", submissionError)
-      setError(getSubmitErrorMessage(locale))
+      setError(
+        submissionError instanceof ContactUploadError && submissionError.code === "file-too-large"
+          ? getCareerUploadErrorMessage(locale)
+          : getSubmitErrorMessage(locale),
+      )
     } finally {
       setLoading(false)
     }
@@ -415,8 +568,28 @@ function QuoteForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
     setError(null)
 
     try {
-      const formData = new FormData(e.currentTarget)
-      const response = await fetch("/api/contact/quote", { method: "POST", body: formData })
+      const sourceFormData = new FormData(e.currentTarget)
+      const photoFiles = getFormFiles(sourceFormData, "photos")
+      const submissionData = stripFilesFromFormData(sourceFormData, ["photos"])
+
+      if (photoFiles.length > 0) {
+        const uploadedPhotos = await Promise.all(
+          photoFiles.map((file) =>
+            uploadContactFile({
+              file,
+              kind: "quote",
+              fieldName: "photos",
+              maximumSizeInBytes: QUOTE_UPLOAD_LIMITS.photos,
+            }),
+          ),
+        )
+
+        for (const photo of uploadedPhotos) {
+          submissionData.append("photoUrls", photo.url)
+        }
+      }
+
+      const response = await fetch("/api/contact/quote", { method: "POST", body: submissionData })
 
       if (!response.ok) {
         throw new Error("Quote form submission failed")
@@ -425,7 +598,11 @@ function QuoteForm({ copy, locale }: { copy: ContactCopy; locale: Locale }) {
       setDone(true)
     } catch (submissionError) {
       console.error("[tm] Quote form submission failed:", submissionError)
-      setError(getSubmitErrorMessage(locale))
+      setError(
+        submissionError instanceof ContactUploadError && submissionError.code === "file-too-large"
+          ? getQuoteUploadErrorMessage(locale)
+          : getSubmitErrorMessage(locale),
+      )
     } finally {
       setLoading(false)
     }

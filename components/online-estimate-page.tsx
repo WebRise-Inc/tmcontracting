@@ -37,6 +37,17 @@ const CAL_EMBEDS = [
     containerId: "my-cal-inline-online-appointment",
     calLink: "tmforcontracting/online-appointment",
     frameClassName: "h-[760px] md:h-[800px] lg:h-[720px]",
+    containerClassName: "overflow-hidden",
+    inlineConfig: {
+      layout: "month_view",
+      theme: "light",
+      useSlotsViewOnSmallScreen: true,
+    },
+    uiConfig: {
+      hideEventTypeDetails: false,
+      layout: "month_view",
+      theme: "light",
+    },
   },
   {
     id: "physical",
@@ -44,6 +55,15 @@ const CAL_EMBEDS = [
     containerId: "my-cal-inline-physical-appoitment",
     calLink: "tmforcontracting/physical-appoitment",
     frameClassName: "h-[860px] md:h-[900px] lg:h-[760px]",
+    containerClassName: "overflow-scroll",
+    inlineConfig: {
+      layout: "month_view",
+      useSlotsViewOnSmallScreen: "true",
+    },
+    uiConfig: {
+      hideEventTypeDetails: false,
+      layout: "month_view",
+    },
   },
 ] as const
 
@@ -122,21 +142,16 @@ export function OnlineEstimatePage() {
 
       container.innerHTML = ""
 
-      cal.ns?.[activeEmbed.namespace]?.("inline", {
+      const namespaceApi = cal.ns?.[activeEmbed.namespace]
+      if (!namespaceApi) return false
+
+      namespaceApi("inline", {
         elementOrSelector: `#${activeEmbed.containerId}`,
-        config: {
-          layout: "month_view",
-          theme: "light",
-          useSlotsViewOnSmallScreen: true,
-        },
+        config: activeEmbed.inlineConfig,
         calLink: activeEmbed.calLink,
       })
 
-      cal.ns?.[activeEmbed.namespace]?.("ui", {
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        theme: "light",
-      })
+      namespaceApi("ui", activeEmbed.uiConfig)
 
       return true
     }
@@ -197,7 +212,7 @@ export function OnlineEstimatePage() {
           <div className="mx-auto w-full">
             <div
               id={activeEmbed.containerId}
-              className={`${activeEmbed.frameClassName} w-full overflow-hidden`}
+              className={`${activeEmbed.frameClassName} ${activeEmbed.containerClassName} w-full`}
             />
           </div>
         </div>

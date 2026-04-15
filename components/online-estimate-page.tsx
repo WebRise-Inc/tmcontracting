@@ -33,9 +33,9 @@ declare global {
 const CAL_EMBEDS = [
   {
     id: "online",
-    namespace: "onlineappointment",
+    namespace: "online-appointment",
     containerId: "my-cal-inline-onlineappointment",
-    calLink: "tmforcontracting/onlineappointment",
+    calLink: "tmforcontracting/online-appointment",
     frameClassName: "h-[760px] md:h-[800px] lg:h-[720px]",
   },
   {

@@ -51,9 +51,9 @@ const CAL_EMBEDS = [
   },
   {
     id: "physical",
-    namespace: "physical-appoitment",
-    containerId: "my-cal-inline-physical-appoitment",
-    calLink: "tmforcontracting/physical-appoitment",
+    namespace: "on-site-consultation",
+    containerId: "my-cal-inline-on-site-consultation",
+    calLink: "tmforcontracting/on-site-consultation",
     frameClassName: "h-[860px] md:h-[900px] lg:h-[760px]",
     containerClassName: "overflow-scroll",
     inlineConfig: {

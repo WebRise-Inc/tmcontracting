@@ -80,6 +80,74 @@ type HomepageServiceGallerySlide = {
 export type ServiceGalleryImage = {
   src: string
   locationLabel: string
+  objectPosition?: string
+}
+
+function buildNumberedGalleryEntries(
+  slug: ServiceSlug,
+  count: number,
+  startIndex = 0,
+): ServiceGalleryImage[] {
+  return Array.from({ length: count }, (_, index) => {
+    const imageNumber = String(index + 1).padStart(2, "0")
+
+    return {
+      src: `/images/service-galleries/${slug}/${imageNumber}.jpeg`,
+      locationLabel: getSampleProjectLocation(startIndex + index),
+    }
+  })
+}
+
+const featuredExcavationGallery: ServiceGalleryImage[] = [
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-01.jpeg",
+    locationLabel: getSampleProjectLocation(0),
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-06.jpeg",
+    locationLabel: getSampleProjectLocation(1),
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-09.jpeg",
+    locationLabel: getSampleProjectLocation(2),
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-02.jpeg",
+    locationLabel: getSampleProjectLocation(3),
+    objectPosition: "center 35%",
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-08.jpeg",
+    locationLabel: getSampleProjectLocation(4),
+    objectPosition: "center 32%",
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-03.jpeg",
+    locationLabel: getSampleProjectLocation(5),
+    objectPosition: "center 34%",
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-04.jpeg",
+    locationLabel: getSampleProjectLocation(6),
+    objectPosition: "center 34%",
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-05.jpeg",
+    locationLabel: getSampleProjectLocation(7),
+    objectPosition: "center 28%",
+  },
+  {
+    src: "/images/service-galleries/excavation-lifting/featured-07.jpeg",
+    locationLabel: getSampleProjectLocation(8),
+    objectPosition: "center 34%",
+  },
+]
+
+const serviceGallerySelections: Partial<Record<ServiceSlug, ServiceGalleryImage[]>> = {
+  "excavation-lifting": [
+    ...featuredExcavationGallery,
+    ...buildNumberedGalleryEntries("excavation-lifting", galleryCounts["excavation-lifting"], featuredExcavationGallery.length),
+  ],
 }
 
 const SHARED_SERVICE_PROCESS_INTRO_EN = ""
@@ -141,11 +209,28 @@ const homepageGallerySelections: Record<ServiceSlug, HomepageServiceGallerySlide
     { src: "/images/homepage-service-slides/concrete/05.jpeg", locationLabel: getSampleProjectLocation(9) },
   ],
   "excavation-lifting": [
-    { src: "/images/homepage-service-slides/excavation-lifting/01.jpeg", locationLabel: getSampleProjectLocation(10) },
-    { src: "/images/homepage-service-slides/excavation-lifting/02.jpeg", locationLabel: getSampleProjectLocation(11) },
-    { src: "/images/homepage-service-slides/excavation-lifting/03.jpeg", locationLabel: getSampleProjectLocation(12) },
-    { src: "/images/homepage-service-slides/excavation-lifting/04.jpeg", locationLabel: getSampleProjectLocation(13) },
-    { src: "/images/homepage-service-slides/excavation-lifting/05.jpeg", locationLabel: getSampleProjectLocation(14) },
+    {
+      src: "/images/service-galleries/excavation-lifting/featured-01.jpeg",
+      locationLabel: getSampleProjectLocation(10),
+    },
+    {
+      src: "/images/service-galleries/excavation-lifting/featured-06.jpeg",
+      locationLabel: getSampleProjectLocation(11),
+    },
+    {
+      src: "/images/service-galleries/excavation-lifting/featured-09.jpeg",
+      locationLabel: getSampleProjectLocation(12),
+    },
+    {
+      src: "/images/service-galleries/excavation-lifting/featured-02.jpeg",
+      locationLabel: getSampleProjectLocation(13),
+      objectPosition: "center 35%",
+    },
+    {
+      src: "/images/service-galleries/excavation-lifting/featured-08.jpeg",
+      locationLabel: getSampleProjectLocation(14),
+      objectPosition: "center 32%",
+    },
   ],
   "new-construction": [
     { src: "/images/homepage-service-slides/new-construction/01.jpeg", locationLabel: getSampleProjectLocation(15) },
@@ -160,14 +245,7 @@ export function isServiceSlug(value: string): value is ServiceSlug {
 }
 
 export function getServiceGalleryEntries(slug: ServiceSlug): ServiceGalleryImage[] {
-  return Array.from({ length: galleryCounts[slug] }, (_, index) => {
-    const imageNumber = String(index + 1).padStart(2, "0")
-
-    return {
-      src: `/images/service-galleries/${slug}/${imageNumber}.jpeg`,
-      locationLabel: getSampleProjectLocation(index),
-    }
-  })
+  return serviceGallerySelections[slug] ?? buildNumberedGalleryEntries(slug, galleryCounts[slug])
 }
 
 export function getServiceGalleryPaths(slug: ServiceSlug) {

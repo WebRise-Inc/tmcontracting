@@ -158,6 +158,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                         fill
                         priority={index === 0}
                         className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                        style={{ objectPosition: image.objectPosition ?? "center" }}
                       />
                     </button>
                   ))}
@@ -333,6 +334,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                       alt={`${page.title} ${chrome.galleryPhotoLabel} ${index + 1}`}
                       fill
                       className="object-cover transition-transform duration-500 hover:scale-[1.03]"
+                      style={{ objectPosition: image.objectPosition ?? "center" }}
                     />
                   </button>
                 </div>

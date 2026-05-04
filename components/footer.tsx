@@ -7,15 +7,15 @@ const displayFont = { fontFamily: "'Vogue', serif" } as const
 const offices = [
   {
     label: "Head Office",
-    value: "247 Maloney Est, Gatineau, QC J8P 1C2",
+    value: "Walkley Rd, Ottawa, ON K1V 2J6",
   },
   {
     label: "Montreal Hub",
     value: "Avenue Rothesay Saint-Lambert, QC J4R 2H5",
   },
   {
-    label: "Ottawa Hub",
-    value: "Walkley Rd, Ottawa, ON K1V 2J6",
+    label: "Gatineau Hub",
+    value: "247 Maloney Est, Gatineau, QC J8P 1C2",
   },
 ] as const
 

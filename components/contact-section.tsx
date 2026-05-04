@@ -760,8 +760,8 @@ export function ContactSection() {
         locations: [
           {
             label: "Siège social",
-            href: "https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2",
-            value: "247 Maloney Est, Gatineau, QC J8P 1C2",
+            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
+            value: "Walkley Rd, Ottawa, ON K1V 2J6",
           },
           {
             label: "Centre de Montréal",
@@ -769,9 +769,9 @@ export function ContactSection() {
             value: "Avenue Rothesay Saint-Lambert, QC J4R 2H5",
           },
           {
-            label: "Centre d'Ottawa",
-            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
-            value: "Walkley Rd, Ottawa, ON K1V 2J6",
+            label: "Hub de Gatineau",
+            href: "https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2",
+            value: "247 Maloney Est, Gatineau, QC J8P 1C2",
           },
         ] as const,
         phones: [
@@ -800,8 +800,8 @@ export function ContactSection() {
         locations: [
           {
             label: "Head Office",
-            href: "https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2",
-            value: "247 Maloney Est, Gatineau, QC J8P 1C2",
+            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
+            value: "Walkley Rd, Ottawa, ON K1V 2J6",
           },
           {
             label: "Montreal Hub",
@@ -809,9 +809,9 @@ export function ContactSection() {
             value: "Avenue Rothesay Saint-Lambert, QC J4R 2H5",
           },
           {
-            label: "Ottawa Hub",
-            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
-            value: "Walkley Rd, Ottawa, ON K1V 2J6",
+            label: "Gatineau Hub",
+            href: "https://maps.google.com/?q=247+Maloney+Est,+Gatineau,+QC+J8P+1C2",
+            value: "247 Maloney Est, Gatineau, QC J8P 1C2",
           },
         ] as const,
         phones: [

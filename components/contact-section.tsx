@@ -760,8 +760,8 @@ export function ContactSection() {
         locations: [
           {
             label: "Siège social",
-            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
-            value: "Walkley Rd, Ottawa, ON K1V 2J6",
+            href: "https://maps.google.com/?q=587+Fielding+Dr,+Ottawa,+ON+K1V+7G7",
+            value: "587 Fielding Dr, Ottawa, ON K1V 7G7",
           },
           {
             label: "Centre de Montréal",
@@ -800,8 +800,8 @@ export function ContactSection() {
         locations: [
           {
             label: "Head Office",
-            href: "https://maps.google.com/?q=Walkley+Rd,+Ottawa,+ON+K1V+2J6",
-            value: "Walkley Rd, Ottawa, ON K1V 2J6",
+            href: "https://maps.google.com/?q=587+Fielding+Dr,+Ottawa,+ON+K1V+7G7",
+            value: "587 Fielding Dr, Ottawa, ON K1V 7G7",
           },
           {
             label: "Montreal Hub",

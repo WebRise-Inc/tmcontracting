@@ -31,7 +31,7 @@ const aboutProjectLocations = [
   "Nepean, ON K2G 3K8",
   "Cornwall, ON K6J 3R8",
   "Rigaud, QC J0P 1B0",
-  "Walkley, ON K1V 7G7",
+  "587 Fielding Dr, Ottawa, ON K1V 7G7",
   "Gatineau, QC J8R 2H5",
   "Buckingham, QC J8M 1T7",
   "Montreal, QC J6J 2A3",

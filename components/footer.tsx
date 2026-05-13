@@ -7,7 +7,7 @@ const displayFont = { fontFamily: "'Vogue', serif" } as const
 const offices = [
   {
     label: "Head Office",
-    value: "Walkley Rd, Ottawa, ON K1V 2J6",
+    value: "587 Fielding Dr, Ottawa, ON K1V 7G7",
   },
   {
     label: "Montreal Hub",

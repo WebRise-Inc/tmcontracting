@@ -29,6 +29,13 @@ const DISPLAY_HEADING_STYLE = {
   letterSpacing: "0.012em",
 } as const
 
+const WARRANTY_REFERENCE_SLUGS: ServiceSlug[] = [
+  "renovation",
+  "concrete",
+  "excavation-lifting",
+  "new-construction",
+]
+
 export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
   const { locale, copy } = useLocale()
   const [activeFrame, setActiveFrame] = useState(0)
@@ -42,6 +49,7 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
   )
   const scopeTitle = page.scopeTitle ?? page.summary
   const scopeDescription = page.scopeDescription ?? page.description
+  const showWarrantyReference = WARRANTY_REFERENCE_SLUGS.includes(slug)
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -138,6 +146,16 @@ export function ServiceDetailPage({ slug }: { slug: ServiceSlug }) {
                   <p className="mt-3 text-sm leading-relaxed text-[#D8D4CC]">
                     {copy.about.warranty.body}
                   </p>
+                  {showWarrantyReference ? (
+                    <Link
+                      href="/terms-and-conditions"
+                      className="mt-5 inline-flex items-center gap-2 border-b border-[#C8D87A]/55 pb-1 text-xs uppercase tracking-[0.2em] text-[#F7F6F1] transition-colors hover:border-[#C8D87A] hover:text-[#C8D87A]"
+                      style={{ fontFamily: "'Vogue', serif" }}
+                    >
+                      {chrome.warrantyTermsLink}
+                      <MoveRight className="h-4 w-4" />
+                    </Link>
+                  ) : null}
                 </div>
               </div>
 

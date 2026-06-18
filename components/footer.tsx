@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 
+import { useLocale } from "@/components/locale-provider"
+
 const displayFont = { fontFamily: "'Vogue', serif" } as const
 
 const offices = [
@@ -36,6 +38,8 @@ const compliance = [
 ] as const
 
 export function Footer() {
+  const { locale } = useLocale()
+
   return (
     <footer className="border-t border-[#0A7A44] bg-[#24342C] text-[#F7F6F1]">
       <div className="h-1 w-full bg-[#0A7A44]" />
@@ -126,22 +130,27 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/12 pt-6 text-sm text-[#D7DED9] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-white/12 pt-6 text-sm text-[#D7DED9] sm:flex-row sm:items-center sm:justify-between">
           <p>
             Copyright © 2026 TM Contracting.
           </p>
-          <p>
-            Built by{" "}
-            <Link
-              href="https://webrise.ca"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[#8FD4A9] transition-colors hover:text-white"
-              style={displayFont}
-            >
-              Webrise
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+            <Link href="/terms-and-conditions" className="text-[#8FD4A9] transition-colors hover:text-white">
+              {locale === "fr" ? "Conditions générales de garantie" : "Warranty terms & conditions"}
             </Link>
-          </p>
+            <p>
+              Built by{" "}
+              <Link
+                href="https://webrise.ca"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#8FD4A9] transition-colors hover:text-white"
+                style={displayFont}
+              >
+                Webrise
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

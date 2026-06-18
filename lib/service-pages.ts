@@ -57,6 +57,7 @@ type ServiceChrome = {
   primaryCta: string
   secondaryCta: string
   galleryPhotoLabel: string
+  warrantyTermsLink: string
 }
 
 type ServicePageLocale = {
@@ -270,6 +271,7 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
       primaryCta: "Get a Quote",
       secondaryCta: "Call 1-800-430-0555",
       galleryPhotoLabel: "project photo",
+      warrantyTermsLink: "Review warranty terms & conditions",
     },
     services: {
       renovation: {
@@ -542,6 +544,7 @@ export const servicePages: Record<Locale, ServicePageLocale> = {
       primaryCta: "Obtenir une soumission",
       secondaryCta: "Appeler le 1-800-430-0555",
       galleryPhotoLabel: "photo de projet",
+      warrantyTermsLink: "Consulter les conditions générales de garantie",
     },
     services: {
       renovation: {

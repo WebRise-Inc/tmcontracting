@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react"
 
 import { ProjectLocationChip } from "@/components/project-location-chip"
@@ -193,6 +194,16 @@ export function AboutSection() {
                         </div>
                       ))}
                     </div>
+
+                    <p className="mt-5 text-xs leading-5 text-[#5E685F]">
+                      <span aria-hidden="true">*</span> {copy.about.warranty.termsNote}{" "}
+                      <Link
+                        href="/terms-and-conditions"
+                        className="underline decoration-[#036738]/45 underline-offset-4 transition-colors hover:text-[#036738]"
+                      >
+                        {copy.about.warranty.termsLinkLabel}
+                      </Link>
+                    </p>
                   </div>
                 </div>
 

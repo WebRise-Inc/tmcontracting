@@ -123,6 +123,8 @@ export type SiteCopy = {
     warranty: {
       title: string
       body: string
+      termsNote: string
+      termsLinkLabel: string
     }
     stats: Stat[]
     cta: string
@@ -264,8 +266,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       phrases: [
         {
           label: "BECAUSE YOU DESERVE...",
-          heading: "3 YEARS RISK-FREE WARANTY",
-          body: "3-Year Risk-Free Warranty means exactly that: zero risk for you for 3 full years. It covers 100% of our work, and if anything we did isn't right, we fix it—no hassle, no back-and-forth, no excuses. It's a simple promise backed by real accountability, so you can move forward with total confidence and real peace of mind.",
+          heading: "3 YEARS RISK-FREE WARANTY*",
+          body: "3-Year Risk-Free Warranty* means exactly that: zero risk for you for 3 full years. It covers 100% of our work, and if anything we did isn't right, we fix it—no hassle, no back-and-forth, no excuses. It's a simple promise backed by real accountability, so you can move forward with total confidence and real peace of mind.",
         },
         {
           label: "BECAUSE YOU DESERVE...",
@@ -377,13 +379,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
       ],
       warranty: {
-        title: "3-Year Risk-Free Warranty",
+        title: "3-Year Risk-Free Warranty*",
         body: "Every project we complete is covered 100%. If anything we did isn't right, we fix it - no debates, no excuses. Real peace of mind, backed by real accountability.",
+        termsNote: "Terms and conditions apply.",
+        termsLinkLabel: "View warranty terms",
       },
       stats: [
         { value: "15+", label: "Years of Experience" },
         { value: "500+", label: "Projects Completed" },
-        { value: "3-Year", label: "Risk-Free Warranty" },
+        { value: "3-Year*", label: "Risk-Free Warranty" },
         { value: "A to Z", label: "One Team, Every Phase" },
       ],
       cta: "Our Story",
@@ -527,8 +531,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       phrases: [
         {
           label: "PARCE QUE VOUS LE MÉRITEZ",
-          heading: "Garantie sans risque de 3 ans",
-          body: "Notre garantie sans risque de 3 ans signifie zéro risque pour vous : elle couvre 100 % de notre travail, et si quelque chose n'est pas conforme, on le corrige, sans débat et sans excuse. C'est simple : vous obtenez une vraie tranquillité d'esprit, appuyée par une vraie responsabilité.",
+          heading: "Garantie sans risque de 3 ans*",
+          body: "Notre garantie sans risque de 3 ans* signifie zéro risque pour vous : elle couvre 100 % de notre travail, et si quelque chose n'est pas conforme, on le corrige, sans débat et sans excuse. C'est simple : vous obtenez une vraie tranquillité d'esprit, appuyée par une vraie responsabilité.",
         },
         {
           label: "PARCE QUE VOUS LE MÉRITEZ",
@@ -640,13 +644,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         },
       ],
       warranty: {
-        title: "Garantie sans risque de 3 ans",
+        title: "Garantie sans risque de 3 ans*",
         body: "Chaque projet que nous réalisons est couvert à 100 %. Si quelque chose n'est pas conforme à ce que nous avons fait, nous le corrigeons - sans débat et sans excuse. Une vraie tranquillité d'esprit, soutenue par une vraie responsabilité.",
+        termsNote: "Les conditions générales s'appliquent.",
+        termsLinkLabel: "Voir les conditions de garantie",
       },
       stats: [
         { value: "15+", label: "Années d'expérience" },
         { value: "500+", label: "Projets réalisés" },
-        { value: "3 ans", label: "Garantie sans risque" },
+        { value: "3 ans*", label: "Garantie sans risque" },
         { value: "A à Z", label: "Une équipe, chaque étape" },
       ],
       cta: "Notre histoire",

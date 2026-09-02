@@ -61,6 +61,15 @@ export function WarrantyTermsPage() {
             </p>
           </div>
 
+          <div className="mt-10 max-w-4xl border-l-2 border-[#C8D87A] bg-[#1D2B24]/85 px-5 py-5 sm:px-7 sm:py-6">
+            <p className="text-xs uppercase tracking-[0.22em] text-[#C8D87A]" style={displayFont}>
+              {page.invoiceConditionTitle}
+            </p>
+            <p className="mt-3 text-sm leading-7 text-[#F0EEE7] sm:text-base sm:leading-8">
+              {page.invoiceConditionBody}
+            </p>
+          </div>
+
           <div className="mt-12 grid max-w-2xl grid-cols-[auto_1fr] border border-[#8FD4A9]/35 bg-[#1D2B24]/70 backdrop-blur-sm sm:grid-cols-[auto_1fr_auto]">
             <div className="flex items-center justify-center border-r border-[#8FD4A9]/25 p-5 sm:p-6">
               <ShieldCheck className="h-8 w-8 text-[#8FD4A9]" />

@@ -16,6 +16,8 @@ export type WarrantyTermsContent = {
   companyName: string
   title: string
   introduction: string
+  invoiceConditionTitle: string
+  invoiceConditionBody: string
   warrantyLabel: string
   warrantyValue: string
   warrantyNote: string
@@ -37,6 +39,9 @@ export const warrantyTerms: Record<Locale, WarrantyTermsContent> = {
     title: "Warranty Terms & Conditions",
     introduction:
       "The following terms define the scope, conditions, and limitations of the warranty provided for work completed by TM Contracting.",
+    invoiceConditionTitle: "Important invoice condition",
+    invoiceConditionBody:
+      "Notwithstanding any other provision of these Warranty Terms & Conditions, the warranty described herein applies only if a warranty is expressly written on the customer's invoice. If the customer's invoice does not state that a warranty applies, the Work is deemed to have been completed without warranty or coverage of any kind, for any reason.",
     warrantyLabel: "Limited workmanship warranty",
     warrantyValue: "3 years",
     warrantyNote: "From the date of substantial completion",
@@ -45,13 +50,13 @@ export const warrantyTerms: Record<Locale, WarrantyTermsContent> = {
       {
         title: "Warranty period",
         paragraphs: [
-          "Subject to the terms, conditions, limitations, exclusions, and obligations set forth herein, TM Contracting provides a limited warranty for a period of three (3) years commencing on the date of substantial completion of the Work. This warranty applies solely to defects resulting directly from defective workmanship performed by TM Contracting within the scope of the contracted Work.",
+          "Subject to the terms, conditions, limitations, exclusions, and obligations set forth herein, TM Contracting provides a limited warranty for a period of three (3) years commencing on the date of substantial completion of the Work, only where the warranty is expressly written on the customer’s invoice. If the customer’s invoice does not expressly state that warranty coverage applies, the Work is completed without warranty or coverage of any kind, for any reason. This warranty applies solely to defects resulting directly from defective workmanship performed by TM Contracting within the scope of the contracted Work.",
         ],
       },
       {
         title: "Scope of warranty",
         paragraphs: [
-          "This warranty is limited exclusively to the specific Work described in the approved quotation, contract, invoice, approved change orders, and related project documentation issued by TM Contracting.",
+          "This warranty is limited exclusively to the specific Work described in the approved quotation, contract, invoice, approved change orders, and related project documentation issued by TM Contracting. However, the Work is covered by this warranty only where the customer’s invoice expressly states that warranty coverage applies. If the customer’s invoice does not expressly state that warranty coverage applies, the Work is not covered by this warranty.",
           "Where a warrantable defect is established, TM Contracting shall have the sole and exclusive right, at its discretion, to repair, replace, modify, or otherwise remedy the defective portion of the Work. The selection of the corrective measure shall remain solely within TM Contracting’s discretion.",
           "This warranty does not guarantee perfection, aesthetic preference, or performance exceeding normal industry standards applicable to the Work.",
         ],
@@ -144,6 +149,9 @@ export const warrantyTerms: Record<Locale, WarrantyTermsContent> = {
     title: "Conditions générales de garantie",
     introduction:
       "Les conditions suivantes définissent la portée, les modalités et les limites de la garantie offerte pour les travaux réalisés par TM Contracting.",
+    invoiceConditionTitle: "Condition importante relative à la facture",
+    invoiceConditionBody:
+      "Nonobstant toute autre disposition des présentes Conditions générales de garantie, la garantie qui y est décrite s'applique uniquement lorsqu'une garantie est expressément indiquée sur la facture du client. Si la facture du client n'indique pas qu'une garantie s'applique, les Travaux sont réputés avoir été exécutés sans aucune garantie ni couverture, pour quelque raison que ce soit.",
     warrantyLabel: "Garantie limitée sur l’exécution",
     warrantyValue: "3 ans",
     warrantyNote: "À compter de l’achèvement substantiel",
@@ -152,13 +160,13 @@ export const warrantyTerms: Record<Locale, WarrantyTermsContent> = {
       {
         title: "Période de garantie",
         paragraphs: [
-          "Sous réserve des présentes modalités, conditions, limitations, exclusions et obligations, TM Contracting offre une garantie limitée d'une durée de trois (3) ans à compter de la date de l'achèvement substantiel des Travaux. Cette garantie s'applique uniquement aux défauts résultant directement d'une mauvaise exécution des travaux réalisés par TM Contracting dans le cadre du mandat contractuel.",
+          "Sous réserve des présentes modalités, conditions, limitations, exclusions et obligations, TM Contracting offre une garantie limitée d'une durée de trois (3) ans à compter de la date de l'achèvement substantiel des Travaux, uniquement lorsque la garantie est expressément indiquée sur la facture du client. Si la facture du client n'indique pas expressément qu'une couverture de garantie s'applique, les Travaux sont réalisés sans aucune garantie ni couverture, pour quelque raison que ce soit. Cette garantie s'applique uniquement aux défauts résultant directement d'une mauvaise exécution des travaux réalisés par TM Contracting dans le cadre du mandat contractuel.",
         ],
       },
       {
         title: "Portée de la garantie",
         paragraphs: [
-          "La présente garantie est strictement limitée aux Travaux décrits dans la soumission approuvée, le contrat, la facture, les avenants approuvés ainsi que tout document de projet émis par TM Contracting.",
+          "La présente garantie est strictement limitée aux Travaux décrits dans la soumission approuvée, le contrat, la facture, les avenants approuvés ainsi que tout document de projet émis par TM Contracting. Toutefois, les Travaux ne sont couverts par la présente garantie que lorsque la facture du client indique expressément qu'une couverture de garantie s'applique. Si la facture du client n'indique pas expressément qu'une couverture de garantie s'applique, les Travaux ne sont pas couverts par la présente garantie.",
           "Lorsqu'un défaut couvert par la garantie est constaté, TM Contracting se réserve le droit exclusif, à son entière discrétion, de réparer, remplacer, modifier ou corriger la portion concernée des Travaux. Le choix de la mesure corrective appartient exclusivement à TM Contracting.",
           "La présente garantie ne constitue pas une garantie de perfection, de préférence esthétique ou de performance excédant les normes reconnues de l'industrie applicables aux Travaux.",
         ],

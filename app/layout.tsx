@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { cookies } from 'next/headers'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
+import { GoogleTagManager } from '@webriseottawa/analytics'
 
 import { Footer } from '@/components/footer'
 import { LocaleProvider } from '@/components/locale-provider'
@@ -51,6 +52,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className="font-sans antialiased">
+        <GoogleTagManager />
         <LocaleProvider initialLocale={locale}>
           {children}
           <Footer />
